@@ -8,14 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <title>Daily AI Brief #002</title>
   <style>
-    :root{
-      --bg:#0F172A;--sf:#1E293B;--sf2:#263347;--tx:#E2E8F0;--mu:#94A3B8;
-      --bl:#3B82F6;--pu:#A855F7;--gr:#10B981;--am:#F59E0B;--rd:#EF4444;
-      --bo:rgba(255,255,255,.07);
-      --ht-bg:rgba(245,158,11,.08);--ht-bd:#F59E0B;
-      --pi-bg:rgba(59,130,246,.08);--pi-bd:#3B82F6;
-      --bp-bg:rgba(16,185,129,.1);--bp-bd:#10B981
-    }
+    :root{--bg:#0F172A;--sf:#1E293B;--sf2:#263347;--tx:#E2E8F0;--mu:#94A3B8;--bl:#3B82F6;--pu:#A855F7;--gr:#10B981;--am:#F59E0B;--rd:#EF4444;--bo:rgba(255,255,255,.07);--ht-bg:rgba(245,158,11,.08);--ht-bd:#F59E0B;--pi-bg:rgba(59,130,246,.08);--pi-bd:#3B82F6;--bp-bg:rgba(16,185,129,.1);--bp-bd:#10B981}
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans",sans-serif;font-size:15px;line-height:1.7;padding-bottom:60px}
     .hdr{background:linear-gradient(135deg,#1E293B,#0F172A);border-bottom:1px solid var(--bo);padding:16px 20px 12px;position:sticky;top:0;z-index:10}
@@ -25,8 +18,8 @@
     .dl{margin-top:4px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
     .db{background:var(--bl);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px}
     .nav{display:flex;gap:8px;margin-top:8px}
-    .nav a{color:var(--mu);font-size:12px;text-decoration:none;padding:3px 10px;border:1px solid var(--bo);border-radius:8px}
-    .nav a:hover,.nav a:active{background:rgba(255,255,255,.06)}
+    .nav a{color:var(--mu);font-size:12px;text-decoration:none;padding:3px 10px;border:1px solid var(--bo);border-radius:8px;transition:background .15s}
+    .nav a:hover,.nav a:active{background:rgba(255,255,255,.07)}
     .w{max-width:680px;margin:0 auto;padding:0 14px}
     .sec{margin-top:14px;background:var(--sf);border-radius:14px;overflow:hidden;border:1px solid var(--bo)}
     .sh{display:flex;align-items:flex-start;gap:10px;padding:13px 16px 11px;border-bottom:1px solid var(--bo)}
@@ -40,6 +33,10 @@
     .s3 .sh{border-left:3px solid var(--gr)}.s3 .sl{color:var(--gr)}
     .s4 .sh{border-left:3px solid var(--am)}.s4 .sl{color:var(--am)}
     .s5 .sh{border-left:3px solid var(--rd)}.s5 .sl{color:var(--rd)}
+    .sec-rating{display:flex;align-items:center;gap:6px;padding:7px 16px;background:rgba(0,0,0,.15);border-bottom:1px solid var(--bo)}
+    .rl{font-size:11px;color:var(--mu);white-space:nowrap}
+    .rb{background:none;border:1px solid var(--bo);border-radius:20px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--mu);transition:all .2s;white-space:nowrap}
+    .rb.active{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:var(--tx)}
     .block{border-radius:10px;padding:11px 13px;margin-bottom:10px;border-left:3px solid rgba(255,255,255,.1)}
     .block-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:5px}
     .block-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
@@ -52,10 +49,10 @@
     .copy-btn.copied{background:rgba(16,185,129,.4);color:#fff}
     .quotable{font-size:15px;font-weight:700;color:#FCD34D;margin-top:14px;padding:11px 14px;background:rgba(252,211,77,.05);border-radius:10px;border-left:3px solid #FCD34D;line-height:1.5}
     .myth-box{background:rgba(148,163,184,.07);border-left:3px solid #64748B;border-radius:10px;padding:10px 13px;margin-bottom:8px}
-    .myth-label{font-size:10px;color:#64748B;font-weight:700;margin-bottom:4px;letter-spacing:.05em}
+    .myth-label{font-size:10px;color:#64748B;font-weight:700;margin-bottom:4px}
     .myth-text{font-size:14px;color:#94A3B8;line-height:1.6}
     .truth-box{background:rgba(245,158,11,.1);border-left:3px solid var(--am);border-radius:10px;padding:10px 13px;margin-bottom:10px}
-    .truth-label{font-size:10px;color:var(--am);font-weight:700;margin-bottom:4px;letter-spacing:.05em}
+    .truth-label{font-size:10px;color:var(--am);font-weight:700;margin-bottom:4px}
     .truth-text{font-size:14px;font-weight:600;color:#FCD34D;line-height:1.6}
     .why-text{font-size:14px;line-height:1.75;margin-bottom:10px;color:#CBD5E1}
     .macro-live-label,.macro-analysis-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
@@ -67,9 +64,7 @@
     .ma-headline{font-weight:700;font-size:14px;margin-bottom:8px}
     .impact-map{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
     .iv{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
-    .iv.up{background:rgba(16,185,129,.15);color:#34D399}
-    .iv.down{background:rgba(239,68,68,.15);color:#F87171}
-    .iv.neutral{background:rgba(148,163,184,.15);color:#94A3B8}
+    .iv.up{background:rgba(16,185,129,.15);color:#34D399}.iv.down{background:rgba(239,68,68,.15);color:#F87171}.iv.neutral{background:rgba(148,163,184,.15);color:#94A3B8}
     .ma-lens{font-size:13px;color:#93C5FD;line-height:1.6;padding-top:6px;border-top:1px solid rgba(255,255,255,.06);margin-top:4px}
     .why-now-badge{display:inline-block;background:rgba(245,158,11,.12);color:#FCD34D;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;margin-bottom:10px}
     .hook{background:rgba(245,158,11,.08);border-left:3px solid var(--am);border-radius:0 8px 8px 0;padding:9px 13px;font-size:14px;color:#FCD34D;margin-bottom:12px;font-style:italic}
@@ -77,53 +72,50 @@
     .ctab{background:rgba(245,158,11,.06);border-radius:9px;padding:8px 13px;font-size:13px;color:var(--mu);margin-top:8px}.ctab strong{color:var(--am)}
     ul.ul{padding-left:18px}ul.ul li{margin-bottom:5px;font-size:14px}
     .book-oneline{font-size:15px;font-weight:700;color:#FCA5A5;margin-bottom:10px;padding:8px 12px;background:rgba(239,68,68,.06);border-radius:8px;line-height:1.5}
-    .ftr{margin-top:28px;text-align:center;color:var(--mu);font-size:12px;padding:0 14px 20px}
-    .hint{margin-top:14px;background:var(--sf);border-radius:11px;padding:12px 16px;font-size:13px;text-align:left;border:1px solid var(--bo)}.hint strong{color:var(--tx)}
+    .ftr{margin-top:20px;text-align:center;color:var(--mu);font-size:12px;padding:0 14px 20px}
+    textarea#brief-memo{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--bo);border-radius:10px;color:var(--tx);font-family:inherit;font-size:14px;line-height:1.7;padding:11px 13px;resize:vertical;outline:none;transition:border-color .2s}
+    textarea#brief-memo:focus{border-color:rgba(59,130,246,.4)}
+    textarea#brief-memo::placeholder{color:var(--mu)}
+    .memo-meta{margin-top:6px;min-height:18px}.saved-label{font-size:11px;color:var(--gr)}
+    .weekly-sum{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+    .weekly-sum h3{font-size:13px;color:var(--bl);margin-bottom:8px;font-weight:700}
+    .weekly-sum-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)}
     #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#10B981;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:20px;opacity:0;transition:all .3s;pointer-events:none;z-index:999}
     #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     .concept{margin-bottom:12px;font-size:14px;line-height:1.75}
     .cbox{background:var(--sf2);border-radius:10px;padding:11px 13px;font-family:"Courier New",monospace;font-size:12px;white-space:pre-wrap;color:#A5F3FC;margin:10px 0;border:1px solid var(--bo);overflow-x:auto}
-    .wtag{display:inline-block;background:rgba(168,85,247,.15);color:#C084FC;border-radius:6px;padding:4px 10px;font-size:12px;margin-top:6px}
     .bc{font-size:15px;font-weight:700;color:#FCA5A5;margin-bottom:10px}
   </style>
 </head>
 <body>
   <div id="toast">コピーしました！</div>
+
   <div class="hdr"><div class="w">
-    <div class="hdr-top">
-      <span class="logo">🧠 DAILY AI BRIEF</span>
-      <span class="num">#002</span>
-    </div>
+    <div class="hdr-top"><span class="logo">🧠 DAILY AI BRIEF</span><span class="num">#002</span></div>
     <div class="dl">2026年06月30日<span class="db">火曜</span></div>
-    <div class="nav">
-      <a href="./20260629.html">← 昨日</a>
-      <a href="./index.html">今日 ↑</a>
-    </div>
+    <div class="nav" id="brief-nav"></div>
   </div></div>
 
   <div class="w">
+    
+
     <div class="sec s1">
       <div class="sh"><span class="si">📊</span><div>
         <div class="sl">戦略コンサルナレッジ</div>
         <div class="st">ランチェスター戦略の情報収集順</div>
         <div class="stag">集めるべき情報に「優先順位」がある</div>
       </div></div>
-      <div class="sb"><div class="myth-box">
-          <div class="myth-label">🤔 世間の常識</div>
-          <div class="myth-text">競合調査は競合他社の情報から始めるべきだ</div>
-        </div>
-        <div class="truth-box">
-          <div class="truth-label">💥 実は違う</div>
-          <div class="truth-text">ランチェスター戦略では情報収集の優先順位は①お客様53%、②自社26%、③競合21%。競合から始める企業は戦略の焦点を最初から間違えている</div>
-        </div>
+      <div class="sec-rating" data-sec="consulting">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="3">🔥 使えた</button>
+      <button class="rb" data-v="2">⭐ 面白い</button>
+      <button class="rb" data-v="1">😐 ふつう</button>
+    </div>
+      <div class="sb"><div class="myth-box"><div class="myth-label">🤔 世間の常識</div><div class="myth-text">競合調査は競合他社の情報から始めるべきだ</div></div>
+        <div class="truth-box"><div class="truth-label">💥 実は違う</div><div class="truth-text">ランチェスター戦略では情報収集の優先順位は①お客様53%、②自社26%、③競合21%。競合から始める企業は戦略の焦点を最初から間違えている</div></div>
         <div class="why-text">競合を先に調べると「競合に勝つこと」が目的化する。だがお客様が求めていないもので競合に勝っても意味がない。お客様の購買動機・不満・代替行動を先に理解することで、競合に勝つための軸が初めて定まる</div>
         <div class="block pi"><div class="block-label">プロの行動</div><div class="block-body">競合調査の前に顧客インタビューを最低5件実施し、「なぜ今の選択をしたか」「何が変わればスイッチするか」を収集する</div></div>
-        <div class="block bp">
-          <div class="block-label-row">
-            <span class="block-label">今日試すプロンプト</span>
-            <button class="copy-btn" onclick="copyPrompt('s_p')">📋 コピー</button>
-          </div>
-          <div class="block-body mono" id="s_p">以下の市場での競合分析をランチェスター戦略の情報収集順で設計してください。
+        <div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('s_p')">📋 コピー</button></div><div class="block-body mono" id="s_p">以下の市場での競合分析をランチェスター戦略の情報収集順で設計してください。
 業界：[業界名]
 自社のポジション：[現在の立ち位置・シェア規模]
 
@@ -131,8 +123,7 @@
 ① お客様調査で収集すべき情報リスト（優先10項目）
 ② 自社分析で確認すべき強み・弱みの確認ポイント
 ③ 競合分析で最後に見るべき観点
-④ この優先順位で調べると何が変わるか</div>
-        </div>
+④ この優先順位で調べると何が変わるか</div></div>
         <div class="quotable">「競合より先に顧客を知れ。それが戦略の起点だ」</div></div>
     </div>
 
@@ -142,20 +133,15 @@
         <div class="st">メール改善は「相手の感情」を指定する</div>
         <div class="stag">文章を直すより、受け取った印象を指定せよ</div>
       </div></div>
-      <div class="sb"><div class="block ht">
-          <div class="block-label">😓 なぜ上手くいかないか</div>
-          <div class="block-body">「このメールを改善してください」「もっとプロらしくしてください」と頼むと、表面的な言い換えが返ってきて本質的な問題が直らない</div>
-        </div>
-        <div class="block pi">
-          <div class="block-label">🧠 プロが無意識にやっていること</div>
-          <div class="block-body">「このメールを読んだ相手が〇〇と感じるように書き直してください」と受け取り手の感情・印象を指定する。「信頼できる→安心できる→動いてもいいと思える」の順で目標感情を設定する</div>
-        </div>
-        <div class="block bp">
-          <div class="block-label-row">
-            <span class="block-label">改善プロンプト</span>
-            <button class="copy-btn" onclick="copyPrompt('a_p')">📋 コピー</button>
-          </div>
-          <div class="block-body mono" id="a_p">以下のメール・文章を書き直してください。
+      <div class="sec-rating" data-sec="ai">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="3">🔥 使えた</button>
+      <button class="rb" data-v="2">⭐ 面白い</button>
+      <button class="rb" data-v="1">😐 ふつう</button>
+    </div>
+      <div class="sb"><div class="block ht"><div class="block-label">😓 なぜ上手くいかないか</div><div class="block-body">「このメールを改善してください」「もっとプロらしくしてください」と頼むと、表面的な言い換えが返ってきて本質的な問題が直らない</div></div>
+        <div class="block pi"><div class="block-label">🧠 プロが無意識にやっていること</div><div class="block-body">「このメールを読んだ相手が〇〇と感じるように書き直してください」と受け取り手の感情・印象を指定する。「信頼できる→安心できる→動いてもいいと思える」の順で目標感情を設定する</div></div>
+        <div class="block bp"><div class="block-label-row"><span class="block-label">改善プロンプト</span><button class="copy-btn" onclick="copyPrompt('a_p')">📋 コピー</button></div><div class="block-body mono" id="a_p">以下のメール・文章を書き直してください。
 
 目的：[このメールで何をしてほしいか：承認・返信・行動等]
 相手のプロフィール：[役職・関係性・感情的状態]
@@ -166,9 +152,8 @@
 3. [このメールで起こしてほしい行動]
 
 元のメール：
-[メール本文]</div>
-        </div>
-        <div class="block"><div class="block-label">期待される出力イメージ</div><div class="block-body mono">相手の感情・行動を設計した文章に書き直される。送った後の反応が変わる</div></div>
+[メール本文]</div></div>
+        <div class="block"><div class="block-label">期待される出力</div><div class="block-body mono">相手の感情・行動を設計した文章に書き直される。送った後の反応が変わる</div></div>
         <div class="quotable">「メールは文章ではなく体験。相手が読んだ後の感情から逆算して書け」</div></div>
     </div>
 
@@ -177,19 +162,13 @@
         <div class="sl">マクロインテリジェンス</div>
         <div class="st">世界・経済の動向を読む</div>
       </div></div>
-      <div class="sb"><div class="macro-live-label">📡 Today's Headlines</div><div class="mi"><div class="mh">中国 6月製造業景況感が3か月ぶりに改善 節目を上回る</div><div class="ms">中国の6月の製造業の景況感を示す指数は、通信や電子機器などの業種で生産や新規の受注が堅調だったことなどから、3か月ぶりに...</div></div><div class="mi"><div class="mh">米最高裁 FTC＝連邦取引委員会委員の解任 大統領の権限を容認</div><div class="ms">アメリカの連邦最高裁判所はトランプ大統領が去年、独立機関の1つ、FTC＝連邦取引委員会の委員を解任したことについて、大統...</div></div><div class="mi"><div class="mh">ペルシャ湾内の日本関係船舶 新たに3隻がホルムズ海峡通過</div><div class="ms">金子国土交通大臣は、6月30日の閣議のあとの会見で、ペルシャ湾内にとどまっていた日本関係の船舶のうち新たに3隻がホルムズ...</div></div><div class="macro-analysis-label">🔍 今日のマクロ視点（コンサル分析）</div><div class="ma-item">
-          <div class="ma-headline">グローバルM&amp;A市場の回復・クロスボーダー案件増加</div>
-          <div class="impact-map"><span class="iv up">M&amp;Aアドバイザリー ↑</span><span class="iv easier">海外展開 →</span><span class="iv up">デューデリ需要 ↑</span><span class="iv up">統合コスト ↑</span></div>
-          <div class="ma-lens">💼 クロスボーダーM&amp;Aは文化統合・PMIのコストを過小評価するケースが多い。買収後100日間の統合計画を事前に詳細設計することが成否を分ける</div>
-        </div><div class="ma-item">
-          <div class="ma-headline">スタートアップ資金調達の厳格化・選別強化</div>
-          <div class="impact-map"><span class="iv down">初期スタートアップ ↓</span><span class="iv up">成熟スタートアップ ↑</span><span class="iv up">M&amp;A候補 ↑</span><span class="iv selective">IPO市場 →</span></div>
-          <div class="ma-lens">💼 スタートアップとの協業・買収を検討している大企業にとって、今は良い案件を選別して買収できる機会。初期段階のスタートアップとの連携コストは下がっている</div>
-        </div><div class="ma-item">
-          <div class="ma-headline">プライベートエクイティ（PE）の国内投資拡大</div>
-          <div class="impact-map"><span class="iv up">事業承継 ↑</span><span class="iv up">非上場バリュエーション ↑</span><span class="iv up">MBO ↑</span><span class="iv down">上場プレミアム ↓</span></div>
-          <div class="ma-lens">💼 PEの国内投資拡大は事業承継・カーブアウト案件の成約価格を押し上げる。自社の売却・スピンオフを検討する場合、PEへの売却オプションも比較検討に入れる</div>
-        </div></div>
+      <div class="sec-rating" data-sec="macro">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="3">🔥 使えた</button>
+      <button class="rb" data-v="2">⭐ 面白い</button>
+      <button class="rb" data-v="1">😐 ふつう</button>
+    </div>
+      <div class="sb"><div class="macro-live-label">📡 Today's Headlines</div><div class="mi"><div class="mh">中国 6月製造業景況感が3か月ぶりに改善 節目を上回る</div><div class="ms">中国の6月の製造業の景況感を示す指数は、通信や電子機器などの業種で生産や新規の受注が堅調だったことなどから、3か月ぶりに...</div></div><div class="mi"><div class="mh">米最高裁 FTC＝連邦取引委員会委員の解任 大統領の権限を容認</div><div class="ms">アメリカの連邦最高裁判所はトランプ大統領が去年、独立機関の1つ、FTC＝連邦取引委員会の委員を解任したことについて、大統...</div></div><div class="mi"><div class="mh">ペルシャ湾内の日本関係船舶 新たに3隻がホルムズ海峡通過</div><div class="ms">金子国土交通大臣は、6月30日の閣議のあとの会見で、ペルシャ湾内にとどまっていた日本関係の船舶のうち新たに3隻がホルムズ...</div></div><div class="macro-analysis-label">🔍 今日のマクロ視点</div><div class="ma-item"><div class="ma-headline">グローバルM&amp;A市場の回復・クロスボーダー案件増加</div><div class="impact-map"><span class="iv up">M&amp;Aアドバイザリー ↑</span><span class="iv easier">海外展開 →</span><span class="iv up">デューデリ需要 ↑</span><span class="iv up">統合コスト ↑</span></div><div class="ma-lens">💼 クロスボーダーM&amp;Aは文化統合・PMIのコストを過小評価するケースが多い。買収後100日間の統合計画を事前に詳細設計することが成否を分ける</div></div><div class="ma-item"><div class="ma-headline">スタートアップ資金調達の厳格化・選別強化</div><div class="impact-map"><span class="iv down">初期スタートアップ ↓</span><span class="iv up">成熟スタートアップ ↑</span><span class="iv up">M&amp;A候補 ↑</span><span class="iv selective">IPO市場 →</span></div><div class="ma-lens">💼 スタートアップとの協業・買収を検討している大企業にとって、今は良い案件を選別して買収できる機会。初期段階のスタートアップとの連携コストは下がっている</div></div><div class="ma-item"><div class="ma-headline">プライベートエクイティ（PE）の国内投資拡大</div><div class="impact-map"><span class="iv up">事業承継 ↑</span><span class="iv up">非上場バリュエーション ↑</span><span class="iv up">MBO ↑</span><span class="iv down">上場プレミアム ↓</span></div><div class="ma-lens">💼 PEの国内投資拡大は事業承継・カーブアウト案件の成約価格を押し上げる。自社の売却・スピンオフを検討する場合、PEへの売却オプションも比較検討に入れる</div></div></div>
     </div>
 
     <div class="sec s4">
@@ -198,6 +177,12 @@
         <div class="st">自分の「強み」の本当の見つけ方</div>
         <div class="stag">強み探し・自己分析への需要が常に高い。「他者視点」という切り口が新鮮</div>
       </div></div>
+      <div class="sec-rating" data-sec="note">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="3">🔥 使えた</button>
+      <button class="rb" data-v="2">⭐ 面白い</button>
+      <button class="rb" data-v="1">😐 ふつう</button>
+    </div>
       <div class="sb"><div class="why-now-badge">📌 なぜ今 → 強み探し・自己分析への需要が常に高い。「他者視点」という切り口が新鮮</div>
         <div class="hook">"自己分析を100回やっても強みが見つからないのに、同僚の一言で気づいた"</div>
         <ul class="ul"><li>自己分析が当てにならない理由（主観の限界）</li><li>他者から強みを収集する「具体的な質問」</li><li>強みは「得意なこと」より「没頭できること」</li><li>収集した他者評価から本当の強みを抽出する方法</li></ul>
@@ -211,19 +196,17 @@
         <div class="st">イノベーションのジレンマ</div>
         <div class="stag">クレイトン・クリステンセン</div>
       </div></div>
+      <div class="sec-rating" data-sec="book">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="3">🔥 使えた</button>
+      <button class="rb" data-v="2">⭐ 面白い</button>
+      <button class="rb" data-v="1">😐 ふつう</button>
+    </div>
       <div class="sb"><div class="book-oneline">優良企業が顧客の声を聞いたから破壊された。合理的な経営が失敗の原因</div>
-        <div class="block ht">
-          <div class="block-label">🔑 誰も話さない裏の洞察</div>
-          <div class="block-body">クリステンセンが最も誤解されていると嘆いたのは「大企業は傲慢だから失敗した」という解釈。実際は「大企業は顧客に正直に向き合い、合理的に判断したから失敗した」。誠実さが失敗の原因というのが最も不都合な真実</div>
-        </div>
-        <div class="block"><div class="block-label">⚠️ この本の限界・前提</div><div class="block-body">クリステンセン自身が晩年に認めたように、「何が破壊的か」の定義が難しい。後から見れば破壊的だったというケースが多く、事前予測には使いにくい</div></div>
+        <div class="block ht"><div class="block-label">🔑 誰も話さない裏の洞察</div><div class="block-body">クリステンセンが最も誤解されていると嘆いたのは「大企業は傲慢だから失敗した」という解釈。実際は「大企業は顧客に正直に向き合い、合理的に判断したから失敗した」。誠実さが失敗の原因というのが最も不都合な真実</div></div>
+        <div class="block"><div class="block-label">⚠️ この本の限界</div><div class="block-body">クリステンセン自身が晩年に認めたように、「何が破壊的か」の定義が難しい。後から見れば破壊的だったというケースが多く、事前予測には使いにくい</div></div>
         <div class="block pi"><div class="block-label">💡 2026年の文脈での使い方</div><div class="block-body">「AIは既存業務の代替か、新市場創造か」という問いに対し、このフレームで分析すると、自社が守るべきものと捨てるべきものが明確になる</div></div>
-        <div class="block bp">
-          <div class="block-label-row">
-            <span class="block-label">洞察を深めるプロンプト</span>
-            <button class="copy-btn" onclick="copyPrompt('b_p')">📋 コピー</button>
-          </div>
-          <div class="block-body mono" id="b_p">私の事業が受ける可能性のある破壊的イノベーションを分析してください。
+        <div class="block bp"><div class="block-label-row"><span class="block-label">洞察を深めるプロンプト</span><button class="copy-btn" onclick="copyPrompt('b_p')">📋 コピー</button></div><div class="block-body mono" id="b_p">私の事業が受ける可能性のある破壊的イノベーションを分析してください。
 事業：[事業概要]
 主要顧客：[誰に・何を・いくらで]
 
@@ -231,29 +214,125 @@
 ① 現在の非消費者・非顧客（サービスを受けていない人）の特定
 ② 「安く・シンプルに・非専門家向けに」提供できる代替の仮説
 ③ 自社が参入を合理的に避けるシナリオ（なぜ今の自社がやれないか）
-④ 先手を打つための内部スタートアップ設計</div>
-        </div>
+④ 先手を打つための内部スタートアップ設計</div></div>
         <div class="quotable">「顧客の声を聞き続けた優良企業が、最も破壊に気づけない」</div></div>
     </div>
 
-    <div class="ftr">
-      <p>Generated by Jarvis &middot; 13:11</p>
-      <div class="hint">📱 <strong>スマホにアプリとして追加：</strong> Chrome メニュー →「ホーム画面に追加」</div>
+    <div class="sec">
+      <div class="sh"><span class="si">✏️</span><div>
+        <div class="sl">今日のメモ</div>
+        <div class="st">感想・気づき・改善点</div>
+      </div></div>
+      <div class="sb">
+        <textarea id="brief-memo" rows="4" placeholder="今日のブリーフを読んで気づいたこと・試したいこと・改善してほしい点など…&#10;（自動保存されます）"></textarea>
+        <div class="memo-meta"><span id="memo-saved-label" class="saved-label"></span></div>
+      </div>
     </div>
+
+    <div class="ftr"><p>Generated by Jarvis &middot; 13:25</p></div>
   </div>
 
   <script>
+    const BRIEF_DATE='20260630';
+
+    // ── 動的ナビゲーション（JS生成）──────────────────────────
+    (function(){
+      function ds(d){
+        return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
+      }
+      const d=new Date(+BRIEF_DATE.slice(0,4),+BRIEF_DATE.slice(4,6)-1,+BRIEF_DATE.slice(6,8));
+      const prev=new Date(d);prev.setDate(d.getDate()-1);
+      const next=new Date(d);next.setDate(d.getDate()+1);
+      const todayDs=ds(new Date());
+      const prevStr=ds(prev),nextStr=ds(next);
+
+      let html=`<a href="./${prevStr}.html">← 昨日</a>`;
+      if(BRIEF_DATE!==todayDs) html+=`<a href="./index.html">今日 ↑</a>`;
+      if(nextStr<=todayDs) html+=`<a href="./${nextStr}.html">明日 →</a>`;
+
+      const nav=document.getElementById('brief-nav');
+      if(nav) nav.innerHTML=html;
+    })();
+
+    // ── Service Worker ────────────────────────────────────────
     if('serviceWorker'in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+
+    // ── コピー機能 ────────────────────────────────────────────
     function copyPrompt(id){
       const el=document.getElementById(id);if(!el)return;
-      const text=el.innerText||el.textContent;
-      navigator.clipboard.writeText(text).then(()=>{
-        const t=document.getElementById('toast');
-        t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);
-        const row=el.closest('.block');
-        if(row){const btn=row.querySelector('.copy-btn');if(btn){btn.textContent='✓ コピー済';btn.classList.add('copied');setTimeout(()=>{btn.textContent='📋 コピー';btn.classList.remove('copied');},2000);}}
+      navigator.clipboard.writeText(el.innerText||el.textContent).then(()=>{
+        const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);
+        const row=el.closest('.block');if(row){const btn=row.querySelector('.copy-btn');if(btn){btn.textContent='✓ コピー済';btn.classList.add('copied');setTimeout(()=>{btn.textContent='📋 コピー';btn.classList.remove('copied');},2000);}}
       }).catch(()=>{const r=document.createRange();r.selectNode(el);window.getSelection().removeAllRanges();window.getSelection().addRange(r);});
     }
+
+    // ── 評価システム（LocalStorage）──────────────────────────
+    (function(){
+      const RK='brief_ratings_'+BRIEF_DATE;
+      const ratings=JSON.parse(localStorage.getItem(RK)||'{}');
+      const LABELS={3:'🔥 使えた',2:'⭐ 面白い',1:'😐 ふつう'};
+
+      document.querySelectorAll('.sec-rating').forEach(el=>{
+        const sec=el.dataset.sec;
+        el.querySelectorAll('.rb').forEach(btn=>{
+          const v=+btn.dataset.v;
+          if(ratings[sec]===v) btn.classList.add('active');
+          btn.onclick=()=>{
+            if(ratings[sec]===v){delete ratings[sec];}
+            else{ratings[sec]=v;}
+            localStorage.setItem(RK,JSON.stringify(ratings));
+            el.querySelectorAll('.rb').forEach(b=>b.classList.toggle('active',ratings[sec]===+b.dataset.v));
+            // Toast feedback
+            if(ratings[sec]){
+              const t=document.getElementById('toast');
+              t.textContent=LABELS[ratings[sec]]+'！記録しました';
+              t.classList.add('show');setTimeout(()=>{t.textContent='コピーしました！';t.classList.remove('show');},1500);
+            }
+          };
+        });
+      });
+
+      // 月曜日：先週の評価サマリーを表示
+      const sumEl=document.getElementById('weekly-summary');
+      if(sumEl){
+        const secs=['consulting','ai','macro','note','book'];
+        const secNames={'consulting':'戦略','ai':'AI','macro':'マクロ','note':'note','book':'名著'};
+        let rows='',totalScore=0,count=0;
+        for(let i=6;i>=0;i--){
+          const dd=new Date();dd.setDate(dd.getDate()-i);
+          const dk=ds(dd);
+          const r=JSON.parse(localStorage.getItem('brief_ratings_'+dk)||'{}');
+          secs.forEach(s=>{if(r[s]){totalScore+=r[s];count++;}});
+        }
+        if(count>0){
+          const avg=(totalScore/count).toFixed(1);
+          const emoji=avg>=2.5?'🔥':avg>=1.5?'⭐':'😐';
+          rows=`<div class="weekly-sum-row"><span>先週の平均評価</span><span>${emoji} ${avg}/3.0 (${count}件評価)</span></div>`;
+          sumEl.innerHTML=`<div class="weekly-sum"><h3>📊 先週のブリーフ振り返り</h3>${rows}<div style="font-size:12px;color:var(--mu);margin-top:8px">評価を積み重ねると毎週月曜に振り返りが表示されます</div></div>`;
+          sumEl.style.display='block';
+        }
+        function ds(d){return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');}
+      }
+    })();
+
+    // ── メモ機能（LocalStorage 自動保存）───────────────────────
+    (function(){
+      const MK='brief_memo_'+BRIEF_DATE;
+      const ta=document.getElementById('brief-memo');
+      const lbl=document.getElementById('memo-saved-label');
+      if(!ta)return;
+      const saved=localStorage.getItem(MK);
+      if(saved){ta.value=saved;lbl.textContent='✓ 前回の内容を復元';}
+      let timer;
+      ta.addEventListener('input',()=>{
+        lbl.textContent='';
+        clearTimeout(timer);
+        timer=setTimeout(()=>{
+          localStorage.setItem(MK,ta.value);
+          lbl.textContent='✓ 保存しました';
+        },800);
+      });
+    })();
   </script>
 </body>
 </html>

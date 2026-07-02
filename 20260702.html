@@ -181,6 +181,11 @@
     .cc-situation{font-size:14px;line-height:1.75;color:#CBD5E1;margin-bottom:12px}
     .cc-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--og);text-transform:uppercase;margin-bottom:6px}
     .cc-why{font-size:13px;line-height:1.7;color:var(--mu);margin-top:10px;padding:8px 12px;background:rgba(249,115,22,.05);border-radius:8px;border-left:3px solid var(--og)}
+    .cc-steps{margin:4px 0 8px}
+    .cc-step{display:flex;gap:10px;margin-bottom:14px}
+    .cc-step-num{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(249,115,22,.15);color:var(--og);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+    .cc-step-action{font-size:14px;line-height:1.7;color:var(--tx)}
+    .cc-step-reason{font-size:12.5px;line-height:1.65;color:var(--mu);margin-top:4px;padding-left:2px}
     .bs-source{font-size:11px;color:var(--lm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
     .drag-handle{background:none;border:1px solid var(--bo);border-radius:8px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:grab;color:var(--mu);font-size:15px;touch-action:none;user-select:none}
     .drag-handle:active{cursor:grabbing;background:rgba(255,255,255,.1)}
@@ -198,7 +203,7 @@
   <div class="hdr"><div class="w">
     <div class="hdr-top"><span class="logo">🧠 DAILY AI BRIEF</span><span class="num">#004</span></div>
     <div class="dl">2026年07月02日<span class="db">木曜</span></div>
-    <div class="meta-row"><span class="read-time">📖 読了目安：約14分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
+    <div class="meta-row"><span class="read-time">📖 読了目安：約15分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
     <div class="hdr-nav-row" style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
       <div class="nav" id="brief-nav" style="margin-top:0;flex:1"></div>
     </div>
@@ -224,7 +229,7 @@
   </div></div>
 
   <div class="w" id="brief-body">
-    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（14分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">ブレインストーミングの人数問題</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">インタビュー設計は仮説を先に渡す</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">エネルギーと通信のコスト前提が10年単位で変わる。今の設備投資計画の長期前提を見直す時期</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">電力・データセンター関連のコスト構造変化に注目</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">朝の30分で1日の生産性が決まる仕組み</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">ファクトフルネス</span></div></div>
+    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（15分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">ブレインストーミングの人数問題</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">インタビュー設計は仮説を先に渡す</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">エネルギーと通信のコスト前提が10年単位で変わる。今の設備投資計画の長期前提を見直す時期</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">電力・データセンター関連のコスト構造変化に注目</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">朝の30分で1日の生産性が決まる仕組み</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">ファクトフルネス</span></div></div>
     
 
     <div class="sec s1" data-sid="consulting">
@@ -447,7 +452,7 @@
       <button class="rb" data-v="1">😐 ふつう</button>
       <button class="rb" data-v="0">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="cc-company">🏢 三菱UFJフィナンシャル・グループ</div><div class="cc-situation">金利上昇局面で利ざや改善が期待される一方、デジタルバンク台頭・フィンテック参入で「銀行の存在意義」が問われている。</div><div class="cc-label">👤 俺が社長なら、こう動く</div><ul class="ul"><li>法人向けデジタル融資を全面刷新。AIで審査を自動化し、中小企業への融資決定を48時間以内に短縮する</li><li>資産運用会社として本気で勝負する。日本の個人金融資産1,000兆円の運用シェアを奪いに行く</li><li>東南アジア・インドの成長企業への投融資を倍増。グローバルバンクとしてのブランドを確立する</li></ul><div class="cc-why"><strong>なぜか：</strong>金利上昇の恩恵は時限的。金利が下がっても稼げる体質（手数料ビジネス・海外）への転換が10年後の生存を決める</div><div class="quotable">「銀行は信用のインフラ。金利ではなくデータと信頼で稼ぐ時代」</div></div>
+      <div class="sb"><div class="cc-company">🏢 三菱UFJフィナンシャル・グループ</div><div class="cc-situation">金利上昇局面で利ざや改善が期待される一方、デジタルバンク台頭・フィンテック参入で「銀行の存在意義」が問われている。</div><div class="cc-label">👤 俺が社長なら、こう動く（思考の順番）</div><div class="cc-steps"><div class="cc-step"><div class="cc-step-num">1</div><div class="cc-step-body"><div class="cc-step-action">法人向けデジタル融資を全面刷新。AIで審査を自動化し、中小企業への融資決定を48時間以内に短縮する</div><div class="cc-step-reason">↳ 金利収入に頼れる今のうちに、審査自動化でオペレーションコストを軽くしておく</div></div></div><div class="cc-step"><div class="cc-step-num">2</div><div class="cc-step-body"><div class="cc-step-action">資産運用会社として本気で勝負する。日本の個人金融資産1,000兆円の運用シェアを奪いに行く</div><div class="cc-step-reason">↳ 審査自動化で浮いた人員を、金利に依存しない手数料ビジネス（資産運用）に再配置する</div></div></div><div class="cc-step"><div class="cc-step-num">3</div><div class="cc-step-body"><div class="cc-step-action">東南アジア・インドの成長企業への投融資を倍増。グローバルバンクとしてのブランドを確立する</div><div class="cc-step-reason">↳ 国内の運用シェアだけでは天井があるため、浮いた人員・資本を次の成長市場（新興国）に展開する</div></div></div></div><div class="cc-why"><strong>結論：</strong>金利上昇の恩恵は時限的。金利が下がっても稼げる体質（手数料ビジネス・海外）への転換が10年後の生存を決める</div><div class="quotable">「銀行は信用のインフラ。金利ではなくデータと信頼で稼ぐ時代」</div></div>
     </div>
 
     <div class="sec s8" data-sid="bookstock">
@@ -479,7 +484,7 @@
       </div>
     </div>
 
-    <div class="ftr"><p>Generated by Jarvis &middot; 11:22</p></div>
+    <div class="ftr"><p>Generated by Jarvis &middot; 11:25</p></div>
   </div>
 
   <script>

@@ -44,8 +44,9 @@
     .cat-move{display:flex;gap:4px;flex-shrink:0}
     .cat-move button{background:none;border:1px solid var(--bo);border-radius:6px;width:26px;height:26px;color:var(--mu);font-size:11px;cursor:pointer}
     .cat-move button:disabled{opacity:.3;cursor:default}
-    .cat-actions{display:flex;gap:8px;margin-top:10px}
-    .cat-actions button{flex:1;background:none;border:1px solid var(--bo);border-radius:8px;padding:6px;font-size:12px;color:var(--mu);cursor:pointer}
+    .cat-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .cat-actions button{flex:1;min-width:calc(50% - 4px);background:none;border:1px solid var(--bo);border-radius:8px;padding:6px;font-size:12px;color:var(--mu);cursor:pointer}
+    .cat-presets{margin-top:6px}
     .ff-toggle{display:flex;border:1px solid var(--bo);border-radius:10px;overflow:hidden}
     .ff-toggle button{flex:1;background:none;border:none;padding:8px 4px;font-size:12px;font-weight:700;color:var(--mu);cursor:pointer;text-align:center;white-space:nowrap}
     .ff-toggle button+button{border-left:1px solid var(--bo)}
@@ -205,7 +206,7 @@
   <div class="hdr"><div class="w">
     <div class="hdr-top"><span class="logo">🧠 DAILY AI BRIEF</span><span class="num">#004</span></div>
     <div class="dl">2026年07月02日<span class="db">木曜</span></div>
-    <div class="meta-row"><span class="read-time">📖 読了目安：約18分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
+    <div class="meta-row"><span class="read-time">📖 読了目安：約17分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
     <div class="hdr-nav-row" style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
       <div class="nav" id="brief-nav" style="margin-top:0;flex:1"></div>
     </div>
@@ -227,11 +228,17 @@
         <button id="cat-all">すべて表示</button>
         <button id="cat-none">すべて非表示</button>
       </div>
+      <div class="cat-actions cat-presets">
+        <button class="cat-preset" data-group="ai,aitrend">🤖 AI系だけ</button>
+        <button class="cat-preset" data-group="stocktopic,stockstudy,macro,macronews">💹 マーケット系だけ</button>
+        <button class="cat-preset" data-group="consulting,roleview,companycase">📊 コンサル系だけ</button>
+        <button class="cat-preset" data-group="book,bookstock,note,marketingstudy">📚 学び系だけ</button>
+      </div>
     </div>
   </div></div>
 
   <div class="w" id="brief-body">
-    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（18分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">ブレインストーミングの人数問題</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">インタビュー設計は仮説を先に渡す</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">エネルギーと通信のコスト前提が10年単位で変わる。今の設備投資計画の長期前提を見直す時期</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">電力・データセンター関連のコスト構造変化に注目</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">朝の30分で1日の生産性が決まる仕組み</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">ファクトフルネス</span></div></div>
+    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（17分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">ブレインストーミングの人数問題</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">インタビュー設計は仮説を先に渡す</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">エネルギーと通信のコスト前提が10年単位で変わる。今の設備投資計画の長期前提を見直す時期</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">電力・データセンター関連のコスト構造変化に注目</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">朝の30分で1日の生産性が決まる仕組み</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">ファクトフルネス</span></div></div>
     
 
     <div class="sec s1" data-sid="consulting">
@@ -301,7 +308,7 @@
       <div class="sh"><span class="si">🔶</span><div style="flex:1">
         <div class="sl">AIトレンド速報</div>
         <div class="st">Claude・Anthropicの発表をいち早く</div>
-        <div class="stag">TechCrunch AI・VentureBeat AI（英語ソース）</div>
+        <div class="stag">TechCrunch AI・VentureBeat AI（日本語訳）</div>
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="aitrend">
       <span class="rl">今日の評価：</span>
@@ -310,7 +317,7 @@
       <button class="rb" data-v="1">😐 ふつう</button>
       <button class="rb" data-v="0">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="mi"><div class="mh">SpaceX has an AI device prototype, and it sure sounds phone-</div><div class="ms">SpaceX reportedly showed investors a &quot;handset-like&quot; AI device before going public. It could be another signal SpaceX wants to expand into wireless.</div></div><div class="mi"><div class="mh">Ashton Kutcher leaving Sound Ventures to launch new VC firm </div><div class="ms">Sound built its reputation on concentrated, high-conviction bets in category-leading AI labs, while Kutcher's new fund appears to be chasing the layer underneath those companies — the infrastructure and energy that power them.</div></div><div class="mi"><div class="mh">Cloudflare’s new policy pushes AI companies to pay for publi</div><div class="ms">Cloudflare is giving AI companies until September 15 to separate web crawlers used for search from those used for AI training and agents, or risk being blocked by default on many publisher sites.</div></div><div class="mi"><div class="mh">Venice AI becomes a unicorn with $65M Series A as its privac</div><div class="ms">Venice AI is already profitable, with annualized run-rate revenues of over $70 million, CEO Erik Voorhees said.</div></div><div class="mi"><div class="mh">Gemini Spark, Google’s agentic assistant, is now available o</div><div class="ms">Google's 24/7 agentic assistant, Gemini Spark, comes to Mac alongside other improvements, like real-time tracking and support for more apps.</div></div><div class="mi"><div class="mh">Google just redesigned the search box for the first time in </div><div class="ms">For a quarter century, the Google search box has been one of the most recognizable interfaces in computing: a thin white rectangle, a blinking cursor, a few typed words, and a list of blue links. On Tuesday, Google will formally retire that paradigm.At its annual I/O developer conference, Google announced a sweeping redesign of the search box itself — the literal text field where billions of queri</div></div></div>
+      <div class="sb"><div class="mi"><div class="mh">SpaceX には AI デバイスのプロトタイプがあり、確かに電話のように聞こえます。</div><div class="ms">スペースXは上場前に投資家に「ハンドセットのような」AIデバイスを披露したと伝えられている。これはSpaceXがワイヤレス分野への拡大を望んでいるもう一つのシグナルである可能性がある。</div></div><div class="mi"><div class="mh">アシュトン・カッチャー氏、Sound Venturesを退社し、新たなVC会社を立ち上げる</div><div class="ms">サウンドは、カテゴリーをリードするAI研究所への集中的で確信度の高い賭けで名声を築いたが、カッチャー氏の新ファンドはそれらの企業の下層、つまり企業を動かすインフラやエネルギーを追いかけているようだ。</div></div><div class="mi"><div class="mh">Cloudflareの新しいポリシーにより、AI企業は公共料金を支払うよう促される</div><div class="ms">CloudflareはAI企業に対し、検索に使用するWebクローラーとAIトレーニングやエージェントに使用するWebクローラーを分離することを9月15日まで認めている。そうしないと、多くのパブリッシャーサイトでデフォルトでブロックされる危険がある。</div></div><div class="mi"><div class="mh">Venice AI がシリーズ A の 6,500 万ドルをプライベートとしてユニコーンに</div><div class="ms">CEOのErik Voorhees氏によると、Venice AIはすでに利益をあげており、年間ランレート収益は7,000万ドルを超えているという。</div></div><div class="mi"><div class="mh">Google のエージェント アシスタントである Gemini Spark が利用可能になりました。</div><div class="ms">Google の 24 時間 365 日対応のエージェント アシスタントである Gemini Spark が、リアルタイム追跡やより多くのアプリのサポートなどの他の機能強化とともに Mac に登場します。</div></div><div class="mi"><div class="mh">Google は 2016 年に初めて検索ボックスを再設計しました。</div><div class="ms">四半世紀にわたり、Google 検索ボックスはコンピューティング界で最もよく知られるインターフェイスの 1 つであり、薄い白い四角形、点滅するカーソル、入力されたいくつかの単語、および青いリンクのリストです。火曜日、Googleはそのパラダイムを正式に廃止する。年次I/O開発者カンファレンスで、Googleは検索ボックス自体の大幅な再設計を発表した。検索ボックス自体は、何十億ものクエリが入力される文字通りのテキストフィールドである。</div></div></div>
     </div>
 
     <div class="sec s3" data-sid="macro">
@@ -357,7 +364,7 @@
       <button class="rb" data-v="1">😐 ふつう</button>
       <button class="rb" data-v="0">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="mi"><div class="mh">国連AIパネル報告書 少数の企業や国への富の集中に警鐘</div><div class="ms">AI＝人工知能の恩恵とリスクを評価する国連の専門家パネルが初の報告書を発表し、AIの開発とそれにより生み出される富が少数の企業や国に集中することは権威主義的な支配に利用される可能性があると警鐘を鳴らしました。</div><div class="stopic-micro-theme">🏷 AI・半導体</div><div class="mi-suggestion">💡 示唆：AI・半導体関連はテーマ性で値動きが先行しやすい分野。実際の受注・提携実績を伴っているかを決算で確認する視点が要る</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">AI関連の期待は、実際の企業収益に反映されるまでにタイムラグがある。市場は将来の成長期待を先に織り込むため、期待と実際の受注実績にギャップが生まれやすく、決算発表のたびに評価が大きく変動しやすい</div></div><div class="mi"><div class="mh">茂木外相 ウクライナ外相に支援と対ロシア制裁の推進を伝達</div><div class="ms">茂木外務大臣は、日本を訪れているウクライナのシビハ外相と会談し、「『ウクライナと共にある』とのわが国の方針に揺らぎはない」と述べ、公正かつ永続的な平和の実現に向けて、ウクライナ支援とロシアへの制裁を推進していく考えを伝えました。</div><div class="stopic-micro-theme">🏷 地政学・貿易</div><div class="mi-suggestion">💡 示唆：地政学リスクの高まりは、サプライチェーンを国内・友好国中心に組み直す動きへの追い風になりやすい</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">関税や輸出規制は特定の国・地域からの調達コストを直接押し上げる。企業はこのコスト増を吸収するより調達先を分散・変更する方が長期的に安定するため、規制強化のたびにサプライチェーンの組み替えが進む</div></div><div class="mi"><div class="mh">インドネシア 特殊詐欺対策 SIMカード開通に「顔認証」導入</div><div class="ms">インドネシア政府は、不正に入手した携帯電話の「SIMカード」を使った特殊詐欺が相次いでいることなどから、SIMカードの電話回線を開通する際に本人確認として「顔認証」を導入する規制を始めました。</div><div class="stopic-micro-theme">🏷 規制・司法</div><div class="mi-suggestion">💡 示唆：規制・司法判断は、対応コストを負う既存企業と、新ルールに最適化した新規参入企業の明暗を分けやすい</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">規制・司法判断が確定すると、企業は『対応するかどうか』ではなく『いつ対応するか』の判断に移る。先に対応した企業はノウハウの先行者優位を得やすく、後から対応する企業は同じ規制でもより短期間での対応を迫られコストが割高になりやすい</div></div><div class="mi"><div class="mh">米歌手 ビクター・ウィリスさん死去 「Y.M.C.A.」などヒット曲</div><div class="ms">世界的なヒット曲「Y.M.C.A.」などで知られるアメリカの音楽グループ「ビレッジ・ピープル」のビクター・ウィリスさんが亡くなりました。74歳でした。</div></div><div class="mi"><div class="mh">“前ウクライナ軍総司令官 次期大統領選に立候補意欲か”報道</div><div class="ms">ウクライナのメディアは、軍の総司令官だったザルジニー氏が、大統領選挙に立候補する意向をゼレンスキー大統領に伝えたと報じ、動向が注目されています。</div></div><div class="mi"><div class="mh">ベネズエラ地震発生1週間 救助活動続くも食料など支援が課題に</div><div class="ms">南米ベネズエラでマグニチュード7を超える地震が起きて1週間となり、死亡が確認された人は2295人となりました。被災地では、救助活動が続く一方、食料や水の不足を訴える被災者も多く、支援が課題になっています。</div></div><div class="mi"><div class="mh">高市首相動静 2026年7月1日</div><div class="ms">（高市首相動静 2026年7月1日）</div></div></div>
+      <div class="sb"><div class="mi"><div class="mh">国連AIパネル報告書 少数の企業や国への富の集中に警鐘</div><div class="ms">AI＝人工知能の恩恵とリスクを評価する国連の専門家パネルが初の報告書を発表し、AIの開発とそれにより生み出される富が少数の企業や国に集中することは権威主義的な支配に利用される可能性があると警鐘を鳴らしました。</div><div class="stopic-micro-theme">🏷 AI・半導体</div><div class="mi-suggestion">💡 示唆：AI・半導体関連はテーマ性で値動きが先行しやすい分野。実際の受注・提携実績を伴っているかを決算で確認する視点が要る</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">AI関連の期待は、実際の企業収益に反映されるまでにタイムラグがある。市場は将来の成長期待を先に織り込むため、期待と実際の受注実績にギャップが生まれやすく、決算発表のたびに評価が大きく変動しやすい</div></div><div class="mi"><div class="mh">まもなく日印首脳会談 インドで2兆円超の事業創出 発表見通し</div><div class="ms">インドを訪問中の高市総理大臣は日本時間の2日午後、モディ首相との首脳会談に臨みます。会談にあわせて両国の企業などによるおよそ120件の協力文書が交わされ、2兆円を超えるインドでの事業創出が発表される見通しです。</div></div><div class="mi"><div class="mh">米歌手 ビクター・ウィリスさん死去 「Y.M.C.A.」などヒット曲</div><div class="ms">世界的なヒット曲「Y.M.C.A.」などで知られるアメリカの音楽グループ「ビレッジ・ピープル」のビクター・ウィリスさんが亡くなりました。74歳でした。</div></div><div class="mi"><div class="mh">“前ウクライナ軍総司令官 次期大統領選に立候補意欲か”報道</div><div class="ms">ウクライナのメディアは、軍の総司令官だったザルジニー氏が、大統領選挙に立候補する意向をゼレンスキー大統領に伝えたと報じ、動向が注目されています。</div></div><div class="mi"><div class="mh">ベネズエラ地震発生1週間 救助活動続くも食料など支援が課題に</div><div class="ms">南米ベネズエラでマグニチュード7を超える地震が起きて1週間となり、死亡が確認された人は2295人となりました。被災地では、救助活動が続く一方、食料や水の不足を訴える被災者も多く、支援が課題になっています。</div></div><div class="mi"><div class="mh">2025年度の税収 84兆円台 6年連続で過去最高の見通し</div><div class="ms">昨年度の国の税収は前の年度からおよそ9兆円増加して84兆2000億円程度となり、過去最高を更新する見通しとなったことがわかりました。賃金の増加や好調な企業業績を背景に所得税や法人税の税収が伸びました。</div></div><div class="mi"><div class="mh">まもなく日印首脳会談 インドで2兆円超の事業創出 発表見通し</div><div class="ms">インドを訪問中の高市総理大臣は日本時間の2日午後、モディ首相との首脳会談に臨みます。会談にあわせて両国の企業などによるおよそ120件の協力文書が交わされ、2兆円を超えるインドでの事業創出が発表される見通しです。</div></div></div>
     </div>
 
     <div class="sec s12" data-sid="stockstudy">
@@ -506,7 +513,7 @@
       </div>
     </div>
 
-    <div class="ftr"><p>Generated by Jarvis &middot; 11:36</p></div>
+    <div class="ftr"><p>Generated by Jarvis &middot; 11:49</p></div>
   </div>
 
   <script>
@@ -1062,6 +1069,16 @@
         const catNone=ev.target.closest('#cat-none');
         if(catNone){
           allSecs().forEach(function(sec){catState[sec.dataset.sid]=false;});
+          localStorage.setItem(CATK,JSON.stringify(catState));
+          syncCatChecks();
+          applyVisibility();
+          return;
+        }
+        // カテゴリのプリセット一括切り替え（AI系だけ/マーケ系だけ等・2026-07-02追加）
+        const preset=ev.target.closest('.cat-preset');
+        if(preset){
+          const group=preset.dataset.group.split(',');
+          allSecs().forEach(function(sec){catState[sec.dataset.sid]=group.indexOf(sec.dataset.sid)>=0;});
           localStorage.setItem(CATK,JSON.stringify(catState));
           syncCatChecks();
           applyVisibility();

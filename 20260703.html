@@ -11,7 +11,8 @@
     :root{--bg:#0F172A;--sf:#1E293B;--sf2:#263347;--tx:#E2E8F0;--mu:#94A3B8;--bl:#3B82F6;--pu:#A855F7;--gr:#10B981;--am:#F59E0B;--rd:#EF4444;--bo:rgba(255,255,255,.07);--ht-bg:rgba(245,158,11,.08);--ht-bd:#F59E0B;--pi-bg:rgba(59,130,246,.08);--pi-bd:#3B82F6;--bp-bg:rgba(16,185,129,.1);--bp-bd:#10B981;--cy:#06B6D4;--og:#F97316;--lm:#84CC16;--pk:#EC4899;--sk:#0EA5E9;--tl:#14B8A6;--iv:#6366F1;--rs:#F43F5E;--bz:#E11D48;--pl:#0891B2;--irc:#7C3AED;--gt:#4ADE80}
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans",sans-serif;font-size:15px;line-height:1.7;padding-bottom:290px}
-    .hdr{background:linear-gradient(135deg,#1E293B,#0F172A);border-bottom:1px solid var(--bo);padding:16px 20px 12px;position:sticky;top:0;z-index:10}
+    .hdr{background:linear-gradient(135deg,#1E293B,#0F172A);border-bottom:1px solid var(--bo);padding:16px 20px 12px;position:sticky;top:0;z-index:10;transition:transform .25s ease}
+    .hdr.hdr-hidden{transform:translateY(-100%)}
     .hdr-top{display:flex;align-items:center;justify-content:space-between}
     .logo{font-size:11px;color:var(--mu);letter-spacing:.1em;font-weight:700}
     .num{font-size:11px;color:var(--mu)}
@@ -136,7 +137,7 @@
     #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     #to-top-btn{position:fixed;right:16px;bottom:16px;z-index:25;width:44px;height:44px;border-radius:50%;background:rgba(59,130,246,.92);color:#fff;border:none;font-size:20px;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
     #to-top-btn.show{opacity:1;pointer-events:auto}
-    #current-cat-bar{position:fixed;left:0;right:0;top:var(--hdr-h,0px);z-index:15;margin:0 auto;max-width:680px;background:var(--sf2);border-bottom:1px solid var(--bo);padding:10px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .15s;box-shadow:0 4px 10px rgba(0,0,0,.35)}
+    #current-cat-bar{position:fixed;left:0;right:0;top:var(--hdr-h,0px);z-index:15;margin:0 auto;max-width:680px;background:var(--sf2);border-bottom:1px solid var(--bo);padding:10px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .15s,top .25s ease;box-shadow:0 4px 10px rgba(0,0,0,.35)}
     #current-cat-bar.show{opacity:1;pointer-events:auto}
     #current-cat-bar .cc-icon{font-size:18px;flex-shrink:0}
     #current-cat-bar .cc-label{font-size:13px;font-weight:700;flex:1;color:var(--tx)}
@@ -243,7 +244,7 @@
       </div>
     </div>
     <div id="cat-panel" class="cat-panel" style="display:none">
-      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価4.3（n=5）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.3（n=2）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">📰</span><span class="rank-label">生ニュース</span><span class="rank-count">評価3.3（n=1）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.3（n=3）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">評価3.3（n=4）</span></div></div>
+      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価4.3（n=5）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">📰</span><span class="rank-label">生ニュース</span><span class="rank-count">評価3.3（n=1）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">評価3.3（n=4）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.3（n=2）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.3（n=3）</span></div></div>
       <div class="cat-panel-label">📂 表示するカテゴリを選択</div>
       <div id="cat-rows"></div>
       <div class="cat-actions">
@@ -355,7 +356,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>msitarzewski/agency-agents</div><div class="bz-why">すぐに使える完全な AI エージェンシー - フロントエンドのウィザードから Reddit コミュニティの忍者まで、奇抜なインジェクターからリアリティ チェッカーまで。各エージェントは、個性、プロセス、実績のある成果物を備えた専門の専門家です。</div><div class="bz-fit">📡 本日+3,032⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>usestrix/strix</div><div class="bz-why">アプリの脆弱性を見つけて修正するためのオープンソース AI ペネトレーション テスト ツール。</div><div class="bz-fit">📡 本日+2,137⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">3</span>HKUDS/Vibe-Trading</div><div class="bz-why">「Vibe-Trading: あなたの個人取引エージェント」</div><div class="bz-fit">📡 本日+939⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">4</span>hasaneyldrm/exercises-dataset</div><div class="bz-why">433 のフィットネスエクササイズの包括的なデータセット。各エントリには、名前、カテゴリ、対象となる筋肉グループ、器具、説明書、サムネイル画像、アニメーション ビデオが含まれます。</div><div class="bz-fit">📡 本日+938⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">5</span>JuliusBrussee/caveman</div><div class="bz-why">🪨 少数のトークンで効果があるのに、なぜ多くのトークンを使用するのか — 穴居人のような会話でトークンの 65% をカットするクロード コード スキル</div><div class="bz-fit">📡 本日+926⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 16:30時点</div></div>
+      <div class="sb"><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>msitarzewski/agency-agents</div><div class="bz-why">すぐに使える完全な AI エージェンシー - フロントエンドのウィザードから Reddit コミュニティの忍者まで、奇抜なインジェクターからリアリティ チェッカーまで。各エージェントは、個性、プロセス、実績のある成果物を備えた専門の専門家です。</div><div class="bz-fit">📡 本日+3,032⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>usestrix/strix</div><div class="bz-why">アプリの脆弱性を見つけて修正するためのオープンソース AI ペネトレーション テスト ツール。</div><div class="bz-fit">📡 本日+2,137⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">3</span>HKUDS/Vibe-Trading</div><div class="bz-why">「Vibe-Trading: あなたの個人取引エージェント」</div><div class="bz-fit">📡 本日+939⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">4</span>hasaneyldrm/exercises-dataset</div><div class="bz-why">433 のフィットネスエクササイズの包括的なデータセット。各エントリには、名前、カテゴリ、対象となる筋肉グループ、器具、説明書、サムネイル画像、アニメーション ビデオが含まれます。</div><div class="bz-fit">📡 本日+938⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">5</span>JuliusBrussee/caveman</div><div class="bz-why">🪨 少数のトークンで効果があるのに、なぜ多くのトークンを使用するのか — 穴居人のような会話でトークンの 65% をカットするクロード コード スキル</div><div class="bz-fit">📡 本日+926⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 16:45時点</div></div>
     </div>
 
     <div class="sec s18" data-sid="google_trends">
@@ -372,7 +373,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">1</span>ナイキ スニーカー</div><div class="bz-why">再送-米セブン－イレブン、ナイキを提訴 新スニーカーが自社カラー「模倣」（ロイター）</div><div class="bz-fit">📡 検索急上昇 5,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">2</span>ダイバート</div><div class="bz-why">【速報】JAL機が関西空港にダイバート 機材不具合か 牽引車に引かれて移動 関空B滑走路は約1時間半の閉鎖見込み</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">3</span>かけっこ アイドル</div><div class="bz-why">現役アイドルが妊娠を発表「デビューしたてのこれからなのに…」結婚11年で不妊治療していた</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">4</span>石川祐希</div><div class="bz-why">男子バレー日本に世界最高データ！ 石川祐希は「1141」西田有志は「1033」…NL得点数が歴代トップ2（THE ANSWER）</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">5</span>サブウェイ はぴだんぶい</div><div class="bz-why">サブウェイ×「はぴだんぶい」初コラボレーション！ 『はぴサブサマー！』開催のお知らせ</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-checked">🕐 16:30時点</div></div>
+      <div class="sb"><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">1</span>ナイキ スニーカー</div><div class="bz-why">再送-米セブン－イレブン、ナイキを提訴 新スニーカーが自社カラー「模倣」（ロイター）</div><div class="bz-fit">📡 検索急上昇 10,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">2</span>かけっこ アイドル</div><div class="bz-why">現役アイドルが妊娠を発表「デビューしたてのこれからなのに…」結婚11年で不妊治療していた</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">3</span>ダイバート</div><div class="bz-why">【速報】JAL機が関西空港にダイバート 機材不具合か 牽引車に引かれて移動 関空B滑走路は約1時間半の閉鎖見込み</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">4</span>石川祐希</div><div class="bz-why">男子バレー日本に世界最高データ！ 石川祐希は「1141」西田有志は「1033」…NL得点数が歴代トップ2（THE ANSWER）</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">5</span>サブウェイ はぴだんぶい</div><div class="bz-why">サブウェイ×「はぴだんぶい」初コラボレーション！ 『はぴサブサマー！』開催のお知らせ</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-checked">🕐 16:45時点</div></div>
     </div>
 
     <div class="sec s16" data-sid="players">
@@ -613,7 +614,7 @@
       </div>
     </div>
 
-    <div class="ftr"><p>Generated by Jarvis &middot; 16:30</p></div>
+    <div class="ftr"><p>Generated by Jarvis &middot; 16:45</p></div>
   </div>
 
   <script>
@@ -810,10 +811,15 @@
     })();
 
     // ── 各セクションのヘッダーを固定表示に（読んでいる間、上部のグローバルヘッダー直下にカテゴリ名が固定表示され続け、タップですぐ閉じられるように・2026-07-02追加）──
+    // 2026-07-04：ヘッダー自動非表示（hdr-hidden）中は高さ0として扱い、カテゴリバーが画面最上部に来るようにする
     (function(){
       const hdr=document.querySelector('.hdr');
       if(!hdr)return;
-      function sync(){document.documentElement.style.setProperty('--hdr-h',hdr.offsetHeight+'px');}
+      function sync(){
+        const h=hdr.classList.contains('hdr-hidden')?0:hdr.offsetHeight;
+        document.documentElement.style.setProperty('--hdr-h',h+'px');
+      }
+      window.syncHdrH=sync;
       sync();
       if(window.ResizeObserver){new ResizeObserver(sync).observe(hdr);}
       else{window.addEventListener('resize',sync);}
@@ -843,7 +849,25 @@
       const ccLabel=ccBar?ccBar.querySelector('.cc-label'):null;
       let ccActiveSid=null;
       let ticking=false;
+      let lastY=window.scrollY;
 
+      // 記事画面：下スクロールでヘッダーを隠し、上スクロールで再表示（2026-07-04追加。
+      // sticky常時表示だと読書領域が狭く読みづらいというフィードバックへの対応）。
+      // 一覧画面はカテゴリパネル自体がヘッダー内にあるため自動非表示を適用しない
+      function updateHdrVisibility(){
+        const y=window.scrollY;
+        const catPanel=document.getElementById('cat-panel');
+        const listMode=catPanel&&catPanel.style.display!=='none';
+        if(listMode||y<80){
+          hdr.classList.remove('hdr-hidden');
+        }else if(y>lastY+8){
+          hdr.classList.add('hdr-hidden');
+        }else if(y<lastY-8){
+          hdr.classList.remove('hdr-hidden');
+        }
+        lastY=y;
+        if(window.syncHdrH)window.syncHdrH();
+      }
       function updateToTop(){
         if(toTopBtn)toTopBtn.classList.toggle('show',window.scrollY>400);
       }
@@ -853,7 +877,8 @@
         if(catPanel&&catPanel.style.display!=='none'){
           ccBar.classList.remove('show');ccActiveSid=null;return;
         }
-        const hdrH=hdr.offsetHeight;
+        // ヘッダー非表示中は高さ0として判定（カテゴリバーが最上部に来るため）
+        const hdrH=hdr.classList.contains('hdr-hidden')?0:hdr.offsetHeight;
         const secs=Array.from(document.querySelectorAll('.sec[data-sid]:not(#memo-bar-section)'));
         let found=null;
         for(const sec of secs){
@@ -877,11 +902,11 @@
         if(ticking)return;
         ticking=true;
         requestAnimationFrame(function(){
-          try{updateToTop();updateCurrentCat();}finally{ticking=false;}
+          try{updateHdrVisibility();updateToTop();updateCurrentCat();}finally{ticking=false;}
         });
       }
       window.addEventListener('scroll',onScroll,{passive:true});
-      updateToTop();updateCurrentCat();
+      updateHdrVisibility();updateToTop();updateCurrentCat();
       if(ccBar)ccBar.addEventListener('click',function(){
         if(ccActiveSid&&window.collapseSec){
           window.collapseSec(ccActiveSid);

@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <title>Daily AI Brief #005</title>
   <style>
-    :root{--bg:#0F172A;--sf:#1E293B;--sf2:#263347;--tx:#E2E8F0;--mu:#94A3B8;--bl:#3B82F6;--pu:#A855F7;--gr:#10B981;--am:#F59E0B;--rd:#EF4444;--bo:rgba(255,255,255,.07);--ht-bg:rgba(245,158,11,.08);--ht-bd:#F59E0B;--pi-bg:rgba(59,130,246,.08);--pi-bd:#3B82F6;--bp-bg:rgba(16,185,129,.1);--bp-bd:#10B981;--cy:#06B6D4;--og:#F97316;--lm:#84CC16;--pk:#EC4899;--sk:#0EA5E9;--tl:#14B8A6;--iv:#6366F1;--rs:#F43F5E;--bz:#E11D48;--pl:#0891B2;--irc:#7C3AED}
+    :root{--bg:#0F172A;--sf:#1E293B;--sf2:#263347;--tx:#E2E8F0;--mu:#94A3B8;--bl:#3B82F6;--pu:#A855F7;--gr:#10B981;--am:#F59E0B;--rd:#EF4444;--bo:rgba(255,255,255,.07);--ht-bg:rgba(245,158,11,.08);--ht-bd:#F59E0B;--pi-bg:rgba(59,130,246,.08);--pi-bd:#3B82F6;--bp-bg:rgba(16,185,129,.1);--bp-bd:#10B981;--cy:#06B6D4;--og:#F97316;--lm:#84CC16;--pk:#EC4899;--sk:#0EA5E9;--tl:#14B8A6;--iv:#6366F1;--rs:#F43F5E;--bz:#E11D48;--pl:#0891B2;--irc:#7C3AED;--gt:#4ADE80}
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans",sans-serif;font-size:15px;line-height:1.7;padding-bottom:290px}
     .hdr{background:linear-gradient(135deg,#1E293B,#0F172A);border-bottom:1px solid var(--bo);padding:16px 20px 12px;position:sticky;top:0;z-index:10}
@@ -155,6 +155,7 @@
     .s15 .sh{border-left:3px solid var(--bz)}.s15 .sl{color:var(--bz)}
     .s16 .sh{border-left:3px solid var(--pl)}.s16 .sl{color:var(--pl)}
     .s17 .sh{border-left:3px solid var(--irc)}.s17 .sl{color:var(--irc)}
+    .s18 .sh{border-left:3px solid var(--gt)}.s18 .sl{color:var(--gt)}
     .bz-item{padding:12px 14px;margin-bottom:10px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--bo)}
     .bz-item.huge{background:rgba(225,29,72,.14);border:1px solid rgba(225,29,72,.4)}
     .bz-rank{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(225,29,72,.15);color:var(--bz);font-size:11px;font-weight:700;margin-right:7px}
@@ -226,7 +227,7 @@
   <div class="hdr"><div class="w">
     <div class="hdr-top"><span class="logo">🧠 DAILY AI BRIEF</span><span class="num">#005</span></div>
     <div class="dl">2026年07月03日<span class="db">金曜</span></div>
-    <div class="meta-row"><span class="read-time">📖 読了目安：約21分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
+    <div class="meta-row"><span class="read-time">📖 読了目安：約22分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
     <div class="hdr-nav-row" style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
       <div class="nav" id="brief-nav" style="margin-top:0;flex:1"></div>
     </div>
@@ -242,7 +243,7 @@
       </div>
     </div>
     <div id="cat-panel" class="cat-panel" style="display:none">
-      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価4.3（n=5）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.3（n=2）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">評価3.3（n=4）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.3（n=3）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">📰</span><span class="rank-label">生ニュース</span><span class="rank-count">評価3.3（n=1）</span></div></div>
+      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価4.3（n=5）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">評価3.3（n=4）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">📰</span><span class="rank-label">生ニュース</span><span class="rank-count">評価3.3（n=1）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.3（n=2）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.3（n=3）</span></div></div>
       <div class="cat-panel-label">📂 表示するカテゴリを選択</div>
       <div id="cat-rows"></div>
       <div class="cat-actions">
@@ -250,7 +251,7 @@
         <button id="cat-none">すべて非表示</button>
       </div>
       <div class="cat-actions cat-presets">
-        <button class="cat-preset" data-group="ai,aitrend,buzz">🤖 AI系だけ</button>
+        <button class="cat-preset" data-group="ai,aitrend,github_trending,google_trends">🤖 AI系だけ</button>
         <button class="cat-preset" data-group="stocktopic,stockstudy,macro,macronews">💹 マーケット系だけ</button>
         <button class="cat-preset" data-group="consulting,roleview,companycase,players,industry_report">📊 コンサル系だけ</button>
         <button class="cat-preset" data-group="book,bookstock,note,marketingstudy">📚 学び系だけ</button>
@@ -259,7 +260,7 @@
   </div></div>
 
   <div class="w" id="brief-body">
-    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（21分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">コンセンサスの罠</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">ロールプレイの精度は「制約」で決まる</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">働き方・セキュリティ・産業転換が同時進行している。どれも後回しにするほどコストが上がる</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">サイバーセキュリティ関連は構造的な成長テーマ</span></div><div class="tldr-row" data-sid="companycase"><span class="tldr-icon">🏢</span><span class="tldr-cat">事例</span><span class="tldr-text">通信の赤字を経済圏の黒字で取り戻す。鍵は1億人の行動データ</span></div><div class="tldr-row" data-sid="roleview"><span class="tldr-icon">👤</span><span class="tldr-cat">視点</span><span class="tldr-text">ESGは『広報』から『取引条件』に変わった</span></div><div class="tldr-row" data-sid="aitrend"><span class="tldr-icon">🔶</span><span class="tldr-cat">AI速報</span><span class="tldr-text">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</span></div><div class="tldr-row" data-sid="buzz"><span class="tldr-icon">🔥</span><span class="tldr-cat">バズ</span><span class="tldr-text">msitarzewski/agency-agents</span></div><div class="tldr-row" data-sid="players"><span class="tldr-icon">🏢</span><span class="tldr-cat">プレイヤー</span><span class="tldr-text">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</span></div><div class="tldr-row" data-sid="industry_report"><span class="tldr-icon">📑</span><span class="tldr-cat">業界レポ</span><span class="tldr-text">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">「指示待ち」を卒業した瞬間に何が変わるか</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">思考の整理学</span></div></div>
+    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（22分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">コンセンサスの罠</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">ロールプレイの精度は「制約」で決まる</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">働き方・セキュリティ・産業転換が同時進行している。どれも後回しにするほどコストが上がる</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">サイバーセキュリティ関連は構造的な成長テーマ</span></div><div class="tldr-row" data-sid="companycase"><span class="tldr-icon">🏢</span><span class="tldr-cat">事例</span><span class="tldr-text">通信の赤字を経済圏の黒字で取り戻す。鍵は1億人の行動データ</span></div><div class="tldr-row" data-sid="roleview"><span class="tldr-icon">👤</span><span class="tldr-cat">視点</span><span class="tldr-text">ESGは『広報』から『取引条件』に変わった</span></div><div class="tldr-row" data-sid="aitrend"><span class="tldr-icon">🔶</span><span class="tldr-cat">AI速報</span><span class="tldr-text">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</span></div><div class="tldr-row" data-sid="github_trending"><span class="tldr-icon">🐙</span><span class="tldr-cat">GitHub</span><span class="tldr-text">msitarzewski/agency-agents</span></div><div class="tldr-row" data-sid="google_trends"><span class="tldr-icon">📈</span><span class="tldr-cat">Google</span><span class="tldr-text">津波予報</span></div><div class="tldr-row" data-sid="players"><span class="tldr-icon">🏢</span><span class="tldr-cat">プレイヤー</span><span class="tldr-text">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</span></div><div class="tldr-row" data-sid="industry_report"><span class="tldr-icon">📑</span><span class="tldr-cat">業界レポ</span><span class="tldr-text">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">「指示待ち」を卒業した瞬間に何が変わるか</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">思考の整理学</span></div></div>
     
 
     <div class="sec s1" data-sid="consulting">
@@ -340,13 +341,13 @@
       <div class="sb"><div class="mi"><div class="mh"><span class="ai-trend-badge">🔶 Claude関連</span>Anthropicはサムスンと新しいカスタムチップについて話し合っている</div><div class="ms">このニュースは、OpenAIがBroadcomと提携して独自のカスタムAIチップを発表してから約1週間後に発表された。</div><div class="mi-suggestion">🎯 狙い：Anthropicは「安全性を重視するAI」というポジショニングでOpenAI・Googleと差別化しつつ、エンタープライズ向けでのシェア拡大を狙っている</div></div><div class="mi"><div class="mh">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</div><div class="ms">伝えられるところによると、メタCEOは社内会議で、AI開発の取り組みが予想ほど早く進んでいないと述べたという。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">ジャージー・マイクのIPOは、AIの誇大広告がいかに悪くなっているかを示している</div><div class="ms">ちょっと気になったので、ジャージー・マイクの IPO 書類を見てみました。確かにサンドイッチ屋にとって AI について言及する必要はないだろう。しかし、見よ。</div></div><div class="mi"><div class="mh">Meta、バイブコーディングされたゲームアプリ Pocket を静かにローンチ</div><div class="ms">Meta は、ユーザーがテキスト プロンプトを使用してインタラクティブなミニ ゲームを生成および共有できる実験的な AI アプリである Pocket を密かにリリースしました。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">OpenAIは株式の5%を米国政府に寄付することを提案した</div><div class="ms">OpenAIの最高経営責任者（CEO）サム・アルトマン氏が、同社の株式の5％を米国政府系ファンドに譲渡することを提案したと伝えられており、AIブームによる経済的利益を国民に分け与えることについての議論が再燃している。</div><div class="mi-suggestion">🎯 狙い：OpenAIは消費者向け（ChatGPT）の圧倒的な認知度を武器にしつつ、企業向けAPI・エージェント機能で収益源を多角化する狙いがある</div></div><div class="mi"><div class="mh">Google は 2016 年に初めて検索ボックスを再設計しました。</div><div class="ms">四半世紀にわたり、Google 検索ボックスはコンピューティング界で最もよく知られるインターフェイスの 1 つであり、薄い白い四角形、点滅するカーソル、入力されたいくつかの単語、および青いリンクのリストです。火曜日、Googleはそのパラダイムを正式に廃止する。年次I/O開発者カンファレンスで、Googleは検索ボックス自体の大幅な再設計を発表した。検索ボックス自体は、何十億ものクエリが入力される文字通りのテキストフィールドである。</div><div class="mi-suggestion">🎯 狙い：GoogleはGeminiを検索・Workspace・Androidに組み込み、既存の巨大ユーザー基盤ごとAI体験を囲い込む狙いがある</div></div></div>
     </div>
 
-    <div class="sec s15" data-sid="buzz">
-      <div class="sh"><span class="si">🔥</span><div style="flex:1">
-        <div class="sl">バズTOP3</div>
-        <div class="st">今、急上昇しているAI・技術トピック</div>
-        <div class="stag">Google急上昇検索×GitHub Trendingから自動検知</div>
+    <div class="sec s15" data-sid="github_trending">
+      <div class="sh"><span class="si">🐙</span><div style="flex:1">
+        <div class="sl">GitHub Trending TOP5</div>
+        <div class="st">今、急上昇しているOSS・AIツール</div>
+        <div class="stag">GitHub Trendingから自動検知（英語は日本語訳）</div>
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
-      <div class="sec-rating" data-sec="buzz">
+      <div class="sec-rating" data-sec="github_trending">
       <span class="rl">今日の評価：</span>
       <button class="rb" data-v="5">🔥 神</button>
       <button class="rb" data-v="4">⭐ 使えた</button>
@@ -354,7 +355,24 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>msitarzewski/agency-agents</div><div class="bz-why">A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.</div><div class="bz-fit">📡 本日+3,032⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>usestrix/strix</div><div class="bz-why">Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.</div><div class="bz-fit">📡 本日+2,137⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">3</span>HKUDS/Vibe-Trading</div><div class="bz-why">&quot;Vibe-Trading: Your Personal Trading Agent&quot;</div><div class="bz-fit">📡 本日+939⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 15:50時点</div></div>
+      <div class="sb"><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>msitarzewski/agency-agents</div><div class="bz-why">すぐに使える完全な AI エージェンシー - フロントエンドのウィザードから Reddit コミュニティの忍者まで、奇抜なインジェクターからリアリティ チェッカーまで。各エージェントは、個性、プロセス、実績のある成果物を備えた専門の専門家です。</div><div class="bz-fit">📡 本日+3,032⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>usestrix/strix</div><div class="bz-why">アプリの脆弱性を見つけて修正するためのオープンソース AI ペネトレーション テスト ツール。</div><div class="bz-fit">📡 本日+2,137⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">3</span>HKUDS/Vibe-Trading</div><div class="bz-why">「Vibe-Trading: あなたの個人取引エージェント」</div><div class="bz-fit">📡 本日+939⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">4</span>hasaneyldrm/exercises-dataset</div><div class="bz-why">433 のフィットネスエクササイズの包括的なデータセット。各エントリには、名前、カテゴリ、対象となる筋肉グループ、器具、説明書、サムネイル画像、アニメーション ビデオが含まれます。</div><div class="bz-fit">📡 本日+938⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">5</span>JuliusBrussee/caveman</div><div class="bz-why">🪨 少数のトークンで効果があるのに、なぜ多くのトークンを使用するのか — 穴居人のような会話でトークンの 65% をカットするクロード コード スキル</div><div class="bz-fit">📡 本日+926⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 16:15時点</div></div>
+    </div>
+
+    <div class="sec s18" data-sid="google_trends">
+      <div class="sh"><span class="si">📈</span><div style="flex:1">
+        <div class="sl">Google急上昇検索 TOP5</div>
+        <div class="st">今、日本で検索が急増しているワード</div>
+        <div class="stag">Google Trends(JP)から自動検知</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="google_trends">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">1</span>津波予報</div><div class="bz-why">【地震情報】沖縄 久米島で震度3</div><div class="bz-fit">📡 検索急上昇 5,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">2</span>ダイバート</div><div class="bz-why">【速報】JAL機が関西空港にダイバート 機材不具合か 牽引車に引かれて移動 関空B滑走路は約1時間半の閉鎖見込み</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">3</span>かけっこ アイドル</div><div class="bz-why">現役アイドルが妊娠を発表「デビューしたてのこれからなのに…」結婚11年で不妊治療していた</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">4</span>電池</div><div class="bz-why">「星のカービィ」食玩を自主回収、ボタン電池膨張で（MONOist）</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">5</span>副知事</div><div class="bz-why">Google急上昇検索で上位</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-checked">🕐 16:15時点</div></div>
     </div>
 
     <div class="sec s16" data-sid="players">
@@ -371,7 +389,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="mi"><div class="mh">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</div><div class="ms">サプライチェーンの領域でもAI活用が本格化している。Gartnerは2026年のサプライチェーン技術のトップトレンドとして、3つのテーマに沿う8つを挙げた。企業の投資判断の指針となるトレンドの中身は何か。</div><div class="mi-suggestion">📡 ITmedia エンタープライズ</div></div><div class="mi"><div class="mh">AWSの「静かな」戦略シフト　OpenAIとAnthropic“1日違い登壇”の意味を読み解く</div><div class="ms">生成AIで競合するOpenAIとAnthropicを1日違いで基調講演に招く――。「AWS Summit Japan 2026」で浮かび上がったのは、モデルの賢さではなく「別のあるもの」を握ることで、基盤の価値を保ち続けようとするAWSの戦略シフトだ。</div><div class="mi-suggestion">📡 ITmedia エンタープライズ</div></div><div class="mi"><div class="mh">The serial builder advantage: Why repeat innovators win</div><div class="ms">New McKinsey research explains why organizations that repeatedly build new ventures outperform those that approach innovation as a one-off effort.</div><div class="mi-suggestion">📡 McKinsey Insights</div></div><div class="mi"><div class="mh">McKinsey Global Publishing’s 2026 book picks</div><div class="ms">We asked McKinsey Global Publishing and Marketing colleagues to share what’s on their bookshelves this year—here’s what they said.</div><div class="mi-suggestion">📡 McKinsey Insights</div></div><div class="mi"><div class="mh">What to read next McKinsey’s 2026 annual book recommendations</div><div class="ms">McKinsey Global Publishing’s annual reading list is back, featuring compelling recommendations from a diverse group of leaders across the world. Our contributors have nearly 100 books for you to choose from.</div><div class="mi-suggestion">📡 McKinsey Insights</div></div></div>
+      <div class="sb"><div class="mi"><div class="mh">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</div><div class="ms">サプライチェーンの領域でもAI活用が本格化している。Gartnerは2026年のサプライチェーン技術のトップトレンドとして、3つのテーマに沿う8つを挙げた。企業の投資判断の指針となるトレンドの中身は何か。</div><div class="mi-suggestion">📡 ITmedia エンタープライズ</div></div><div class="mi"><div class="mh">AWSの「静かな」戦略シフト　OpenAIとAnthropic“1日違い登壇”の意味を読み解く</div><div class="ms">生成AIで競合するOpenAIとAnthropicを1日違いで基調講演に招く――。「AWS Summit Japan 2026」で浮かび上がったのは、モデルの賢さではなく「別のあるもの」を握ることで、基盤の価値を保ち続けようとするAWSの戦略シフトだ。</div><div class="mi-suggestion">📡 ITmedia エンタープライズ</div></div><div class="mi"><div class="mh">シリアルビルダーの利点: リピーターのイノベーターが勝つ理由</div><div class="ms">マッキンゼーの新しい調査は、新しいベンチャーを繰り返し構築する組織が、一回限りの取り組みとしてイノベーションに取り組む組織よりも優れたパフォーマンスを発揮する理由を説明しています。</div><div class="mi-suggestion">📡 McKinsey Insights</div></div><div class="mi"><div class="mh">マッキンゼー グローバル パブリッシングが選ぶ 2026 年の書籍</div><div class="ms">私たちはマッキンゼー グローバル パブリッシングおよびマーケティングの同僚に、今年の本棚に何があるかを共有するよう依頼しました。彼らの意見は次のとおりです。</div><div class="mi-suggestion">📡 McKinsey Insights</div></div><div class="mi"><div class="mh">次に読むべきもの マッキンゼーの 2026 年の年次書籍推奨事項</div><div class="ms">マッキンゼー グローバル パブリッシングの年次読書リストが復活し、世界中の多様なリーダー グループからの説得力のある推奨事項が特集されます。私たちの寄稿者は約 100 冊の本からお選びいただけます。</div><div class="mi-suggestion">📡 McKinsey Insights</div></div></div>
     </div>
 
     <div class="sec s17" data-sid="industry_report">
@@ -595,7 +613,7 @@
       </div>
     </div>
 
-    <div class="ftr"><p>Generated by Jarvis &middot; 15:50</p></div>
+    <div class="ftr"><p>Generated by Jarvis &middot; 16:15</p></div>
   </div>
 
   <script>

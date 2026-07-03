@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <title>Daily AI Brief #005</title>
   <style>
-    :root{--bg:#0F172A;--sf:#1E293B;--sf2:#263347;--tx:#E2E8F0;--mu:#94A3B8;--bl:#3B82F6;--pu:#A855F7;--gr:#10B981;--am:#F59E0B;--rd:#EF4444;--bo:rgba(255,255,255,.07);--ht-bg:rgba(245,158,11,.08);--ht-bd:#F59E0B;--pi-bg:rgba(59,130,246,.08);--pi-bd:#3B82F6;--bp-bg:rgba(16,185,129,.1);--bp-bd:#10B981;--cy:#06B6D4;--og:#F97316;--lm:#84CC16;--pk:#EC4899;--sk:#0EA5E9;--tl:#14B8A6;--iv:#6366F1;--rs:#F43F5E}
+    :root{--bg:#0F172A;--sf:#1E293B;--sf2:#263347;--tx:#E2E8F0;--mu:#94A3B8;--bl:#3B82F6;--pu:#A855F7;--gr:#10B981;--am:#F59E0B;--rd:#EF4444;--bo:rgba(255,255,255,.07);--ht-bg:rgba(245,158,11,.08);--ht-bd:#F59E0B;--pi-bg:rgba(59,130,246,.08);--pi-bd:#3B82F6;--bp-bg:rgba(16,185,129,.1);--bp-bd:#10B981;--cy:#06B6D4;--og:#F97316;--lm:#84CC16;--pk:#EC4899;--sk:#0EA5E9;--tl:#14B8A6;--iv:#6366F1;--rs:#F43F5E;--bz:#E11D48}
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans",sans-serif;font-size:15px;line-height:1.7;padding-bottom:290px}
     .hdr{background:linear-gradient(135deg,#1E293B,#0F172A);border-bottom:1px solid var(--bo);padding:16px 20px 12px;position:sticky;top:0;z-index:10}
@@ -152,6 +152,19 @@
     .s12 .sh{border-left:3px solid var(--iv)}.s12 .sl{color:var(--iv)}
     .s13 .sh{border-left:3px solid var(--rs)}.s13 .sl{color:var(--rs)}
     .s14 .sh{border-left:3px solid var(--tl)}.s14 .sl{color:var(--tl)}
+    .s15 .sh{border-left:3px solid var(--bz)}.s15 .sl{color:var(--bz)}
+    .bz-item{padding:12px 14px;margin-bottom:10px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--bo)}
+    .bz-item.huge{background:rgba(225,29,72,.14);border:1px solid rgba(225,29,72,.4)}
+    .bz-rank{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(225,29,72,.15);color:var(--bz);font-size:11px;font-weight:700;margin-right:7px}
+    .bz-badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:12px;margin-bottom:6px}
+    .bz-badge.huge{background:rgba(225,29,72,.25);color:#FCA5A5}
+    .bz-badge.medium{background:rgba(245,158,11,.2);color:#FCD34D}
+    .bz-badge.small{background:rgba(148,163,184,.15);color:#94A3B8}
+    .bz-headline{font-size:14.5px;font-weight:700;margin-bottom:4px;line-height:1.5}
+    .bz-why{font-size:13px;color:#CBD5E1;line-height:1.65;margin-bottom:6px}
+    .bz-fit{font-size:12.5px;color:#93C5FD;line-height:1.6;padding-top:6px;border-top:1px solid rgba(255,255,255,.06)}
+    .bz-empty{font-size:13px;color:var(--mu);line-height:1.7;padding:6px 0}
+    .bz-checked{font-size:11px;color:var(--mu);margin-top:8px;text-align:right}
     .ai-trend-badge{display:inline-block;background:rgba(20,184,166,.15);color:var(--tl);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-right:6px;letter-spacing:.02em}
     .stopic-why{font-size:14px;line-height:1.75;color:#CBD5E1;margin-bottom:12px;padding:8px 12px;background:rgba(236,72,153,.06);border-radius:8px;border-left:3px solid var(--pk)}
     .stopic-watch{padding:9px 12px;margin-bottom:8px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bo)}
@@ -211,7 +224,7 @@
   <div class="hdr"><div class="w">
     <div class="hdr-top"><span class="logo">🧠 DAILY AI BRIEF</span><span class="num">#005</span></div>
     <div class="dl">2026年07月03日<span class="db">金曜</span></div>
-    <div class="meta-row"><span class="read-time">📖 読了目安：約18分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
+    <div class="meta-row"><span class="read-time">📖 読了目安：約19分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
     <div class="hdr-nav-row" style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
       <div class="nav" id="brief-nav" style="margin-top:0;flex:1"></div>
     </div>
@@ -227,7 +240,7 @@
       </div>
     </div>
     <div id="cat-panel" class="cat-panel" style="display:none">
-      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価4.3（n=5）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.3（n=2）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">評価3.3（n=4）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.3（n=3）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">📰</span><span class="rank-label">生ニュース</span><span class="rank-count">評価3.3（n=1）</span></div></div>
+      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価4.3（n=5）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">📰</span><span class="rank-label">生ニュース</span><span class="rank-count">評価3.3（n=1）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.3（n=3）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.3（n=2）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">評価3.3（n=4）</span></div></div>
       <div class="cat-panel-label">📂 表示するカテゴリを選択</div>
       <div id="cat-rows"></div>
       <div class="cat-actions">
@@ -235,7 +248,7 @@
         <button id="cat-none">すべて非表示</button>
       </div>
       <div class="cat-actions cat-presets">
-        <button class="cat-preset" data-group="ai,aitrend">🤖 AI系だけ</button>
+        <button class="cat-preset" data-group="ai,aitrend,buzz">🤖 AI系だけ</button>
         <button class="cat-preset" data-group="stocktopic,stockstudy,macro,macronews">💹 マーケット系だけ</button>
         <button class="cat-preset" data-group="consulting,roleview,companycase">📊 コンサル系だけ</button>
         <button class="cat-preset" data-group="book,bookstock,note,marketingstudy">📚 学び系だけ</button>
@@ -244,7 +257,7 @@
   </div></div>
 
   <div class="w" id="brief-body">
-    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（18分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">コンセンサスの罠</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">ロールプレイの精度は「制約」で決まる</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">働き方・セキュリティ・産業転換が同時進行している。どれも後回しにするほどコストが上がる</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">サイバーセキュリティ関連は構造的な成長テーマ</span></div><div class="tldr-row" data-sid="companycase"><span class="tldr-icon">🏢</span><span class="tldr-cat">事例</span><span class="tldr-text">通信の赤字を経済圏の黒字で取り戻す。鍵は1億人の行動データ</span></div><div class="tldr-row" data-sid="roleview"><span class="tldr-icon">👤</span><span class="tldr-cat">視点</span><span class="tldr-text">ESGは『広報』から『取引条件』に変わった</span></div><div class="tldr-row" data-sid="aitrend"><span class="tldr-icon">🔶</span><span class="tldr-cat">AI速報</span><span class="tldr-text">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">「指示待ち」を卒業した瞬間に何が変わるか</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">思考の整理学</span></div></div>
+    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（19分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">コンセンサスの罠</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">ロールプレイの精度は「制約」で決まる</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">働き方・セキュリティ・産業転換が同時進行している。どれも後回しにするほどコストが上がる</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">サイバーセキュリティ関連は構造的な成長テーマ</span></div><div class="tldr-row" data-sid="companycase"><span class="tldr-icon">🏢</span><span class="tldr-cat">事例</span><span class="tldr-text">通信の赤字を経済圏の黒字で取り戻す。鍵は1億人の行動データ</span></div><div class="tldr-row" data-sid="roleview"><span class="tldr-icon">👤</span><span class="tldr-cat">視点</span><span class="tldr-text">ESGは『広報』から『取引条件』に変わった</span></div><div class="tldr-row" data-sid="aitrend"><span class="tldr-icon">🔶</span><span class="tldr-cat">AI速報</span><span class="tldr-text">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</span></div><div class="tldr-row" data-sid="buzz"><span class="tldr-icon">🔥</span><span class="tldr-cat">バズ</span><span class="tldr-text">msitarzewski/agency-agents</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">「指示待ち」を卒業した瞬間に何が変わるか</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">思考の整理学</span></div></div>
     
 
     <div class="sec s1" data-sid="consulting">
@@ -322,7 +335,24 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="mi"><div class="mh"><span class="ai-trend-badge">🔶 Claude関連</span>Anthropicはサムスンと新しいカスタムチップについて話し合っている</div><div class="ms">このニュースは、OpenAIがBroadcomと提携して独自のカスタムAIチップを発表してから約1週間後に発表された。</div><div class="mi-suggestion">🎯 狙い：Anthropicは「安全性を重視するAI」というポジショニングでOpenAI・Googleと差別化しつつ、エンタープライズ向けでのシェア拡大を狙っている</div></div><div class="mi"><div class="mh">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</div><div class="ms">伝えられるところによると、メタCEOは社内会議で、AI開発の取り組みが予想ほど早く進んでいないと述べたという。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">ジャージー・マイクのIPOは、AIの誇大広告がいかに悪くなっているかを示している</div><div class="ms">ちょっと気になったので、ジャージー・マイクの IPO 書類を見てみました。確かにサンドイッチ屋にとって AI について言及する必要はないだろう。しかし、見よ。</div></div><div class="mi"><div class="mh">Meta、バイブコーディングされたゲームアプリ Pocket を静かにローンチ</div><div class="ms">Meta は、ユーザーがテキスト プロンプトを使用してインタラクティブなミニ ゲームを生成および共有できる実験的な AI アプリである Pocket を密かにリリースしました。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">OpenAIは株式の5%を米国政府に寄付することを提案した</div><div class="ms">OpenAIの最高経営責任者（CEO）サム・アルトマン氏が、同社の株式の5％を米国政府系ファンドに譲渡することを提案したと伝えられており、AIブームによる経済的利益を国民に分け与えることについての議論が再燃している。</div><div class="mi-suggestion">🎯 狙い：OpenAIは消費者向け（ChatGPT）の圧倒的な認知度を武器にしつつ、企業向けAPI・エージェント機能で収益源を多角化する狙いがある</div></div><div class="mi"><div class="mh">Google は 2016 年に初めて検索ボックスを再設計しました。</div><div class="ms">四半世紀にわたり、Google の検索ボックスは、コンピューティングにおいて最もよく知られるインターフェイスの 1 つでした。薄い白い四角形、点滅するカーソル、入力されたいくつかの単語、および青いリンクのリストです。火曜日、Googleはそのパラダイムを正式に廃止する。年次I/O開発者カンファレンスで、Googleは検索ボックス自体の大幅な再設計を発表した。検索ボックス自体は、何十億ものクエリが入力される文字通りのテキストフィールドである。</div><div class="mi-suggestion">🎯 狙い：GoogleはGeminiを検索・Workspace・Androidに組み込み、既存の巨大ユーザー基盤ごとAI体験を囲い込む狙いがある</div></div></div>
+      <div class="sb"><div class="mi"><div class="mh"><span class="ai-trend-badge">🔶 Claude関連</span>Anthropicはサムスンと新しいカスタムチップについて話し合っている</div><div class="ms">このニュースは、OpenAIがBroadcomと提携して独自のカスタムAIチップを発表してから約1週間後に発表された。</div><div class="mi-suggestion">🎯 狙い：Anthropicは「安全性を重視するAI」というポジショニングでOpenAI・Googleと差別化しつつ、エンタープライズ向けでのシェア拡大を狙っている</div></div><div class="mi"><div class="mh">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</div><div class="ms">伝えられるところによると、メタCEOは社内会議で、AI開発の取り組みが予想ほど早く進んでいないと述べたという。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">ジャージー・マイクのIPOは、AIの誇大広告がいかに悪くなっているかを示している</div><div class="ms">ちょっと気になったので、ジャージー・マイクの IPO 書類を見てみました。確かにサンドイッチ屋にとって AI について言及する必要はないだろう。しかし、見よ。</div></div><div class="mi"><div class="mh">Meta、バイブコーディングされたゲームアプリ Pocket を静かにローンチ</div><div class="ms">Meta は、ユーザーがテキスト プロンプトを使用してインタラクティブなミニ ゲームを生成および共有できる実験的な AI アプリである Pocket を密かにリリースしました。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">OpenAIは株式の5%を米国政府に寄付することを提案した</div><div class="ms">OpenAIの最高経営責任者（CEO）サム・アルトマン氏が、同社の株式の5％を米国政府系ファンドに譲渡することを提案したと伝えられており、AIブームによる経済的利益を国民に分け与えることについての議論が再燃している。</div><div class="mi-suggestion">🎯 狙い：OpenAIは消費者向け（ChatGPT）の圧倒的な認知度を武器にしつつ、企業向けAPI・エージェント機能で収益源を多角化する狙いがある</div></div><div class="mi"><div class="mh">Google は 2016 年に初めて検索ボックスを再設計しました。</div><div class="ms">四半世紀にわたり、Google 検索ボックスはコンピューティング界で最もよく知られるインターフェイスの 1 つであり、薄い白い四角形、点滅するカーソル、入力されたいくつかの単語、および青いリンクのリストです。火曜日、Googleはそのパラダイムを正式に廃止する。年次I/O開発者カンファレンスで、Googleは検索ボックス自体の大幅な再設計を発表した。検索ボックス自体は、何十億ものクエリが入力される文字通りのテキストフィールドである。</div><div class="mi-suggestion">🎯 狙い：GoogleはGeminiを検索・Workspace・Androidに組み込み、既存の巨大ユーザー基盤ごとAI体験を囲い込む狙いがある</div></div></div>
+    </div>
+
+    <div class="sec s15" data-sid="buzz">
+      <div class="sh"><span class="si">🔥</span><div style="flex:1">
+        <div class="sl">バズTOP3</div>
+        <div class="st">今、急上昇しているAI・技術トピック</div>
+        <div class="stag">Google急上昇検索×GitHub Trendingから自動検知</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="buzz">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>msitarzewski/agency-agents</div><div class="bz-why">A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.</div><div class="bz-fit">📡 本日+3,032⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>usestrix/strix</div><div class="bz-why">Open-source AI penetration testing tool to find and fix your app’s vulnerabilities.</div><div class="bz-fit">📡 本日+2,137⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">3</span>HKUDS/Vibe-Trading</div><div class="bz-why">&quot;Vibe-Trading: Your Personal Trading Agent&quot;</div><div class="bz-fit">📡 本日+939⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 15:28時点</div></div>
     </div>
 
     <div class="sec s3" data-sid="macro">
@@ -372,7 +402,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="mi"><div class="mh">パワー半導体最大手 ドイツ東部に新工場完成 生産能力倍増</div><div class="ms">EV＝電気自動車やデータセンターなどに使われるパワー半導体で最大手のドイツのメーカーが国内に新たな工場を完成させ、生産能力を強化することにしています。</div><div class="stopic-micro-theme">🏷 AI・半導体</div><div class="mi-suggestion">💡 示唆：AI・半導体関連はテーマ性で値動きが先行しやすい分野。実際の受注・提携実績を伴っているかを決算で確認する視点が要る</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">AI関連の期待は、実際の企業収益に反映されるまでにタイムラグがある。市場は将来の成長期待を先に織り込むため、期待と実際の受注実績にギャップが生まれやすく、決算発表のたびに評価が大きく変動しやすい</div></div><div class="mi"><div class="mh">ダウ平均株価 最高値を更新 FRBの利上げ観測後退で</div><div class="ms">2日のニューヨーク株式市場ではアメリカのFRB＝連邦準備制度理事会が早期の利上げに踏み切るとの観測が後退したことで買い注文が広がり、ダウ平均株価は前日から600ドル近く値上がりして最高値を更新しました。</div><div class="stopic-micro-theme">🏷 金融・金利</div><div class="mi-suggestion">💡 示唆：金融政策の変更は銀行・保険の利ざやや、高負債企業の資金調達コストに直結する</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">銀行の利益は『貸出金利－預金金利』の差（利ざや）で決まる。中央銀行が政策金利を上げると、銀行は貸出金利を先に上げやすく、預金金利の上昇はやや遅れる傾向があるため、利上げ局面では一時的に利ざやが拡大しやすい</div></div><div class="mi"><div class="mh">覆面作家・雨穴さんの「変な絵」 ダガー賞翻訳部門 受賞逃す</div><div class="ms">優れた推理小説に贈られる英国推理作家協会賞＝「ダガー賞」の受賞作品が発表され、翻訳部門で最終候補に残っていたユーチューバーで覆面の日本人作家、雨穴さんの「変な絵」は受賞を逃しました。</div></div><div class="mi"><div class="mh">ドイツ検察 ノルドストリーム爆発でウクライナ軍元将校を起訴</div><div class="ms">ロシアとドイツを結ぶ海底の天然ガスのパイプライン、「ノルドストリーム」で4年前に起きた爆発について、ドイツの検察はウクライナ軍の元将校を民間施設を攻撃したなどとして起訴しました。ウクライナの政府機関の指示を受けて、パイプラインを破壊する計画を立案したなどと指摘しています。</div></div><div class="mi"><div class="mh">テスラ 欧州や中国で需要回復か ガソリン価格高騰も追い風に</div><div class="ms">アメリカのEV＝電気自動車メーカー「テスラ」は、先月までの3か月間の世界での新車販売台数を発表し、前の年の同じ時期より24.9％増えました。中東情勢によるガソリン価格の高騰などがEVの需要の拡大につながったとみられます。</div></div><div class="mi"><div class="mh">高市首相動静 2026年7月2日</div><div class="ms">（高市首相動静 2026年7月2日）</div></div><div class="mi"><div class="mh">日印首脳会談で2兆円規模の投資発表 国内経済活性化の狙い</div><div class="ms">インドを訪れている高市総理大臣は2日、モディ首相と会談し、日本企業による2兆円規模の投資を含め、およそ130件の企業間の協力文書を発表しました。巨大市場と見込まれるインドへの投資を促すことで、日本経済の活性化にもつなげたい考えです。</div></div></div>
+      <div class="sb"><div class="mi"><div class="mh">パワー半導体最大手 ドイツ東部に新工場完成 生産能力倍増</div><div class="ms">EV＝電気自動車やデータセンターなどに使われるパワー半導体で最大手のドイツのメーカーが国内に新たな工場を完成させ、生産能力を強化することにしています。</div><div class="stopic-micro-theme">🏷 AI・半導体</div><div class="mi-suggestion">💡 示唆：AI・半導体関連はテーマ性で値動きが先行しやすい分野。実際の受注・提携実績を伴っているかを決算で確認する視点が要る</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">AI関連の期待は、実際の企業収益に反映されるまでにタイムラグがある。市場は将来の成長期待を先に織り込むため、期待と実際の受注実績にギャップが生まれやすく、決算発表のたびに評価が大きく変動しやすい</div></div><div class="mi"><div class="mh">ペルシャ湾内の日本関係船舶 新たに1隻がホルムズ海峡通過</div><div class="ms">金子国土交通大臣は、3日の閣議のあとの会見で、ペルシャ湾内にとどまっていた日本関係の船舶のうち、新たに1隻がホルムズ海峡を通過したと明らかにしました。いずれも乗組員の健康状態に問題はなく、船体に異常はないということです。</div></div><div class="mi"><div class="mh">ベネズエラ地震 発生8日目に“奇跡”の救助 死者は2500人超に</div><div class="ms">南米ベネズエラで先月発生したマグニチュード7を超える地震で、ベネズエラ政府が発表した死者の数は、これまでに2500人を超えました。現地では今も救助活動が続けられ、2日には、建物の地下に閉じ込められていた40代の男性が救出されました。</div></div><div class="mi"><div class="mh">覆面作家・雨穴さんの「変な絵」 ダガー賞翻訳部門 受賞逃す</div><div class="ms">優れた推理小説に贈られる英国推理作家協会賞＝「ダガー賞」の受賞作品が発表され、翻訳部門で最終候補に残っていたユーチューバーで覆面の日本人作家、雨穴さんの「変な絵」は受賞を逃しました。</div></div><div class="mi"><div class="mh">ドイツ検察 ノルドストリーム爆発でウクライナ軍元将校を起訴</div><div class="ms">ロシアとドイツを結ぶ海底の天然ガスのパイプライン、「ノルドストリーム」で4年前に起きた爆発について、ドイツの検察はウクライナ軍の元将校を民間施設を攻撃したなどとして起訴しました。ウクライナの政府機関の指示を受けて、パイプラインを破壊する計画を立案したなどと指摘しています。</div></div><div class="mi"><div class="mh">野党 高市首相の集中審議出席など政府に要求 参院議運委理事会</div><div class="ms">参議院議院運営委員会の理事会で、野党側は政府に対し、高市総理大臣も出席して予算委員会の集中審議などを開催するよう重ねて求め、政府側は国会で日程が決まれば対応したいと応じました。</div></div><div class="mi"><div class="mh">在留外国人の学習プログラム創設に向け検討課題まとめる 政府</div><div class="ms">政府は在留外国人が日本語や日本のルールを学習するプログラムの創設に向けた検討課題をまとめました。中長期の在留を目的とする外国人を幅広く受講対象とし、入国前を含めICTを活用した学習環境を整備するとしています。</div></div></div>
     </div>
 
     <div class="sec s12" data-sid="stockstudy">
@@ -529,7 +559,7 @@
       </div>
     </div>
 
-    <div class="ftr"><p>Generated by Jarvis &middot; 11:34</p></div>
+    <div class="ftr"><p>Generated by Jarvis &middot; 15:28</p></div>
   </div>
 
   <script>

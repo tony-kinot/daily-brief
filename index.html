@@ -68,7 +68,7 @@
     .s3 .sh{border-left:3px solid var(--gr)}.s3 .sl{color:var(--gr)}
     .s4 .sh{border-left:3px solid var(--am)}.s4 .sl{color:var(--am)}
     .s5 .sh{border-left:3px solid var(--rd)}.s5 .sl{color:var(--rd)}
-    .sec-rating{display:flex;align-items:center;gap:6px;padding:7px 16px;background:rgba(0,0,0,.15);border-bottom:1px solid var(--bo)}
+    .sec-rating{display:flex;align-items:center;gap:6px;padding:7px 16px;background:rgba(0,0,0,.15);border-bottom:1px solid var(--bo);flex-wrap:wrap}
     .rl{font-size:11px;color:var(--mu);white-space:nowrap}
     .rb{background:none;border:1px solid var(--bo);border-radius:20px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--mu);transition:all .2s;white-space:nowrap}
     .rb.active{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:var(--tx)}
@@ -227,7 +227,7 @@
       </div>
     </div>
     <div id="cat-panel" class="cat-panel" style="display:none">
-      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価2.6（n=5）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価2.0（n=3）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">評価2.0（n=4）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">📰</span><span class="rank-label">生ニュース</span><span class="rank-count">評価2.0（n=1）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価2.0（n=2）</span></div></div>
+      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価4.3（n=5）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.3（n=2）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">評価3.3（n=4）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.3（n=3）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">📰</span><span class="rank-label">生ニュース</span><span class="rank-count">評価3.3（n=1）</span></div></div>
       <div class="cat-panel-label">📂 表示するカテゴリを選択</div>
       <div id="cat-rows"></div>
       <div class="cat-actions">
@@ -255,10 +255,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="consulting">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="myth-box"><div class="myth-label">🤔 世間の常識</div><div class="myth-text">良い意思決定はステークホルダー全員のコンセンサスを得てから進めるべきだ</div></div>
         <div class="truth-box"><div class="truth-label">💥 実は違う</div><div class="truth-text">全員賛成は「誰も本気で考えていない」か「反対意見が言えない空気がある」サインである。アルフレッド・スローンはGM会議で全員一致の提案は次回に持ち越した</div></div>
@@ -284,10 +285,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="ai">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="block ht"><div class="block-label">😓 なぜ上手くいかないか</div><div class="block-body">「顧客役を演じてください」「批判的な経営者を演じてください」というロールプレイ依頼は、AIが「それらしいキャラ」を演じるだけで、本物のリアリティがない</div></div>
         <div class="block pi"><div class="block-label">🧠 プロが無意識にやっていること</div><div class="block-body">ロールプレイで最も効くのは「制約と利害関係」の設定。「あなたは予算削減を厳命されており、どんな提案にも最初は否定的に反応する部長」という「利害関係＋反応パターン」の設定が人物をリアルにする</div></div>
@@ -314,10 +316,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="aitrend">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="mi"><div class="mh"><span class="ai-trend-badge">🔶 Claude関連</span>Anthropicはサムスンと新しいカスタムチップについて話し合っている</div><div class="ms">このニュースは、OpenAIがBroadcomと提携して独自のカスタムAIチップを発表してから約1週間後に発表された。</div><div class="mi-suggestion">🎯 狙い：Anthropicは「安全性を重視するAI」というポジショニングでOpenAI・Googleと差別化しつつ、エンタープライズ向けでのシェア拡大を狙っている</div></div><div class="mi"><div class="mh">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</div><div class="ms">伝えられるところによると、メタCEOは社内会議で、AI開発の取り組みが予想ほど早く進んでいないと述べたという。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">ジャージー・マイクのIPOは、AIの誇大広告がいかに悪くなっているかを示している</div><div class="ms">ちょっと気になったので、ジャージー・マイクの IPO 書類を見てみました。確かにサンドイッチ屋にとって AI について言及する必要はないだろう。しかし、見よ。</div></div><div class="mi"><div class="mh">Meta、バイブコーディングされたゲームアプリ Pocket を静かにローンチ</div><div class="ms">Meta は、ユーザーがテキスト プロンプトを使用してインタラクティブなミニ ゲームを生成および共有できる実験的な AI アプリである Pocket を密かにリリースしました。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">OpenAIは株式の5%を米国政府に寄付することを提案した</div><div class="ms">OpenAIの最高経営責任者（CEO）サム・アルトマン氏が、同社の株式の5％を米国政府系ファンドに譲渡することを提案したと伝えられており、AIブームによる経済的利益を国民に分け与えることについての議論が再燃している。</div><div class="mi-suggestion">🎯 狙い：OpenAIは消費者向け（ChatGPT）の圧倒的な認知度を武器にしつつ、企業向けAPI・エージェント機能で収益源を多角化する狙いがある</div></div><div class="mi"><div class="mh">Google は 2016 年に初めて検索ボックスを再設計しました。</div><div class="ms">四半世紀にわたり、Google の検索ボックスは、コンピューティングにおいて最もよく知られるインターフェイスの 1 つでした。薄い白い四角形、点滅するカーソル、入力されたいくつかの単語、および青いリンクのリストです。火曜日、Googleはそのパラダイムを正式に廃止する。年次I/O開発者カンファレンスで、Googleは検索ボックス自体の大幅な再設計を発表した。検索ボックス自体は、何十億ものクエリが入力される文字通りのテキストフィールドである。</div><div class="mi-suggestion">🎯 狙い：GoogleはGeminiを検索・Workspace・Androidに組み込み、既存の巨大ユーザー基盤ごとAI体験を囲い込む狙いがある</div></div></div>
     </div>
@@ -329,10 +332,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="macro">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="macro-conclusion"><div class="macro-conclusion-label">📌 今日のマクロ、仕事への一言</div><div class="macro-conclusion-body">働き方・セキュリティ・産業転換が同時進行している。どれも後回しにするほどコストが上がる</div></div><div class="macro-action"><div class="macro-action-label">💡 改善提案：まずこれをやる</div><div class="macro-action-body">3領域（働き方・セキュリティ・産業転換）のうち最も対応が遅れているものを1つ選び、今月中に着手する</div></div><div class="macro-analysis-label">🔍 詳細：トレンド別インパクト</div><div class="ma-item"><div class="ma-headline">働き方改革の深化・週4日制の実験拡大</div><div class="impact-map"><span class="iv up">生産性要求 ↑</span><span class="iv up">自動化需要 ↑</span><span class="iv up">採用競争力 ↑</span><span class="iv up">管理職負荷 ↑</span></div><div class="ma-lens">💼 週4日制は「同じ成果を少ない時間で」を強制する。自動化・AI活用なしに導入すると管理職とハイパフォーマーへの負荷集中が起きる。先にプロセス改善を設計してから導入を</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">労働時間を減らして同じ成果を出すには、業務プロセスそのものを効率化する必要がある。この効率化を先にせず『とりあえず休みを増やす』形で導入すると、減った時間のしわ寄せが、自動化しにくい判断業務を担う管理職や優秀な人材に集中してしまう</div></div><div class="ma-item"><div class="ma-headline">サイバーセキュリティ被害が過去最多更新</div><div class="impact-map"><span class="iv up">セキュリティ投資 ↑</span><span class="iv up">保険コスト ↑</span><span class="iv up">信頼リスク ↑</span><span class="iv cautious">DX投資 →</span></div><div class="ma-lens">💼 サイバーリスクは経営リスクとして取締役会レベルで管理する時代。「被害が出てから対応」では遅い。今すぐセキュリティ投資の現状評価と優先度設計を</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">攻撃側はAIを使って攻撃の自動化・高度化を進めており、防御側の対応速度を上回りやすくなっている。被害が起きてから対応する『事後対応』では、情報流出や取引先への被害拡大を防げないため、平時からの投資判断が必要になっている</div></div><div class="ma-item"><div class="ma-headline">EV普及の減速・HV・水素の再評価</div><div class="impact-map"><span class="iv reeval">自動車部品 →</span><span class="iv slower">充電インフラ →</span><span class="iv up">HV関連 ↑</span><span class="iv reeval">素材需要 →</span></div><div class="ma-lens">💼 「EVシフトで旧来部品は消える」という前提の見直しが必要。中間技術としてのHVの延命が確認された今、事業ポートフォリオを再評価する機会</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">EVへの急速な移行を阻んでいたのは、充電インフラの整備の遅れとバッテリーコストという物理的な制約。この制約が短期間で解消しなかったため、『つなぎの技術』とされていたハイブリッド車(HV)への需要が想定より長く続いている。技術の理想と普及の現実にはタイムラグがある</div></div><div class="ma-item"><div class="ma-headline">ランサムウェア被害が中小企業にも拡大</div><div class="impact-map"><span class="iv up">セキュリティ投資 ↑</span><span class="iv up">取引先審査厳格化 ↑</span><span class="iv up">サイバー保険需要 ↑</span></div><div class="ma-lens">💼 大企業だけの問題ではなくなった。サプライチェーンの起点になる中小企業のセキュリティ水準が、取引継続の条件になりつつある</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">攻撃者は防御が手薄な取引先（中小企業）を踏み台にして、その先にある大企業のシステムに侵入する手口を多用するようになっている。大企業が自社のセキュリティをどれだけ固めても、サプライチェーンでつながる中小企業が弱ければ、そこが侵入口になってしまう</div></div><div class="ma-item"><div class="ma-headline">副業・複業解禁企業が増加・人材の流動性上昇</div><div class="impact-map"><span class="iv up">人材流動性 ↑</span><span class="iv up">離職リスク ↑</span><span class="iv up">外部人材活用機会 ↑</span></div><div class="ma-lens">💼 優秀な人材ほど複業で外に出ていく時代。抱え込む発想から『選ばれ続ける』発想への転換が必要</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">副業解禁は人材の側から見ると『会社に依存しなくても収入源を複数持てる』という選択肢が増えたことを意味する。会社への経済的な依存度が下がった人材ほど、待遇や働きがいに不満があれば離れやすくなり、『抱え込む』経営から『選ばれ続ける』経営への転換が迫られている</div></div></div>
     </div>
@@ -345,10 +349,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="stocktopic">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="stopic-why">💼 セキュリティ投資は『後回しにするほどコストが上がる』典型的な領域で、需要の持続性が高い</div><div class="ma-why-toggle" onclick="this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">セキュリティ関連銘柄は『被害のニュースが出るたびに買われる』という反応が起きやすい。ただし需要の持続性を測るには、単発の受注ではなく継続契約(サブスク型収益)の比率を確認する視点が重要</div><div class="stopic-watch"><div class="stopic-watch-label">🎯 サイバーセキュリティ関連企業</div><div class="stopic-watch-note">ランサムウェア被害拡大を背景に需要が継続的に増加している</div></div><div class="stopic-watch"><div class="stopic-watch-label">🎯 リモートワークインフラ関連</div><div class="stopic-watch-note">働き方改革の深化が続く限り一定の需要が見込める</div></div><div class="stopic-picks-label">⭐ 注目候補（立ち位置の異なる複数の視点を並べています）</div><div class="stopic-pick"><div class="stopic-pick-name"><span class="stopic-pick-axis">【セキュリティ専業】</span>トレンドマイクロ</div><div class="stopic-pick-reason"><b>理由：</b>サイバーセキュリティ専業大手として、法人向けセキュリティ製品・サービスを展開している</div><div class="stopic-pick-outlook"><b>展望：</b>サイバー被害の拡大局面で、セキュリティ投資需要の高まりが追い風になりやすい</div><div class="stopic-pick-risk"><b>リスク：</b>競合が多い分野であり、大型契約の獲得・喪失によって四半期業績が変動しやすい</div><div class="stopic-pick-metric"><b>📐 見るべき指標：</b>ARR（年間経常収益）の成長率・解約率（チャーンレート）</div></div><div class="stopic-pick"><div class="stopic-pick-name"><span class="stopic-pick-axis">【ITコンサル×DX】</span>野村総合研究所</div><div class="stopic-pick-reason"><b>理由：</b>ITコンサルティング・システム開発を手がけ、セキュリティ・DX支援も事業領域に含む</div><div class="stopic-pick-outlook"><b>展望：</b>企業のセキュリティ投資・DX投資の両面での需要を取り込みやすいポジション</div><div class="stopic-pick-risk"><b>リスク：</b>大型システム案件への依存度が高く、案件の延期・中止が業績に影響しやすい</div><div class="stopic-pick-metric"><b>📐 見るべき指標：</b>受注残高（バックログ）の積み上がり具合</div></div><div class="stopic-pick"><div class="stopic-pick-name"><span class="stopic-pick-axis">【HV多角化戦略】</span>本田技研工業（ホンダ）</div><div class="stopic-pick-reason"><b>理由：</b>ハイブリッド車を含む幅広いパワートレイン技術を持つ自動車メーカー</div><div class="stopic-pick-outlook"><b>展望：</b>EVシフト減速局面での中間技術（HV）の再評価が事業ポートフォリオの追い風になりうる</div><div class="stopic-pick-risk"><b>リスク：</b>グローバルなEV政策・規制の方向性次第で、HV需要の持続性の前提が変わりうる</div><div class="stopic-pick-metric"><b>📐 見るべき指標：</b>HV（ハイブリッド車）比率の上昇による利益率改善効果</div></div><div class="stopic-pick"><div class="stopic-pick-name"><span class="stopic-pick-axis">【HVパイオニア】</span>トヨタ自動車</div><div class="stopic-pick-reason"><b>理由：</b>HV(ハイブリッド車)のパイオニアとして、EV一辺倒ではない多面的なパワートレイン戦略を早くから展開してきた</div><div class="stopic-pick-outlook"><b>展望：</b>EVシフト減速局面で「慌てて全方位対応した企業」ではなく「最初から選択肢を用意していた企業」としての優位性が再評価されやすい</div><div class="stopic-pick-risk"><b>リスク：</b>世界最大級の自動車メーカーであるがゆえに、個別戦略よりも世界景気・為替など全体マクロ要因の影響を強く受ける</div><div class="stopic-pick-metric"><b>📐 見るべき指標：</b>HV販売台数の伸び率・グローバルシェアの推移</div></div><div class="stopic-dd"><div class="stopic-dd-label">✅ 購入前に確認すること（実データは各自でご確認ください）</div><div class="stopic-dd-body">①継続契約(サブスク型収益)の比率　②大型契約の獲得・解約状況　③研究開発費の推移</div></div><div class="stopic-caution">⚠️ 同業内でも技術力・顧客基盤に差が大きい業界。テーマ名だけで一括りに評価しないこと。投資は自己責任で。 個別銘柄名は一般に知られる事業内容から連想した例示であり、業績・株価を保証するものではありません。ここに記載の情報だけで購入を判断せず、必ず最新の決算・株価指標をご自身で確認し、自己責任で判断してください。</div></div>
     </div>
@@ -361,10 +366,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="macronews">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="mi"><div class="mh">パワー半導体最大手 ドイツ東部に新工場完成 生産能力倍増</div><div class="ms">EV＝電気自動車やデータセンターなどに使われるパワー半導体で最大手のドイツのメーカーが国内に新たな工場を完成させ、生産能力を強化することにしています。</div><div class="stopic-micro-theme">🏷 AI・半導体</div><div class="mi-suggestion">💡 示唆：AI・半導体関連はテーマ性で値動きが先行しやすい分野。実際の受注・提携実績を伴っているかを決算で確認する視点が要る</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">AI関連の期待は、実際の企業収益に反映されるまでにタイムラグがある。市場は将来の成長期待を先に織り込むため、期待と実際の受注実績にギャップが生まれやすく、決算発表のたびに評価が大きく変動しやすい</div></div><div class="mi"><div class="mh">ダウ平均株価 最高値を更新 FRBの利上げ観測後退で</div><div class="ms">2日のニューヨーク株式市場ではアメリカのFRB＝連邦準備制度理事会が早期の利上げに踏み切るとの観測が後退したことで買い注文が広がり、ダウ平均株価は前日から600ドル近く値上がりして最高値を更新しました。</div><div class="stopic-micro-theme">🏷 金融・金利</div><div class="mi-suggestion">💡 示唆：金融政策の変更は銀行・保険の利ざやや、高負債企業の資金調達コストに直結する</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">銀行の利益は『貸出金利－預金金利』の差（利ざや）で決まる。中央銀行が政策金利を上げると、銀行は貸出金利を先に上げやすく、預金金利の上昇はやや遅れる傾向があるため、利上げ局面では一時的に利ざやが拡大しやすい</div></div><div class="mi"><div class="mh">覆面作家・雨穴さんの「変な絵」 ダガー賞翻訳部門 受賞逃す</div><div class="ms">優れた推理小説に贈られる英国推理作家協会賞＝「ダガー賞」の受賞作品が発表され、翻訳部門で最終候補に残っていたユーチューバーで覆面の日本人作家、雨穴さんの「変な絵」は受賞を逃しました。</div></div><div class="mi"><div class="mh">ドイツ検察 ノルドストリーム爆発でウクライナ軍元将校を起訴</div><div class="ms">ロシアとドイツを結ぶ海底の天然ガスのパイプライン、「ノルドストリーム」で4年前に起きた爆発について、ドイツの検察はウクライナ軍の元将校を民間施設を攻撃したなどとして起訴しました。ウクライナの政府機関の指示を受けて、パイプラインを破壊する計画を立案したなどと指摘しています。</div></div><div class="mi"><div class="mh">テスラ 欧州や中国で需要回復か ガソリン価格高騰も追い風に</div><div class="ms">アメリカのEV＝電気自動車メーカー「テスラ」は、先月までの3か月間の世界での新車販売台数を発表し、前の年の同じ時期より24.9％増えました。中東情勢によるガソリン価格の高騰などがEVの需要の拡大につながったとみられます。</div></div><div class="mi"><div class="mh">高市首相動静 2026年7月2日</div><div class="ms">（高市首相動静 2026年7月2日）</div></div><div class="mi"><div class="mh">日印首脳会談で2兆円規模の投資発表 国内経済活性化の狙い</div><div class="ms">インドを訪れている高市総理大臣は2日、モディ首相と会談し、日本企業による2兆円規模の投資を含め、およそ130件の企業間の協力文書を発表しました。巨大市場と見込まれるインドへの投資を促すことで、日本経済の活性化にもつなげたい考えです。</div></div></div>
     </div>
@@ -377,10 +383,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="stockstudy">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="bc">決算書で最初に見る3つの数字</div><div class="concept">①売上高（トップラインが伸びているか）②営業利益率（本業でどれだけ稼げているか）③フリーキャッシュフロー（実際に手元に残る現金があるか）。この3つだけでも、会社の『勢い』と『体力』の大枠がわかる。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">決算発表のニュースを見たとき、『増収増益』という見出しだけで判断せず、営業利益率が前年より上がっているか下がっているかを必ずチェックする。</div></div><div class="block bp"><div class="block-label">📈 株トピックとの繋がり</div><div class="block-body">『購入前に確認すること』に決算関連の指示があれば、まずこの3つの数字から見に行くと迷わない。</div></div></div>
     </div>
@@ -393,10 +400,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="marketingstudy">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="bc">カスタマージャーニー</div><div class="concept">顧客が商品・サービスを認知してから購入・継続・推奨に至るまでの一連の体験を時系列で可視化するフレーム。各段階での顧客の感情・疑問・行動を洗い出す。</div><div class="cbox">BtoB SaaSの場合：認知（広告で知る）→興味（資料DL）→比較検討（無料トライアル）→購入（契約）→定着（オンボーディング）→継続（更新）→推奨（紹介）。多くの企業は『無料トライアル→契約』の間の離脱率が最も高く、ここに人的サポートを厚くすると転換率が改善しやすい</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">『どこで離脱しているか』を特定するのに使う。認知はできているのに購入されない、購入されるのに継続されない、といったボトルネックの場所を特定してから対策を打つ。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('ms_p')">📋 コピー</button></div><div class="block-body mono" id="ms_p">私の商品/サービスのカスタマージャーニーを整理してください。商品：[何を売っているか]
 購入までの主な流れ：[わかる範囲で認知〜購入のステップ]
@@ -412,10 +420,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="note">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="why-now-badge">📌 なぜ今 → 自律型人材への需要が高まっている。AI時代に指示待ちのリスクへの共感</div>
         <div class="hook">"ある日、指示を待つのをやめたら、仕事が3倍面白くなった"</div>
@@ -432,10 +441,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="book">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="book-oneline">考えることは貯めることではない。忘れることが思考を深める</div>
         <div class="block ht"><div class="block-label">🔑 誰も話さない裏の洞察</div><div class="block-body">外山が最も重要視したのは「忘れる技術」。人間の思考は「忘れる→残る→組み合わさる」というプロセスで深まる。「記録して全部覚える」は思考の深化を妨げる。AIメモツールで全部記録する現代人への警告</div></div>
@@ -462,10 +472,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="roleview">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="rv-macro">📡 ESGは『広報』から『取引条件』に変わった</div><div class="rv-block"><div class="rv-role" style="color:#3B82F6">👔 社長なら</div><div class="rv-text">ESGを「コスト」と見る経営者と「先行投資」と見る経営者で5年後の差が出る。規制対応ではなく「脱炭素で市場を作る」発想に転換する</div></div><div class="rv-block"><div class="rv-role" style="color:#A855F7">📣 マーケターなら</div><div class="rv-text">環境対応は「ブランドの話」ではなく「購買基準の話」になった。B2B調達では取引先のCO2排出量が評価項目になりつつある。自社の環境データを可視化・開示することがビジネス要件になる</div></div><div class="rv-block"><div class="rv-role" style="color:#10B981">📈 投資家なら</div><div class="rv-text">再エネ・蓄電・省エネ設備は規制の追い風で長期需要が確定している。ESGファンドの流入が続く間はモメンタム投資も有効</div></div><div class="rv-stock">💹 株ヒント：再エネ関連・蓄電池・省エネ設備・ESGインデックス連動ETF</div></div>
     </div>
@@ -478,10 +489,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="companycase">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="cc-company">🏢 楽天グループ</div><div class="cc-situation">モバイル事業の巨額赤字が続く中、楽天経済圏のシナジーを活かした黒字転換が急務。会員基盤1億人超という資産を持ちながら収益化が追いついていない。</div><div class="cc-label">👤 俺が社長なら、こう動く（思考の順番）</div><div class="cc-steps"><div class="cc-step"><div class="cc-step-num">1</div><div class="cc-step-body"><div class="cc-step-action">楽天モバイルを「経済圏の接着剤」として再定義。単体黒字より、モバイル契約者のグループ全体ARPUを最重要KPIにして経営する</div><div class="cc-step-reason">↳ モバイル単体黒字化を追わないことで、値下げ・投資の自由度を確保する</div></div></div><div class="cc-step"><div class="cc-step-num">2</div><div class="cc-step-body"><div class="cc-step-action">楽天市場の手数料体系を全面改革。売上連動から成果連動（コンバージョン課金）に移行する</div><div class="cc-step-reason">↳ モバイルの粘着質（会員基盤）を武器に、出店者に対して成果連動という強気な条件変更ができる</div></div></div><div class="cc-step"><div class="cc-step-num">3</div><div class="cc-step-body"><div class="cc-step-action">ヘルスケア×ポイントの組み合わせで新市場を作る。楽天ポイントを健康行動に紐付け、保険・医療・フィットネスを一体化したウェルネスプラットフォームに育てる</div><div class="cc-step-reason">↳ 手数料改革で得た収益体質改善分を、新規プラットフォーム（ヘルスケア）への投資に回す</div></div></div></div><div class="cc-why"><strong>なぜこれが正解か：</strong>1億会員は最大の資産。その会員が楽天以外でも使うようになれば、通信インフラの赤字を経済圏収益で補える構造が完成する</div><div class="quotable">「通信の赤字を経済圏の黒字で取り戻す。鍵は1億人の行動データ」</div></div>
     </div>
@@ -494,10 +506,11 @@
       </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
       <div class="sec-rating" data-sec="bookstock">
       <span class="rl">今日の評価：</span>
-      <button class="rb" data-v="3">🔥 使えた</button>
-      <button class="rb" data-v="2">⭐ 面白い</button>
-      <button class="rb" data-v="1">😐 ふつう</button>
-      <button class="rb" data-v="0">👎 イマイチ</button>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
       <div class="sb"><div class="bs-source">📖 出典：ネタ帳（コトラー／博報堂生活総研）</div><div class="bc">欲望の歴史的変遷——4段階</div><div class="concept">消費者の欲求は「モノ（所有）」→「コト（体験）」→「トキ（非再現的な時間・空間の共有）」→「イミ（社会的な意味・自己実現）」の4段階で高度化してきたという消費社会論の枠組み。博報堂生活総合研究所が提唱したモデルで、フィリップ・コトラーの「マーケティング1.0〜4.0（製品→顧客→人間性→自己実現）」とも軌を一にする。パタゴニアが分かりやすい実例で、高品質な衣類（モノ）や快適な体験（コト）だけでなく「環境保護」という社会的メッセージ（イミ）を発信し、購入・着用そのものが顧客のアイデンティティ表明になる仕組みを作っている。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">note記事・商品設計・ブランディング提案に使える。切り口案：「機能や体験だけではもう売れない？現代の消費者が財布を開く『イミ』の作り方」。自社商品が今どの段階（モノ・コト・トキ・イミ）で戦っているかを棚卸しし、次の段階に上げるには何を足すべきかを問う記事にできる。</div></div><div class="block bp"><div class="block-label">🔮 この先どうなるか</div><div class="block-body">AIが「コト」（体験）を無限に安く量産できるようになるほど、体験そのものの希少価値は下がる。次に競争が移る先は「イミ」のさらに先——AIには代替できない「人間同士のつながり・連帯」であり、コミュニティ設計ができるかどうかが次の差別化軸になる。</div></div></div>
     </div>
@@ -516,7 +529,7 @@
       </div>
     </div>
 
-    <div class="ftr"><p>Generated by Jarvis &middot; 11:09</p></div>
+    <div class="ftr"><p>Generated by Jarvis &middot; 11:34</p></div>
   </div>
 
   <script>
@@ -583,7 +596,7 @@
     (function(){
       const RK='brief_ratings_'+BRIEF_DATE;
       const ratings=JSON.parse(localStorage.getItem(RK)||'{}');
-      const LABELS={3:'🔥 使えた',2:'⭐ 面白い',1:'😐 ふつう',0:'👎 イマイチ'};
+      const LABELS={5:'🔥 神',4:'⭐ 使えた',3:'😐 ふつう',2:'🤔 微妙',1:'👎 イマイチ'};
 
       document.querySelectorAll('.sec-rating').forEach(el=>{
         const sec=el.dataset.sec;
@@ -619,8 +632,8 @@
         }
         if(count>0){
           const avg=(totalScore/count).toFixed(1);
-          const emoji=avg>=2.5?'🔥':avg>=1.5?'⭐':'😐';
-          rows=`<div class="weekly-sum-row"><span>先週の平均評価</span><span>${emoji} ${avg}/3.0 (${count}件評価)</span></div>`;
+          const emoji=avg>=4?'🔥':avg>=2.5?'⭐':'😐';
+          rows=`<div class="weekly-sum-row"><span>先週の平均評価</span><span>${emoji} ${avg}/5.0 (${count}件評価)</span></div>`;
           sumEl.innerHTML=`<div class="weekly-sum"><h3>📊 先週のブリーフ振り返り</h3>${rows}<div style="font-size:12px;color:var(--mu);margin-top:8px">評価を積み重ねると毎週月曜に振り返りが表示されます</div></div>`;
           sumEl.style.display='block';
         }
@@ -1112,7 +1125,7 @@
         const r=await fetch(WORKER_URL,{
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({date:BRIEF_DATE,ratings,memo,favorites}),
+          body:JSON.stringify({date:BRIEF_DATE,ratings,memo,favorites,scale_max:5}),
         });
         if(r.ok){
           btn.textContent='✅ 送信完了';

@@ -1,0 +1,25 @@
+{
+  "date": "20260704",
+  "ratings": {
+    "macro": 3,
+    "macronews": 3,
+    "ai": 3,
+    "stocktopic": 4,
+    "consulting": 4,
+    "note": 1,
+    "book": 4,
+    "roleview": 4,
+    "bookstock": 4,
+    "companycase": 4,
+    "stockstudy": 3,
+    "marketingstudy": 3,
+    "aitrend": 3,
+    "github_trending": 4,
+    "google_trends": 3,
+    "industry_report": 2
+  },
+  "memo": "今日のポイントから、各カテゴリに飛ばすリンクを作れる？カテゴリを閉じた横で評価ボタンを押せるようにしたい。日英伊共同開発の次期戦闘機 合弁企業と契約延長 開発本格化へは日本関係しているのに内容がよくわからんかった。noteネタ変換は浅い、もう少し肉付けして。ネタ帳はよくなったけど、2日連続同じ内容じゃない？今年必要になる唯一の AI 用語集は用語集が見れないと価値がない。githubとレンズは内容を見て取り入れるべきものがないかチェックするように。googleトレンドは英語が残っている。主要プレイヤーの動きも更新ない？業界レポートはもう少し内容ないとわからん。まっこんの",
+  "favorites": [],
+  "scale_max": 5,
+  "sent_at": "2026-07-04T00:20:28.055Z"
+}

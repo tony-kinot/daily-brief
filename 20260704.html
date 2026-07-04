@@ -23,10 +23,14 @@
     .streak-badge{font-size:11px;font-weight:700;color:#FCD34D;background:rgba(252,211,77,.1);padding:2px 8px;border-radius:12px}
     .tldr-box{background:var(--sf);border:1px solid var(--bo);border-radius:14px;padding:13px 16px;margin-top:14px}
     .tldr-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:8px}
-    .tldr-row{display:flex;align-items:baseline;gap:7px;padding:4px 0;font-size:13px;line-height:1.5}
+    .tldr-row{display:flex;align-items:baseline;gap:7px;padding:4px 0;font-size:13px;line-height:1.5;cursor:pointer;border-radius:6px}
+    .tldr-row:active{background:rgba(255,255,255,.06)}
     .tldr-icon{flex-shrink:0}
     .tldr-cat{flex-shrink:0;font-size:10px;font-weight:700;color:var(--mu);min-width:34px}
-    .tldr-text{color:var(--tx)}
+    .tldr-text{color:var(--tx);text-decoration:underline;text-decoration-color:rgba(147,197,253,.35);text-underline-offset:3px}
+    .tldr-rated-mark{flex-shrink:0;margin-left:auto;font-size:13px;opacity:.85}
+    @keyframes jumpFlash{0%{background:rgba(147,197,253,.25)}100%{background:transparent}}
+    .jump-flash{animation:jumpFlash 1.2s ease-out}
     .nav{display:flex;gap:8px;margin-top:8px}
     .nav a{color:var(--mu);font-size:12px;text-decoration:none;padding:3px 10px;border:1px solid var(--bo);border-radius:8px;transition:background .15s}
     .nav a:hover,.nav a:active{background:rgba(255,255,255,.07)}
@@ -231,7 +235,7 @@
   <div class="hdr"><div class="w">
     <div class="hdr-top"><span class="logo">🧠 DAILY AI BRIEF</span><span class="num">#006</span></div>
     <div class="dl">2026年07月04日<span class="db">土曜</span></div>
-    <div class="meta-row"><span class="read-time">📖 読了目安：約25分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
+    <div class="meta-row"><span class="read-time">📖 読了目安：約26分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
     <div class="hdr-nav-row" style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
       <div class="nav" id="brief-nav" style="margin-top:0;flex:1"></div>
     </div>
@@ -247,7 +251,7 @@
       </div>
     </div>
     <div id="cat-panel" class="cat-panel" style="display:none">
-      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価4.3（n=5）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">評価3.3（n=4）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.3（n=3）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.3（n=2）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">📰</span><span class="rank-label">生ニュース</span><span class="rank-count">評価3.3（n=1）</span></div><div class="cat-panel-label" style="margin-top:12px">🛠 テコ入れ候補（低評価・Jarvisが改善予定）</div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">noteネタ</span><span class="rank-count">評価1.7（n=5）</span></div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">株の勉強</span><span class="rank-count">評価1.7（n=2）</span></div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">立場別の視点</span><span class="rank-count">評価1.7（n=2）</span></div></div>
+      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">🤖</span><span class="rank-label">AI活用術</span><span class="rank-count">評価4.1（n=6）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">🗒️</span><span class="rank-label">ネタ帳</span><span class="rank-count">評価4.0（n=1）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">🐙</span><span class="rank-label">GitHub Trending</span><span class="rank-count">評価4.0（n=1）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.6（n=3）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.5（n=4）</span></div><div class="cat-panel-label" style="margin-top:12px">🛠 テコ入れ候補（低評価・Jarvisが改善予定）</div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">noteネタ</span><span class="rank-count">評価1.6（n=6）</span></div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">株の勉強</span><span class="rank-count">評価2.1（n=3）</span></div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">マクロ潮流</span><span class="rank-count">評価2.2（n=6）</span></div></div>
       <div class="cat-panel-label">📂 表示するカテゴリを選択</div>
       <div id="cat-rows"></div>
       <div class="cat-actions">
@@ -264,7 +268,7 @@
   </div></div>
 
   <div class="w" id="brief-body">
-    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（25分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">顧客満足度の逆説</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">長文分析は仮説を持ってから読む</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">市場が二極化している局面で「中間」に居続けることが最もリスクが高い。自社の立ち位置を今決める</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">自社が『中間』に位置していないかを確認する視点</span></div><div class="tldr-row" data-sid="companycase"><span class="tldr-icon">🏢</span><span class="tldr-cat">事例</span><span class="tldr-text">エンタメとテクノロジーが交差する唯一の会社</span></div><div class="tldr-row" data-sid="roleview"><span class="tldr-icon">👤</span><span class="tldr-cat">視点</span><span class="tldr-text">採用できない前提で、事業計画を作り直せているか</span></div><div class="tldr-row" data-sid="aitrend"><span class="tldr-icon">🔶</span><span class="tldr-cat">AI速報</span><span class="tldr-text">今年必要になる唯一の AI 用語集</span></div><div class="tldr-row" data-sid="github_trending"><span class="tldr-icon">🐙</span><span class="tldr-cat">GitHub</span><span class="tldr-text">JuliusBrussee/caveman</span></div><div class="tldr-row" data-sid="google_trends"><span class="tldr-icon">📈</span><span class="tldr-cat">Google</span><span class="tldr-text">アルゼンチン ワールドカップ</span></div><div class="tldr-row" data-sid="players"><span class="tldr-icon">🏢</span><span class="tldr-cat">プレイヤー</span><span class="tldr-text">Google Chromeで「Perplexity」を偽装する悪質拡張機能が発見　Microsoftが警告</span></div><div class="tldr-row" data-sid="industry_report"><span class="tldr-icon">📑</span><span class="tldr-cat">業界レポ</span><span class="tldr-text">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</span></div><div class="tldr-row" data-sid="mckinsey_book"><span class="tldr-icon">📖</span><span class="tldr-cat">選書</span><span class="tldr-text">人生 使用法</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">ChatGPTとClaudeの使い分け、間違えている人が多すぎる</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">影響力の武器</span></div></div>
+    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（26分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">顧客満足度の逆説</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">長文分析は仮説を持ってから読む</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">市場が二極化している局面で「中間」に居続けることが最もリスクが高い。自社の立ち位置を今決める</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">自社が『中間』に位置していないかを確認する視点</span></div><div class="tldr-row" data-sid="companycase"><span class="tldr-icon">🏢</span><span class="tldr-cat">事例</span><span class="tldr-text">エンタメとテクノロジーが交差する唯一の会社</span></div><div class="tldr-row" data-sid="roleview"><span class="tldr-icon">👤</span><span class="tldr-cat">視点</span><span class="tldr-text">採用できない前提で、事業計画を作り直せているか</span></div><div class="tldr-row" data-sid="aitrend"><span class="tldr-icon">🔶</span><span class="tldr-cat">AI速報</span><span class="tldr-text">今年必要になる唯一の AI 用語集</span></div><div class="tldr-row" data-sid="github_trending"><span class="tldr-icon">🐙</span><span class="tldr-cat">GitHub</span><span class="tldr-text">JuliusBrussee/caveman</span></div><div class="tldr-row" data-sid="google_trends"><span class="tldr-icon">📈</span><span class="tldr-cat">Google</span><span class="tldr-text">フレディ・フリーマン</span></div><div class="tldr-row" data-sid="players"><span class="tldr-icon">🏢</span><span class="tldr-cat">プレイヤー</span><span class="tldr-text">Google Chromeで「Perplexity」を偽装する悪質拡張機能が発見　Microsoftが警告</span></div><div class="tldr-row" data-sid="industry_report"><span class="tldr-icon">📑</span><span class="tldr-cat">業界レポ</span><span class="tldr-text">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</span></div><div class="tldr-row" data-sid="mckinsey_book"><span class="tldr-icon">📖</span><span class="tldr-cat">選書</span><span class="tldr-text">人生 使用法</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">ChatGPTとClaudeの使い分け、間違えている人が多すぎる</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">影響力の武器</span></div></div>
     
 
     <div class="sec s1" data-sid="consulting">
@@ -342,7 +346,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="mi"><div class="mh">今年必要になる唯一の AI 用語集</div><div class="ms">AI の台頭により、新しい用語や俗語が雪崩のように登場しました。ここでは、遭遇する可能性のあるいくつかの最も重要な単語やフレーズの定義をまとめた用語集を示します。</div></div><div class="mi"><div class="mh">ブラウザ戦争はもはや検索に関するものではありません。ここでは、</div><div class="ms">Chrome や Safari に対抗することを目的として、現在利用可能ないくつかの主要な代替ブラウザの概要をまとめました。</div></div><div class="mi"><div class="mh">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</div><div class="ms">伝えられるところによると、メタCEOは社内会議で、AI開発の取り組みが予想ほど早く進んでいないと述べたという。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">ジャージー・マイクのIPOは、AIの誇大広告がいかに悪くなっているかを示している</div><div class="ms">ちょっと気になったので、ジャージー・マイクの IPO 書類を見てみました。確かにサンドイッチ屋にとって AI について言及する必要はないだろう。しかし、見よ。</div></div><div class="mi"><div class="mh">Meta、バイブコーディングされたゲームアプリ Pocket を静かにローンチ</div><div class="ms">Meta は、ユーザーがテキスト プロンプトを使用してインタラクティブなミニ ゲームを生成および共有できる実験的な AI アプリである Pocket を密かにリリースしました。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div></div><div class="mi"><div class="mh">Google は 2016 年に初めて検索ボックスを再設計しました。</div><div class="ms">四半世紀にわたり、Google の検索ボックスは、コンピューティングにおいて最もよく知られるインターフェイスの 1 つでした。薄い白い四角形、点滅するカーソル、入力されたいくつかの単語、および青いリンクのリストです。火曜日、Googleはそのパラダイムを正式に廃止する。年次I/O開発者カンファレンスで、Googleは検索ボックス自体の大幅な再設計を発表した。検索ボックス自体は、何十億ものクエリが入力される文字通りのテキストフィールドである。</div><div class="mi-suggestion">🎯 狙い：GoogleはGeminiを検索・Workspace・Androidに組み込み、既存の巨大ユーザー基盤ごとAI体験を囲い込む狙いがある</div></div></div>
+      <div class="sb"><div class="mi"><div class="mh">今年必要になる唯一の AI 用語集</div><div class="ms">AI の台頭により、新しい用語や俗語が雪崩のように登場しました。ここでは、遭遇する可能性のあるいくつかの最も重要な単語やフレーズの定義をまとめた用語集を示します。</div><a class="ir-link" href="https://techcrunch.com/2026/07/03/artificial-intelligence-definition-glossary-hallucinations-guide-to-common-ai-terms/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">ブラウザ戦争はもはや検索に関するものではありません。ここでは、</div><div class="ms">Chrome や Safari に対抗することを目的として、現在利用可能ないくつかの主要な代替ブラウザの概要をまとめました。</div><a class="ir-link" href="https://techcrunch.com/2026/07/03/as-the-browser-wars-heat-up-here-are-the-hottest-alternatives-to-chrome-and-safari-in-2026/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">マーク・ザッカーバーグ氏、AIエージェントは進歩していないとスタッフに語る</div><div class="ms">伝えられるところによると、メタCEOは社内会議で、AI開発の取り組みが予想ほど早く進んでいないと述べたという。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div><a class="ir-link" href="https://techcrunch.com/2026/07/02/mark-zuckerberg-tells-staff-that-ai-agents-havent-progressed-as-quickly-as-hed-hoped/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">ジャージー・マイクのIPOは、AIの誇大広告がいかに悪くなっているかを示している</div><div class="ms">ちょっと気になったので、ジャージー・マイクの IPO 書類を見てみました。確かにサンドイッチ屋にとって AI について言及する必要はないだろう。しかし、見よ。</div><a class="ir-link" href="https://techcrunch.com/2026/07/02/jersey-mikes-ipo-illustrates-how-bad-the-ai-hype-has-become/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">Meta、バイブコーディングされたゲームアプリ Pocket を静かにローンチ</div><div class="ms">Meta は、ユーザーがテキスト プロンプトを使用してインタラクティブなミニ ゲームを生成および共有できる実験的な AI アプリである Pocket を密かにリリースしました。</div><div class="mi-suggestion">🎯 狙い：Metaはモデルをオープンソース公開して開発者エコシステムを自社側に取り込みつつ、広告事業へのAI活用で収益を守る狙いがある</div><a class="ir-link" href="https://techcrunch.com/2026/07/02/meta-quietly-launches-vibe-coded-gaming-app-pocket/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">Google は 2016 年に初めて検索ボックスを再設計しました。</div><div class="ms">四半世紀にわたり、Google の検索ボックスは、コンピューティングにおいて最もよく知られるインターフェイスの 1 つでした。薄い白い四角形、点滅するカーソル、入力されたいくつかの単語、および青いリンクのリストです。火曜日、Googleはそのパラダイムを正式に廃止する。年次I/O開発者カンファレンスで、Googleは検索ボックス自体の大幅な再設計を発表した。検索ボックス自体は、何十億ものクエリが入力される文字通りのテキストフィールドである。</div><div class="mi-suggestion">🎯 狙い：GoogleはGeminiを検索・Workspace・Androidに組み込み、既存の巨大ユーザー基盤ごとAI体験を囲い込む狙いがある</div><a class="ir-link" href="https://venturebeat.com/technology/google-just-redesigned-the-search-box-for-the-first-time-in-25-years-heres-why-it-matters-more-than-you-think" target="_blank" rel="noopener">🔗 元記事を読む →</a></div></div>
     </div>
 
     <div class="sec s15" data-sid="github_trending">
@@ -359,7 +363,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>JuliusBrussee/caveman</div><div class="bz-why">🪨 少数のトークンがトリックを行うのに、なぜ多くのトークンを使用するのか — 穴居人のような会話でトークンの 65% をカットするクロード コード スキル</div><div class="bz-fit">📡 本日+2,851⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>usestrix/strix</div><div class="bz-why">アプリの脆弱性を見つけて修正するためのオープンソース AI ペネトレーション テスト ツール。</div><div class="bz-fit">📡 本日+2,804⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">3</span>obra/superpowers</div><div class="bz-why">機能するエージェント スキル フレームワークとソフトウェア開発方法論。</div><div class="bz-fit">📡 本日+1,205⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">4</span>msitarzewski/agency-agents</div><div class="bz-why">すぐに使える完全な AI エージェンシー - フロントエンドのウィザードから Reddit コミュニティの忍者まで、奇抜なインジェクターからリアリティ チェッカーまで。各エージェントは、個性、プロセス、実績のある成果物を備えた専門の専門家です。</div><div class="bz-fit">📡 本日+1,202⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">5</span>facebook/astryx</div><div class="bz-why">完全にカスタマイズ可能でエージェント対応のオープンソース設計システム</div><div class="bz-fit">📡 本日+943⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 08:37時点</div></div>
+      <div class="sb"><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>JuliusBrussee/caveman</div><div class="bz-why">🪨 少数のトークンがトリックを行うのに、なぜ多くのトークンを使用するのか — 穴居人のような会話でトークンの 65% をカットするクロード コード スキル</div><div class="bz-fit">📡 本日+2,863⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>usestrix/strix</div><div class="bz-why">アプリの脆弱性を見つけて修正するためのオープンソース AI ペネトレーション テスト ツール。</div><div class="bz-fit">📡 本日+2,803⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">3</span>obra/superpowers</div><div class="bz-why">機能するエージェント スキル フレームワークとソフトウェア開発方法論。</div><div class="bz-fit">📡 本日+1,209⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">4</span>msitarzewski/agency-agents</div><div class="bz-why">すぐに使える完全な AI エージェンシー - フロントエンドのウィザードから Reddit コミュニティの忍者まで、奇抜なインジェクターからリアリティ チェッカーまで。各エージェントは、個性、プロセス、実績のある成果物を備えた専門の専門家です。</div><div class="bz-fit">📡 本日+1,208⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">5</span>safishamsi/graphify</div><div class="bz-why">AI コーディング アシスタント スキル (Claude Code、Codex、OpenCode、Cursor、Gemini CLI など)。コード、SQL スキーマ、R スクリプト、シェル スクリプト、ドキュメント、論文、画像、ビデオのフォルダーをクエリ可能なナレッジ グラフに変換します。アプリ コード + データベース スキーマ + インフラストラクチャを 1 つのグラフにまとめました。</div><div class="bz-fit">📡 本日+945⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 09:44時点</div></div>
     </div>
 
     <div class="sec s18" data-sid="google_trends">
@@ -376,7 +380,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">1</span>アルゼンチン ワールドカップ</div><div class="bz-why">メッシがW杯史上初の通算20得点目、史上初の通算30試合目で達成 新記録8試合連続ゴール</div><div class="bz-fit">📡 検索急上昇 5,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">2</span>レッズ 対 オリオールズ</div><div class="bz-why">Orioles and Reds lineups for series opener in Cincinnati</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">3</span>はたらく細胞</div><div class="bz-why">はたらく細胞の作者に謝罪 講談社</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">4</span>三山凌輝</div><div class="bz-why">三山凌輝 別人のような現在の姿にビックリ！「パパになって…」人気女優と結婚、出産発表から１年（スポーツ報知）</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">5</span>ブレーブス 対 メッツ</div><div class="bz-why">Grant Holmes prepares to face New York Mets in series opener</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-checked">🕐 08:37時点</div></div>
+      <div class="sb"><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">1</span>フレディ・フリーマン</div><div class="bz-why">ド軍フリーマンが証言した大谷翔平の「怒り」 落胆する25歳捕手にぶつけた“助言”「もう忘れよう。ショウヘイにイラついているだけじゃ何もよくならない」（CoCoKARAnext）</div><div class="bz-fit">📡 検索急上昇 5,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">2</span>サッカーアルゼンチン代表 対 サッカーカーボベルデ代表 試合経過</div><div class="bz-why">メッシ、史上初のＷ杯通算２０得点到達！超絶トラップから驚異の８戦連発 ＧＫボジニャから今大会７点目で再び単独トップに</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">3</span>竜巻注意情報</div><div class="bz-why">福岡・筑後地方に竜巻注意情報 雷や突風、急な強い雨に警戒</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">4</span>上地雄輔</div><div class="bz-why">サッカー日本代表「次の監督」1位は？ 3位の“名将”クロップ、2位の“意欲”本田圭佑に大差【敗退直後アンケート】</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">5</span>アストロズ 対 レイズ</div><div class="bz-why">金曜日のアストロズ対レイズの試合は通常のテレビ放送では放送されない。視聴方法はこちら</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-checked">🕐 09:44時点</div></div>
     </div>
 
     <div class="sec s16" data-sid="players">
@@ -410,7 +414,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="bc">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</div><div class="concept">サプライチェーンの領域でもAI活用が本格化している。Gartnerは2026年のサプライチェーン技術のトップトレンドとして、3つのテーマに沿う8つを挙げた。企業の投資判断の指針となるトレンドの中身は何か。</div><a class="ir-link" href="https://www.itmedia.co.jp/enterprise/articles/2607/03/news036.html" target="_blank" rel="noopener">🔗 元記事を読む →</a><div class="stopic-micro-theme">🏷 AI・半導体</div><div class="mi-suggestion">💡 示唆：AI・半導体関連はテーマ性で値動きが先行しやすい分野。実際の受注・提携実績を伴っているかを決算で確認する視点が要る</div><div class="ma-why-toggle" onclick="this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">AI関連の期待は、実際の企業収益に反映されるまでにタイムラグがある。市場は将来の成長期待を先に織り込むため、期待と実際の受注実績にギャップが生まれやすく、決算発表のたびに評価が大きく変動しやすい</div><div class="block"><div class="block-label">📋 記事の構成（見出しから抽出）</div><ul class="ul"><li>サプライチェーンを変える8つの技術とは</li><li>アイティメディアからのお知らせ</li></ul></div><div class="ma-why-toggle" onclick="this.nextElementSibling.classList.toggle('open')">📖 本文の冒頭を読む ▾</div><div class="ma-why" style="white-space:pre-wrap">サプライチェーンの領域でもAI活用が本格化している。Gartnerは2026年のサプライチェーン技術のトップトレンドとして、3つのテーマに沿う8つを挙げた。企業の投資判断の指針となるトレンドの中身は何か。
+      <div class="sb"><div class="bc">2026年、サプライチェーンを変える「8つの技術」とは？ Gartner予測</div><div class="concept">サプライチェーンの領域でもAI活用が本格化している。Gartnerは2026年のサプライチェーン技術のトップトレンドとして、3つのテーマに沿う8つを挙げた。企業の投資判断の指針となるトレンドの中身は何か。</div><a class="ir-link" href="https://www.itmedia.co.jp/enterprise/articles/2607/03/news036.html" target="_blank" rel="noopener">🔗 元記事を読む →</a><div class="stopic-micro-theme">🏷 AI・半導体</div><div class="mi-suggestion">💡 示唆：AI・半導体関連はテーマ性で値動きが先行しやすい分野。実際の受注・提携実績を伴っているかを決算で確認する視点が要る</div><div class="ma-why-toggle" onclick="this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">AI関連の期待は、実際の企業収益に反映されるまでにタイムラグがある。市場は将来の成長期待を先に織り込むため、期待と実際の受注実績にギャップが生まれやすく、決算発表のたびに評価が大きく変動しやすい</div><div class="block"><div class="block-label">📋 記事の構成（見出しから抽出）</div><ul class="ul"><li>サプライチェーンを変える8つの技術とは</li></ul></div><div class="ma-why-toggle" onclick="this.nextElementSibling.classList.toggle('open')">📖 本文の冒頭を読む ▾</div><div class="ma-why" style="white-space:pre-wrap">サプライチェーンの領域でもAI活用が本格化している。Gartnerは2026年のサプライチェーン技術のトップトレンドとして、3つのテーマに沿う8つを挙げた。企業の投資判断の指針となるトレンドの中身は何か。
 
 Gartnerは2026年6月30日（現地時間）、2026年のサプライチェーン技術のトップトレンドを発表した。同社は、AI技術の進展によって、最高サプライチェーン責任者（CSCO）がビジネス価値の創出やレジリエンス（回復力）の強化、オペレーティングモデルの再構築を進められるようになっているとみている。
 
@@ -487,7 +491,7 @@ Gartnerが挙げた8つのトレンドは「多機能ロボット」「フィジ
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="mi"><div class="mh">NYマムダニ市長 独立記念日前に 移民の役割など強調し政権批判</div><div class="ms">アメリカの建国から250年となる独立記念日を前にニューヨークのマムダニ市長が演説し、アメリカの歴史に移民が果たしてきた役割や多様性を強調したうえでトランプ政権の移民政策などを批判しました。</div><div class="stopic-micro-theme">🏷 人口・労働</div><div class="mi-suggestion">💡 示唆：労働力を巡る構造変化は一過性でなく、数年単位で人件費・採用戦略に影響し続ける</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">人口動態は出生率という数十年単位で固定された要因に基づくため、政策で急激に変えることが難しい。労働力不足は一時的な景気循環ではなく構造的に続く問題であるため、対応を先送りするほど採用・賃金コストの負担が累積していく</div></div><div class="mi"><div class="mh">日英伊共同開発の次期戦闘機 合弁企業と契約延長 開発本格化へ</div><div class="ms">日本とイギリス、イタリアが共同で開発する次期戦闘機をめぐり、3か国でつくる国際機関は設計などを担う合弁企業との契約を来年末まで延長しました。イギリスの財政難による計画への影響も懸念されていましたが、今回の契約で2035年の配備に向けた動きが本格化する見通しです。</div></div><div class="mi"><div class="mh">アメリカ建国250年 トランプ大統領実績強調 政治利用批判も</div><div class="ms">アメリカは4日、建国250年の節目となる独立記念日を迎えます。全米各地で記念の行事が行われ祝賀ムードが広がる一方、トランプ大統領が一連の行事を政治利用しているという批判の声も相次いでいて、アメリカで進む分断を国内外に改めて印象づけるものにもなりそうです。</div></div><div class="mi"><div class="mh">ロシア 爆発でウクライナ将校起訴も 支援続けるドイツを批判</div><div class="ms">ロシア大統領府の報道官は、ロシアとドイツを結ぶ海底の天然ガスパイプラインで起きた爆発をめぐって、ドイツがウクライナ軍の元将校を起訴したにもかかわらずウクライナへの支援を続けているとして批判しました。</div></div><div class="mi"><div class="mh">イラン ハメネイ師の葬儀準備進む 各国の要人も次々に到着</div><div class="ms">殺害されたイランの前の最高指導者、ハメネイ師の葬儀が始まるのを前に、首都テヘランには参列する外国の要人が次々に到着し、複数のイランメディアは中東の各国や中国などおよそ100か国から要人などが訪れていると伝えています。</div></div><div class="mi"><div class="mh">国会 与党に会期延長論も 高市首相の意向踏まえ対応検討へ</div><div class="ms">国会では、与党が皇室典範改正案に加えて、衆議院議員の定数削減法案などの成立を目指す姿勢を崩しておらず、会期の延長もやむをえないという声も出ています。一方、野党は予算委員会の集中審議の開催などを重ねて求めていて、与党が高市総理大臣の意向も踏まえて今後の対応を検討することにしています。</div></div><div class="mi"><div class="mh">高市首相 インド訪問から帰国</div><div class="ms">インドを訪れていた高市総理大臣は日本時間の3日夜、羽田空港に帰国しました。</div></div></div>
+      <div class="sb"><div class="mi"><div class="mh">NYマムダニ市長 独立記念日前に 移民の役割など強調し政権批判</div><div class="ms">アメリカの建国から250年となる独立記念日を前にニューヨークのマムダニ市長が演説し、アメリカの歴史に移民が果たしてきた役割や多様性を強調したうえでトランプ政権の移民政策などを批判しました。</div><div class="stopic-micro-theme">🏷 人口・労働</div><div class="mi-suggestion">💡 示唆：労働力を巡る構造変化は一過性でなく、数年単位で人件費・採用戦略に影響し続ける</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">人口動態は出生率という数十年単位で固定された要因に基づくため、政策で急激に変えることが難しい。労働力不足は一時的な景気循環ではなく構造的に続く問題であるため、対応を先送りするほど採用・賃金コストの負担が累積していく</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260704/k10015168611000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">【動画解説】なぜ？40度超えも 欧州で記録的熱波</div><div class="ms">ヨーロッパでは6月中旬以降、記録的な熱波に見舞われ、フランスやドイツでは最高気温が40度を超えるなか、WHO＝世界保健機関のテドロス事務局長は、6月21日以降、死者数がいつもの年と比べて1300人以上、多くなっていると明らかにし、各国に対策を強化するよう呼びかけました。背景になにがあるのでしょうか、香月隆之デスクの解説です。※データ放送ではご覧いただけません</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260704/k10015168651000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">日英伊共同開発の次期戦闘機 合弁企業と契約延長 開発本格化へ</div><div class="ms">日本とイギリス、イタリアが共同で開発する次期戦闘機をめぐり、3か国でつくる国際機関は設計などを担う合弁企業との契約を来年末まで延長しました。イギリスの財政難による計画への影響も懸念されていましたが、今回の契約で2035年の配備に向けた動きが本格化する見通しです。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260704/k10015168621000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">アメリカ建国250年 トランプ大統領実績強調 政治利用批判も</div><div class="ms">アメリカは4日、建国250年の節目となる独立記念日を迎えます。全米各地で記念の行事が行われ祝賀ムードが広がる一方、トランプ大統領が一連の行事を政治利用しているという批判の声も相次いでいて、アメリカで進む分断を国内外に改めて印象づけるものにもなりそうです。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260704/k10015168551000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">ロシア 爆発でウクライナ将校起訴も 支援続けるドイツを批判</div><div class="ms">ロシア大統領府の報道官は、ロシアとドイツを結ぶ海底の天然ガスパイプラインで起きた爆発をめぐって、ドイツがウクライナ軍の元将校を起訴したにもかかわらずウクライナへの支援を続けているとして批判しました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260704/k10015168461000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">国会 与党に会期延長論も 高市首相の意向踏まえ対応検討へ</div><div class="ms">国会では、与党が皇室典範改正案に加えて、衆議院議員の定数削減法案などの成立を目指す姿勢を崩しておらず、会期の延長もやむをえないという声も出ています。一方、野党は予算委員会の集中審議の開催などを重ねて求めていて、与党が高市総理大臣の意向も踏まえて今後の対応を検討することにしています。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260704/k10015168411000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">高市首相 インド訪問から帰国</div><div class="ms">インドを訪れていた高市総理大臣は日本時間の3日夜、羽田空港に帰国しました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260703/k10015168521000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div></div>
     </div>
 
     <div class="sec s12" data-sid="stockstudy">
@@ -645,7 +649,7 @@ Gartnerが挙げた8つのトレンドは「多機能ロボット」「フィジ
       </div>
     </div>
 
-    <div class="ftr"><p>Generated by Jarvis &middot; 08:37</p></div>
+    <div class="ftr"><p>Generated by Jarvis &middot; 09:44</p></div>
   </div>
 
   <script>
@@ -714,8 +718,20 @@ Gartnerが挙げた8つのトレンドは「多機能ロボット」「フィジ
       const ratings=JSON.parse(localStorage.getItem(RK)||'{}');
       const LABELS={5:'🔥 神',4:'⭐ 使えた',3:'😐 ふつう',2:'🤔 微妙',1:'👎 イマイチ'};
 
+      // 今日のポイント欄に評価済みマークを付ける（2026-07-04追加：開かずに評価状況が一目で分かるように）
+      function syncTldrRatingMark(sec){
+        const row=document.querySelector('.tldr-row[data-sid="'+sec+'"]');
+        if(!row)return;
+        let mark=row.querySelector('.tldr-rated-mark');
+        if(ratings[sec]!==undefined){
+          if(!mark){mark=document.createElement('span');mark.className='tldr-rated-mark';row.appendChild(mark);}
+          mark.textContent=LABELS[ratings[sec]].split(' ')[0];
+        }else if(mark){mark.remove();}
+      }
+
       document.querySelectorAll('.sec-rating').forEach(el=>{
         const sec=el.dataset.sec;
+        syncTldrRatingMark(sec);
         el.querySelectorAll('.rb').forEach(btn=>{
           const v=+btn.dataset.v;
           if(ratings[sec]===v) btn.classList.add('active');
@@ -724,6 +740,7 @@ Gartnerが挙げた8つのトレンドは「多機能ロボット」「フィジ
             else{ratings[sec]=v;}
             localStorage.setItem(RK,JSON.stringify(ratings));
             el.querySelectorAll('.rb').forEach(b=>b.classList.toggle('active',ratings[sec]===+b.dataset.v));
+            syncTldrRatingMark(sec);
             // Toast feedback
             if(ratings[sec]!==undefined){
               const t=document.getElementById('toast');
@@ -781,12 +798,15 @@ Gartnerが挙げた8つのトレンドは「多機能ロボット」「フィジ
       const state=JSON.parse(localStorage.getItem(CK)||'{}');
       // フィードバックバーは毎回のページ読み込みで必ず折りたたみから開始（展開時70vhが一覧表示と丸ごと重なるため・過去の展開操作の記憶は無視する・2026-07-02追加）
       state.memo=true;
+      // sh（ヘッダー）とsec-rating（評価ボタン）は閉じても常に表示する（2026-07-04修正：
+      // 「カテゴリを閉じた横で評価ボタンを押せるようにしたい」というフィードバックへの対応）
+      function isAlwaysVisible(el){return el.classList.contains('sh')||el.classList.contains('sec-rating');}
       function isCollapsed(sec){
-        for(let el of sec.children){if(!el.classList.contains('sh'))return el.style.display==='none';}
+        for(let el of sec.children){if(!isAlwaysVisible(el))return el.style.display==='none';}
         return false;
       }
       function setCollapsed(sec,collapsed){
-        for(let el of sec.children){if(!el.classList.contains('sh'))el.style.display=collapsed?'none':'';}
+        for(let el of sec.children){if(!isAlwaysVisible(el))el.style.display=collapsed?'none':'';}
         const btn=sec.querySelector('.cb');if(btn)btn.textContent=collapsed?'+':'−';
         state[sec.dataset.sid]=collapsed;
         localStorage.setItem(CK,JSON.stringify(state));
@@ -802,6 +822,16 @@ Gartnerが挙げた8つのトレンドは「多機能ロボット」「フィジ
         const sec=document.querySelector('.sec[data-sid="'+sid+'"]');
         if(sec)setCollapsed(sec,true);
       };
+      // 「今日のポイント」の行から該当カテゴリへジャンプする（2026-07-04追加：
+      // 「今日のポイントから、各カテゴリに飛ばすリンクを作れる？」というフィードバックへの対応）
+      window.jumpToSec=function(sid){
+        const sec=document.querySelector('.sec[data-sid="'+sid+'"]');
+        if(!sec)return;
+        if(isCollapsed(sec))setCollapsed(sec,false);
+        sec.scrollIntoView({behavior:'smooth',block:'start'});
+        sec.classList.add('jump-flash');
+        setTimeout(()=>sec.classList.remove('jump-flash'),1200);
+      };
       document.addEventListener('click',function(ev){
         const btn=ev.target.closest('.cb');
         if(btn){
@@ -810,6 +840,8 @@ Gartnerが挙げた8つのトレンドは「多機能ロボット」「フィジ
           setCollapsed(sec,!isCollapsed(sec));
           return;
         }
+        const tldrRow=ev.target.closest('.tldr-row');
+        if(tldrRow){window.jumpToSec(tldrRow.dataset.sid);return;}
         // ヘッダーをタップして開閉（＋−ボタン廃止・2026-07-01）。開いていれば閉じる、閉じていれば開く
         const header=ev.target.closest('.sh');
         if(header&&!ev.target.closest('.sa')){

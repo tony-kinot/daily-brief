@@ -1,0 +1,28 @@
+{
+  "date": "20260705",
+  "ratings": {
+    "macro": 3,
+    "macronews": 4,
+    "ai": 1,
+    "stocktopic": 4,
+    "consulting": 1,
+    "note": 1,
+    "book": 4,
+    "roleview": 4,
+    "bookstock": 5,
+    "companycase": 5,
+    "stockstudy": 1,
+    "marketingstudy": 2,
+    "aitrend": 3,
+    "github_trending": 3,
+    "google_trends": 3,
+    "players": 2,
+    "industry_report": 2,
+    "kabu": 5,
+    "mckinsey_book": 4
+  },
+  "memo": "カテゴリを閉じたら、閉じたカテゴリが画面の上部に来るようにして。読む→閉じる→評価の導線を確保したいので。生ニュースの審議再開と地政学の関係がこの文書から伝わりません。整合性チェックを追加して。aiフロントはタイトルから平凡で読む気になりません。戦コンナレッジとnote変換ネタ、株の勉強も同様です。中身も薄い。主要プレイヤー、業界レポートは更新されてなくない？",
+  "favorites": [],
+  "scale_max": 5,
+  "sent_at": "2026-07-05T00:43:01.838Z"
+}

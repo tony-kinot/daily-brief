@@ -53,6 +53,9 @@
     .cat-move{display:flex;gap:4px;flex-shrink:0}
     .cat-move button{background:none;border:1px solid var(--bo);border-radius:6px;width:26px;height:26px;color:var(--mu);font-size:11px;cursor:pointer}
     .cat-move button:disabled{opacity:.3;cursor:default}
+    .cat-row.dragging{opacity:.35}
+    .cat-row.drop-before{box-shadow:inset 0 3px 0 0 var(--bl)}
+    .cat-row.drop-after{box-shadow:inset 0 -3px 0 0 var(--bl)}
     .cat-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
     .cat-actions button{flex:1;min-width:calc(50% - 4px);background:none;border:1px solid var(--bo);border-radius:8px;padding:6px;font-size:12px;color:var(--mu);cursor:pointer}
     .cat-presets{margin-top:6px}
@@ -61,6 +64,7 @@
     .ff-toggle button+button{border-left:1px solid var(--bo)}
     .ff-toggle button.active{background:rgba(245,158,11,.15);color:#F59E0B}
     .w{max-width:680px;margin:0 auto;padding:0 14px}
+    #brief-body{display:flex;flex-direction:column}
     .sec{margin-top:14px;background:var(--sf);border-radius:14px;overflow:hidden;border:1px solid var(--bo)}
     .sh{display:flex;align-items:flex-start;gap:10px;padding:13px 16px 11px;border-bottom:1px solid var(--bo);cursor:pointer}
     .si{font-size:22px;line-height:1;flex-shrink:0;margin-top:2px}
@@ -252,7 +256,7 @@
       </div>
     </div>
     <div id="cat-panel" class="cat-panel" style="display:none">
-      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">📄</span><span class="rank-label">kabu</span><span class="rank-count">評価5.0（n=1）</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">🗒️</span><span class="rank-label">ネタ帳</span><span class="rank-count">評価4.5（n=2）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">📖</span><span class="rank-label">マッキンゼー選書</span><span class="rank-count">評価4.0（n=1）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">🏢</span><span class="rank-label">実在企業ケース</span><span class="rank-count">評価3.8（n=5）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.7（n=4）</span></div><div class="cat-panel-label" style="margin-top:12px">🛠 テコ入れ候補（低評価・Jarvisが改善予定）</div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">noteネタ</span><span class="rank-count">評価1.5（n=7）</span></div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">株の勉強</span><span class="rank-count">評価1.8（n=4）</span></div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">業界レポート</span><span class="rank-count">評価2.0（n=2）</span></div></div>
+      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-row"><span class="rank-num">1</span><span class="rank-icon">📚</span><span class="rank-label">名著</span><span class="rank-count">★1</span></div><div class="rank-row"><span class="rank-num">2</span><span class="rank-icon">📄</span><span class="rank-label">kabu</span><span class="rank-count">評価5.0（n=1）</span></div><div class="rank-row"><span class="rank-num">3</span><span class="rank-icon">🗒️</span><span class="rank-label">ネタ帳</span><span class="rank-count">評価4.5（n=2）</span></div><div class="rank-row"><span class="rank-num">4</span><span class="rank-icon">📖</span><span class="rank-label">マッキンゼー選書</span><span class="rank-count">評価4.0（n=2）</span></div><div class="rank-row"><span class="rank-num">5</span><span class="rank-icon">📈</span><span class="rank-label">株トピック</span><span class="rank-count">評価3.7（n=5）</span></div><div class="cat-panel-label" style="margin-top:12px">🛠 テコ入れ候補（低評価・Jarvisが改善予定）</div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">noteネタ</span><span class="rank-count">評価1.7（n=8）</span></div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">株の勉強</span><span class="rank-count">評価2.1（n=5）</span></div><div class="rank-row"><span class="rank-icon">⚠️</span><span class="rank-label">マーケティングの勉強</span><span class="rank-count">評価2.2（n=3）</span></div></div>
       <div class="cat-panel-label">📂 表示するカテゴリを選択</div>
       <div id="cat-rows"></div>
       <div class="cat-actions">
@@ -269,7 +273,7 @@
   </div></div>
 
   <div class="w" id="brief-body">
-    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（28分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">データが多いと判断が遅くなる</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">会議アジェンダは「決める」と「共有」を分ける</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">金利上昇は進行中の投資・M&amp;A案件の価値を直撃する。WACCを今すぐ再計算し、回収シナリオを更新せよ</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">金利上昇局面で買われるのは『稼ぐ力』が強い企業</span></div><div class="tldr-row" data-sid="companycase"><span class="tldr-icon">🏢</span><span class="tldr-cat">事例</span><span class="tldr-text">車を作る会社から、移動のOSを売る会社へ</span></div><div class="tldr-row" data-sid="roleview"><span class="tldr-icon">👤</span><span class="tldr-cat">視点</span><span class="tldr-text">関税が上がるたび、あなたの調達先は『安全』ではなくなる</span></div><div class="tldr-row" data-sid="aitrend"><span class="tldr-icon">🔶</span><span class="tldr-cat">AI速報</span><span class="tldr-text">Amazon、Mechanical Turkの新規顧客受付を停止</span></div><div class="tldr-row" data-sid="github_trending"><span class="tldr-icon">🐙</span><span class="tldr-cat">GitHub</span><span class="tldr-text">openai/codex-plugin-cc</span></div><div class="tldr-row" data-sid="google_trends"><span class="tldr-icon">📈</span><span class="tldr-cat">Google</span><span class="tldr-text">メキシコ 対 イングランド</span></div><div class="tldr-row" data-sid="players"><span class="tldr-icon">🏢</span><span class="tldr-cat">プレイヤー</span><span class="tldr-text">AIはITエンジニアを淘汰しない　Microsoft調査が示す、AI委任とキャリアの好機</span></div><div class="tldr-row" data-sid="industry_report"><span class="tldr-icon">📑</span><span class="tldr-cat">業界レポ</span><span class="tldr-text">AIはITエンジニアを淘汰しない　Microsoft調査が示す、AI委任とキャリアの好機</span></div><div class="tldr-row" data-sid="mckinsey_book"><span class="tldr-icon">📖</span><span class="tldr-cat">選書</span><span class="tldr-text">マザー・メアリー・カムズ・トゥ・ミー</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">コンサルが絶対に言わない「資料を作らない」技術</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">HARD THINGS</span></div></div>
+    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（28分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">データが多いと判断が遅くなる</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">会議アジェンダは「決める」と「共有」を分ける</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">金利上昇は進行中の投資・M&amp;A案件の価値を直撃する。WACCを今すぐ再計算し、回収シナリオを更新せよ</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">金利上昇局面で買われるのは『稼ぐ力』が強い企業</span></div><div class="tldr-row" data-sid="companycase"><span class="tldr-icon">🏢</span><span class="tldr-cat">事例</span><span class="tldr-text">車を作る会社から、移動のOSを売る会社へ</span></div><div class="tldr-row" data-sid="roleview"><span class="tldr-icon">👤</span><span class="tldr-cat">視点</span><span class="tldr-text">関税が上がるたび、あなたの調達先は『安全』ではなくなる</span></div><div class="tldr-row" data-sid="aitrend"><span class="tldr-icon">🔶</span><span class="tldr-cat">AI速報</span><span class="tldr-text">Amazon、Mechanical Turkの新規顧客受付を停止</span></div><div class="tldr-row" data-sid="github_trending"><span class="tldr-icon">🐙</span><span class="tldr-cat">GitHub</span><span class="tldr-text">openai/codex-plugin-cc</span></div><div class="tldr-row" data-sid="google_trends"><span class="tldr-icon">📈</span><span class="tldr-cat">Google</span><span class="tldr-text">ベリンガム</span></div><div class="tldr-row" data-sid="players"><span class="tldr-icon">🏢</span><span class="tldr-cat">プレイヤー</span><span class="tldr-text">AIはITエンジニアを淘汰しない　Microsoft調査が示す、AI委任とキャリアの好機</span></div><div class="tldr-row" data-sid="industry_report"><span class="tldr-icon">📑</span><span class="tldr-cat">業界レポ</span><span class="tldr-text">AIはITエンジニアを淘汰しない　Microsoft調査が示す、AI委任とキャリアの好機</span></div><div class="tldr-row" data-sid="mckinsey_book"><span class="tldr-icon">📖</span><span class="tldr-cat">選書</span><span class="tldr-text">マザー・メアリー・カムズ・トゥ・ミー</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">コンサルが絶対に言わない「資料を作らない」技術</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">HARD THINGS</span></div></div>
     <div id="weekly-summary" style="display:none"></div>
 
     <div class="sec s1" data-sid="consulting">
@@ -383,7 +387,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>openai/codex-plugin-cc</div><div class="bz-why">Claude Code の Codex を使用して、コードをレビューしたりタスクを委任したりできます。</div><div class="bz-fit">📡 本日+1,519⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>Zackriya-Solutions/meetily</div><div class="bz-why">プライバシーを第一に考え、Rust 上に構築された、4 倍高速な Parakeet/Whisper のライブ文字起こし、発言者のダイアライゼーション、Ollama の要約機能を備えた AI 会議アシスタント。 100% ローカル処理。クラウドは必要ありません。 Meetily (Meetly Ai - &lt;a href=&quot;https://meetily.ai&quot; class=&quot;Link--inTextBlock&quot; rel=&quot;nofollow&quot;&gt;https://meetily.ai&lt;/a&gt;) は、macOS および Windows 向けの #1 の自己ホスト型オープンソース Ai 会議メモ作成ツールです。</div><div class="bz-fit">📡 本日+1,409⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">3</span>usestrix/strix</div><div class="bz-why">アプリの脆弱性を見つけて修正するためのオープンソース AI ペネトレーション テスト ツール。</div><div class="bz-fit">📡 本日+1,121⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">4</span>JuliusBrussee/caveman</div><div class="bz-why">🪨 少数のトークンがトリックを行うのに、なぜ多くのトークンを使用するのか — 穴居人のような会話でトークンの 65% をカットするクロード コード スキル</div><div class="bz-fit">📡 本日+1,043⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">5</span>asgeirtj/system_prompts_leaks</div><div class="bz-why">Anthropic - Claude Fable 5、Opus 4.8、Claude Code、Claude Design からシステム プロンプトを抽出しました。 OpenAI - ChatGPT 5.5 Thinking、GPT 5.5 Instant、Codex。 Google - Gemini 3.5 Flash、3.1 Pro、Antigravity。 xAI - Grok、Cursor、Copilot、VS Code、Perplexity など。定期的に更新されます。</div><div class="bz-fit">📡 本日+981⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 08:26時点</div></div>
+      <div class="sb"><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>openai/codex-plugin-cc</div><div class="bz-why">Claude Code の Codex を使用して、コードをレビューしたりタスクを委任したりできます。</div><div class="bz-fit">📡 本日+1,532⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>Zackriya-Solutions/meetily</div><div class="bz-why">プライバシーを第一に考え、Rust 上に構築された、4 倍高速な Parakeet/Whisper のライブ文字起こし、発言者のダイアライゼーション、Ollama の要約機能を備えた AI 会議アシスタント。 100% ローカル処理。クラウドは必要ありません。 Meetily (Meetly Ai - &lt;a href=&quot;https://meetily.ai&quot; class=&quot;Link--inTextBlock&quot; rel=&quot;nofollow&quot;&gt;https://meetily.ai&lt;/a&gt;) は、macOS および Windows 向けの #1 の自己ホスト型オープンソース Ai 会議メモ作成ツールです。</div><div class="bz-fit">📡 本日+1,409⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">3</span>usestrix/strix</div><div class="bz-why">アプリの脆弱性を見つけて修正するためのオープンソース AI ペネトレーション テスト ツール。</div><div class="bz-fit">📡 本日+1,114⭐ ・ GitHub Trending</div></div><div class="bz-item huge"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">4</span>JuliusBrussee/caveman</div><div class="bz-why">🪨 少数のトークンがトリックを行うのに、なぜ多くのトークンを使用するのか — 穴居人のような会話でトークンの 65% をカットするクロード コード スキル</div><div class="bz-fit">📡 本日+1,052⭐ ・ GitHub Trending</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">5</span>asgeirtj/system_prompts_leaks</div><div class="bz-why">Anthropic - Claude Fable 5、Opus 4.8、Claude Code、Claude Design からシステム プロンプトを抽出しました。 OpenAI - ChatGPT 5.5 Thinking、GPT 5.5 Instant、Codex。 Google - Gemini 3.5 Flash、3.1 Pro、Antigravity。 xAI - Grok、Cursor、Copilot、VS Code、Perplexity など。定期的に更新されます。</div><div class="bz-fit">📡 本日+981⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 11:07時点</div></div>
     </div>
 
     <div class="sec s18" data-sid="google_trends">
@@ -400,7 +404,7 @@
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">1</span>メキシコ 対 イングランド</div><div class="bz-why">標高2200メートルでの決戦、宿泊ホテルの周りでの”妨害”…イングランド「今大会最大の試練」高地順応のためにある医薬品を使用したかの確認を求められたが…（中日スポーツ）</div><div class="bz-fit">📡 検索急上昇 10,000+ ・ Google急上昇検索</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">2</span>ゴルフ</div><div class="bz-why">9年ぶりVを逃し「自分で流れを落とした」 史上最多7人プレーオフ…それぞれの心模様（ゴルフ総合サイト ALBA Net）</div><div class="bz-fit">📡 検索急上昇 5,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">3</span>田中真美子</div><div class="bz-why">Google急上昇検索で上位</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">4</span>ワールドカップ 統計情報</div><div class="bz-why">「韓国は醜態、日本は不運。それ以外はゼロ」アジア勢惨敗にW杯不出場のイタリア大手紙記者が苦言「９枠を続けたらスキャンダルだ」【W杯】（SOCCER DIGEST Web）</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">5</span>mexico vs england</div><div class="bz-why">メキシコ対イングランドのライブ: 2026 年ワールドカップ ベスト 16 の試合速報、予想、ラインナップ、天気予報の最新情報をご覧ください</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-checked">🕐 08:26時点</div></div>
+      <div class="sb"><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">1</span>ベリンガム</div><div class="bz-why">W杯イングランド代表MFベリンガム　次期「007」に立候補！FWハリー・ケインもアクションに憧れ</div><div class="bz-fit">📡 検索急上昇 5,000+ ・ Google急上昇検索</div></div><div class="bz-item medium"><span class="bz-badge medium">🔥🔥 中バズ</span><div class="bz-headline"><span class="bz-rank">2</span>バーチャル高校野球</div><div class="bz-why">東東京大会 2回戦 早稲田 vs. 京華商 - 夏の高校野球 - ライブ配信</div><div class="bz-fit">📡 検索急上昇 5,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">3</span>新潟記念</div><div class="bz-why">「今年も豪華すぎ」新潟記念、G1馬の続々参戦表明にファン騒然「スーパーG3や」「すごいメンバーレベル」</div><div class="bz-fit">📡 検索急上昇 2,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">4</span>デクラン・ライス</div><div class="bz-why">アーセナルはブルーノ・ギマランイスの移籍金7700万ポンドについて、様々な選択肢を検討している。</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-item small"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">5</span>アンソニー・ゴードン</div><div class="bz-why">イングランドのサッカー選手アンソニー・ゴードンの私生活を探る - ガールフレンド、両親、兄弟、家族のルーツ</div><div class="bz-fit">📡 検索急上昇 1,000+ ・ Google急上昇検索</div></div><div class="bz-checked">🕐 11:07時点</div></div>
     </div>
 
     <div class="sec s16" data-sid="players">
@@ -513,7 +517,7 @@ Microsoftは、AIが研究段階から大規模な運用フェーズへと移行
       <button class="rb" data-v="2">🤔 微妙</button>
       <button class="rb" data-v="1">👎 イマイチ</button>
     </div>
-      <div class="sb"><div class="mi"><div class="mh">ベネズエラ地震 死者3000人超 住宅・インフラ被害6兆円近くに</div><div class="ms">南米ベネズエラで先月発生したマグニチュード7を超える地震でベネズエラ政府は死者の数が3000人を超えたと発表しました。さらに増える可能性が指摘されているほか、住宅を失った人が1万7000人余りに上り、被災者への支援が課題になっています。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169651000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">【動画】Pickup NEWS(7月6日）</div><div class="ms">これまでに入っているニュースを、まとめて1分の動画でお伝えします。（データ放送では動画をご覧いただけません）</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169511000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">モスクワ国際バレエコンクール グジェレフ瞭舞さんが金賞</div><div class="ms">世界の主要なバレエコンクールの1つ、モスクワ国際バレエコンクールの受賞者が発表され、男性シニア部門ソロの1位に東京都出身のグジェレフ瞭舞さんが選ばれました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169561000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">ロシア軍の東部要衝掌握は「誇張」米戦争研究所の分析</div><div class="ms">ロシアが、ウクライナ東部の要衝を掌握したと発表したことについてアメリカのシンクタンクは「戦場の実態と一致しない。ロシア軍は成果を誇張している」とする分析を公表しました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169591000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">ハメネイ師葬儀 5日は後継者モジタバ師姿見せず 兄弟は参列</div><div class="ms">アメリカとイスラエルによる攻撃で殺害されたイランの前の最高指導者、ハメネイ師の葬儀に、息子で、後継の最高指導者、モジタバ・ハメネイ師の兄弟3人が参列しました。一方で、モジタバ師の姿はこれまでのところ現地のメディアでは伝えられていません。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169571000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">高市首相動静 2026年7月3日～5日</div><div class="ms">（高市首相動静 2026年7月5日）終日、公邸で過ごす（高市首相動静 2026年7月4日）13:57 公邸発14:12 東京 有明の東京ビッグサイト着。「日本ジュエリーベストドレッサー賞」の表彰式に出席。あいさつ。記念撮影15:12 日本ジュエリー協会の長堀慶太会長と面会（～15:15）15:21 同所発15:35 公邸着（高市首相動静 2026年7月3日）（以下、すべて日本時間）14:28 政府専用機でインド・ニューデリーの空港発22:38 羽田空港着22:57 同空港発23:21 公邸着</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169641000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">野党 集中審議開催を 政府与党 高市首相の意向踏まえ協議へ</div><div class="ms">国会の会期末が来週に迫る中、与党は皇族数の確保に向けた皇室典範改正案の会期内成立を目指し、早期に審議入りさせたい考えです。一方、野党は、予算委員会の集中審議などの開催を重ねて求めていて、政府・与党は高市総理大臣の意向を踏まえて6日、対応を協議することにしています。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169481000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div></div>
+      <div class="sb"><div class="mi"><div class="mh">OPECプラスの7か国 8月に日量18万バレル余の増産発表</div><div class="ms">サウジアラビアなどOPECプラスの主な産油国7か国は、原油の1日当たりの生産量を今月に続き、来月も18万バレル余り増やすと発表しました。アメリカとイランによる戦闘終結に向けた覚書の署名後、原油の先物価格は値下がり傾向にあり、増産の決定は価格のさらなる下落につながる可能性もあります。</div><div class="stopic-micro-theme">🏷 エネルギー・資源</div><div class="mi-suggestion">💡 示唆：エネルギー価格の変動は資源関連株・省エネ関連株の両方に波及し、コスト構造の見直しを迫る</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">エネルギーはほぼ全ての産業の川上に位置するコスト要素であるため、価格変動の影響が業種を問わず波及する。資源国の供給動向・地政学リスク・為替の3つが複合的に価格を動かすため、単一の原因で説明しきれないことが多い</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169531000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">ベネズエラ地震 死者3000人超 住宅・インフラ被害6兆円近くに</div><div class="ms">南米ベネズエラで先月発生したマグニチュード7を超える地震でベネズエラ政府は死者の数が3000人を超えたと発表しました。さらに増える可能性が指摘されているほか、住宅を失った人が1万7000人余りに上り、被災者への支援が課題になっています。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169651000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">モスクワ国際バレエコンクール グジェレフ瞭舞さんが金賞</div><div class="ms">世界の主要なバレエコンクールの1つ、モスクワ国際バレエコンクールの受賞者が発表され、男性シニア部門ソロの1位に東京都出身のグジェレフ瞭舞さんが選ばれました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169561000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">ロシア軍の東部要衝掌握は「誇張」米戦争研究所の分析</div><div class="ms">ロシアが、ウクライナ東部の要衝を掌握したと発表したことについてアメリカのシンクタンクは「戦場の実態と一致しない。ロシア軍は成果を誇張している」とする分析を公表しました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169591000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">ハメネイ師葬儀 5日は後継者モジタバ師姿見せず 兄弟は参列</div><div class="ms">アメリカとイスラエルによる攻撃で殺害されたイランの前の最高指導者、ハメネイ師の葬儀に、息子で、後継の最高指導者、モジタバ・ハメネイ師の兄弟3人が参列しました。一方で、モジタバ師の姿はこれまでのところ現地のメディアでは伝えられていません。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169571000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">高市首相動静 2026年7月3日～5日</div><div class="ms">（高市首相動静 2026年7月5日）終日、公邸で過ごす（高市首相動静 2026年7月4日）13:57 公邸発14:12 東京 有明の東京ビッグサイト着。「日本ジュエリーベストドレッサー賞」の表彰式に出席。あいさつ。記念撮影15:12 日本ジュエリー協会の長堀慶太会長と面会（～15:15）15:21 同所発15:35 公邸着（高市首相動静 2026年7月3日）（以下、すべて日本時間）14:28 政府専用機でインド・ニューデリーの空港発22:38 羽田空港着22:57 同空港発23:21 公邸着</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169641000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi"><div class="mh">野党 集中審議開催を 政府与党 高市首相の意向踏まえ協議へ</div><div class="ms">国会の会期末が来週に迫る中、与党は皇族数の確保に向けた皇室典範改正案の会期内成立を目指し、早期に審議入りさせたい考えです。一方、野党は、予算委員会の集中審議などの開催を重ねて求めていて、政府・与党は高市総理大臣の意向を踏まえて6日、対応を協議することにしています。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260706/k10015169481000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div></div>
     </div>
 
     <div class="sec s12" data-sid="stockstudy">
@@ -671,7 +675,7 @@ Microsoftは、AIが研究段階から大規模な運用フェーズへと移行
       </div>
     </div>
 
-    <div class="ftr"><p>Generated by Jarvis &middot; 08:26</p></div>
+    <div class="ftr"><p>Generated by Jarvis &middot; 11:07</p></div>
   </div>
 
   <script>
@@ -827,17 +831,17 @@ Microsoftは、AIが研究段階から大規模な運用フェーズへと移行
         for(let el of sec.children){if(!isAlwaysVisible(el))return el.style.display==='none';}
         return false;
       }
-      // reposition=trueのときのみ、閉じた瞬間にセクションを最上部へ移動する（初回ロード時のapplyCollapseでは
-      // 使わない＝並び替えIIFEのwindow.moveSecToEdgeがまだ定義されていない読み込み順の問題を避けるため。
-      // 実際のクリック操作時は全スクリプト読み込み後なので安全に呼べる。2026-07-05追加：
-      // 「閉じたカテゴリが画面の上部に来るように」というフィードバックへの対応。moveSecToEdgeが
-      // 並び替え保存とTL;DR（今日のポイント）同期も内部で行うため、閉じる操作だけで両方連動する）
+      // reposition=trueのときのみ、閉じた瞬間にセクションを見た目だけ最上部へ移動する（初回ロード時のapplyCollapseでは
+      // 使わない＝並び順そのものを変えない見た目移動なので、初回ロード時も本来は害はないが既存の抑制条件を維持）。
+      // 2026-07-06修正：以前はwindow.moveSecToEdgeでDOM順序ごと並べ替えて保存していたため、
+      // 「カテゴリを並び替える必要はない」というフィードバックの通り並び順そのものが壊れていた。
+      // CSSのorderプロパティで見た目の位置だけ変え、sec_order（保存される並び順）には触れない。
       function setCollapsed(sec,collapsed,reposition){
         for(let el of sec.children){if(!isAlwaysVisible(el))el.style.display=collapsed?'none':'';}
         const btn=sec.querySelector('.cb');if(btn)btn.textContent=collapsed?'+':'−';
         state[sec.dataset.sid]=collapsed;
         localStorage.setItem(CK,JSON.stringify(state));
-        if(collapsed&&reposition&&window.moveSecToEdge)window.moveSecToEdge(sec.dataset.sid,'top');
+        sec.style.order=(collapsed&&reposition)?'-1':'';
       }
       function applyCollapse(){
         document.querySelectorAll('.sec[data-sid]').forEach(function(sec){
@@ -1081,6 +1085,17 @@ Microsoftは、AIが研究段階から大規模な運用フェーズへと移行
       };
       // 折りたたみIIFE（このIIFEより前に定義済み）から今日のポイント同期つきの保存を呼べるようにする
       window.saveSecOrder=saveOrder;
+      // 一覧タブのカテゴリ行ドラッグ&ドロップから任意位置への移動を呼べるようにする（2026-07-06追加：
+      // 「記事一覧（一覧タブ）のドラッグ移動が漏れている」というフィードバックへの対応）
+      window.moveSecRelative=function(sid,targetSid,pos){
+        const secs=reorderableSecs();
+        const sec=secs.find(s=>s.dataset.sid===sid);
+        const target=secs.find(s=>s.dataset.sid===targetSid);
+        if(!sec||!target||sec===target)return;
+        if(pos==='before')container.insertBefore(sec,target);
+        else container.insertBefore(sec,target.nextElementSibling||anchor);
+        saveOrder();
+      };
 
       // ── 指でドラッグして個別に入れ替え ──────────────────────
       let dragSec=null,ghost=null,offsetY=0,overEl=null,overPos=null;
@@ -1176,7 +1191,8 @@ Microsoftは、AIが研究段階から大規模な運用フェーズへと移行
         if(catRowEls[id])return catRowEls[id];
         const row=document.createElement('div');
         row.className='cat-row';
-        row.innerHTML='<input type="checkbox" id="cat-'+id+'"><label for="cat-'+id+'">'+label+'</label>'+
+        row.innerHTML='<button class="drag-handle" aria-label="ドラッグして並び替え">⠿</button>'+
+          '<input type="checkbox" id="cat-'+id+'"><label for="cat-'+id+'">'+label+'</label>'+
           '<div class="cat-move"><button class="cat-top" type="button" data-id="'+id+'" aria-label="先頭へ移動">▲▲</button>'+
           '<button class="cat-up" type="button" data-id="'+id+'" aria-label="上へ移動">▲</button>'+
           '<button class="cat-down" type="button" data-id="'+id+'" aria-label="下へ移動">▼</button>'+
@@ -1344,6 +1360,83 @@ Microsoftは、AIが研究段階から大規模な運用フェーズへと移行
           return;
         }
       });
+
+      // 一覧タブのカテゴリ行を指でドラッグして並び替える（2026-07-06追加：
+      // 記事タブ側の⠿ドラッグ実装が一覧タブ（cat-rows）に反映されていなかった漏れへの対応。
+      // ▲▲▲▼▼▼ボタンは残しつつ、ドラッグでも同じ並び替え結果（sec_order保存＋記事タブ側の順序）に反映する）
+      let catDragRow=null,catGhost=null,catOffsetY=0,catOverEl=null,catOverPos=null;
+      function catPointY(ev){return ev.touches?ev.touches[0].clientY:ev.clientY;}
+      function catRowsEls(){return Array.from(document.querySelectorAll('#cat-rows .cat-row'));}
+      function catClearMarks(){
+        document.querySelectorAll('.cat-row.drop-before,.cat-row.drop-after').forEach(el=>el.classList.remove('drop-before','drop-after'));
+      }
+      function catRowSid(row){
+        const cb=row.querySelector('input[type=checkbox]');
+        return cb?cb.id.replace('cat-',''):null;
+      }
+      function onCatDragStart(ev){
+        const handle=ev.target.closest('#cat-rows .drag-handle');
+        if(!handle)return;
+        const row=handle.closest('.cat-row');
+        if(!row)return;
+        ev.preventDefault();
+        catDragRow=row;
+        const rect=row.getBoundingClientRect();
+        catOffsetY=catPointY(ev)-rect.top;
+        catGhost=row.cloneNode(true);
+        catGhost.classList.add('drag-ghost');
+        catGhost.style.width=rect.width+'px';
+        catGhost.style.left=rect.left+'px';
+        catGhost.style.top=rect.top+'px';
+        document.body.appendChild(catGhost);
+        row.classList.add('dragging');
+        const moveEvt=ev.touches?'touchmove':'mousemove';
+        const endEvt=ev.touches?'touchend':'mouseup';
+        document.addEventListener(moveEvt,onCatDragMove,{passive:false});
+        document.addEventListener(endEvt,onCatDragEnd);
+      }
+      function onCatDragMove(ev){
+        if(!catDragRow)return;
+        ev.preventDefault();
+        const y=catPointY(ev);
+        catGhost.style.top=(y-catOffsetY)+'px';
+        catClearMarks();
+        catOverEl=null;catOverPos=null;
+        for(const r of catRowsEls()){
+          if(r===catDragRow)continue;
+          const rect=r.getBoundingClientRect();
+          if(y>=rect.top&&y<=rect.bottom){
+            catOverEl=r;
+            catOverPos=(y<rect.top+rect.height/2)?'before':'after';
+            r.classList.add(catOverPos==='before'?'drop-before':'drop-after');
+            break;
+          }
+        }
+      }
+      function onCatDragEnd(){
+        if(!catDragRow)return;
+        try{
+          if(catOverEl){
+            const rowsEl=document.getElementById('cat-rows');
+            const sid=catRowSid(catDragRow),targetSid=catRowSid(catOverEl);
+            if(catOverPos==='before')rowsEl.insertBefore(catDragRow,catOverEl);
+            else rowsEl.insertBefore(catDragRow,catOverEl.nextElementSibling);
+            if(sid&&targetSid&&window.moveSecRelative)window.moveSecRelative(sid,targetSid,catOverPos);
+          }
+        }finally{
+          catClearMarks();
+          catDragRow.classList.remove('dragging');
+          if(catGhost){catGhost.remove();catGhost=null;}
+          catDragRow=null;catOverEl=null;catOverPos=null;
+          document.removeEventListener('touchmove',onCatDragMove);
+          document.removeEventListener('touchend',onCatDragEnd);
+          document.removeEventListener('mousemove',onCatDragMove);
+          document.removeEventListener('mouseup',onCatDragEnd);
+          renderCatPanel();
+        }
+      }
+      document.addEventListener('touchstart',onCatDragStart,{passive:false});
+      document.addEventListener('mousedown',onCatDragStart);
     })();
 
     // ── Jarvisに送る ──────────────────────────────────────────

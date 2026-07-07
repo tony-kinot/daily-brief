@@ -1,0 +1,30 @@
+{
+  "date": "20260707",
+  "ratings": {
+    "kabu": 3,
+    "stocktopic": 4,
+    "stockstudy": 3,
+    "consulting": 3,
+    "ai": 3,
+    "google_trends": 3,
+    "macro": 3,
+    "macronews": 4,
+    "marketingstudy": 2,
+    "note": 3,
+    "book": 4,
+    "roleview": 3,
+    "companycase": 3,
+    "bookstock": 2,
+    "github_trending": 4,
+    "aitrend": 3,
+    "industry_report": 1,
+    "players": 1,
+    "mckinsey_book": 4
+  },
+  "memo": "株トピックや役割別コラムで株に関係するときは、その内容はファイナンス側に連携して、考慮の1つの変数として使えるか調査して。生ニュースって政治に偏ってない？エンタメとかは要らないけど、ビジネスで必要なのをまんべんなく。業界レポートは週一本で7日にかけて論文の内容をかいせつするのではないですか？あさすぎて、勉強にならないよ。主要プレイヤーは更新ないの？",
+  "favorites": [
+    "book"
+  ],
+  "scale_max": 5,
+  "sent_at": "2026-07-07T00:32:30.883Z"
+}

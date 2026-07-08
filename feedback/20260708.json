@@ -1,0 +1,32 @@
+{
+  "date": "20260708",
+  "ratings": {
+    "kabu": 3,
+    "stocktopic": 3,
+    "stockstudy": 4,
+    "ai": 4,
+    "macro": 4,
+    "macronews": 4,
+    "marketingstudy": 3,
+    "note": 3,
+    "book": 4,
+    "roleview": 2,
+    "companycase": 4,
+    "bookstock": 1,
+    "github_trending": 4,
+    "aitrend": 3,
+    "industry_report": 4,
+    "players": 3,
+    "mckinsey_book": 4,
+    "consulting": 3,
+    "google_trends": 4,
+    "pevcnews": 4,
+    "startupstudy": 3
+  },
+  "memo": "株モニターってサマリー評価みたいなのってある？計何%だけど、topixより成績がよかったみたいな。株トピックってどう選んでいる？知らない会社とかも幅広に知りたいのだけどそういう作りになっている？生ニュースにおけるバイオ燃料の話は気になるので、脱炭素等のカテゴリは別だしでそれらのニュースだけを扱うカテゴリを追加して。ピラミッドの話はいいんだけど、感情は別の道具で、ってそれは何かも書いて？次回はそれをやるって予告もいいし。役割別コラムは改善して、読んで学びがない。ネタ帳は3日連続で同じじょない？補充している？googleの検索ボックス再設計も3日連続じゃない？pe.vcは本日たまたま1つだけ？情報を、厚くしたい。",
+  "favorites": [
+    "mckinsey_book"
+  ],
+  "scale_max": 5,
+  "sent_at": "2026-07-08T00:04:54.944Z"
+}

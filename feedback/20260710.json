@@ -1,0 +1,33 @@
+{
+  "date": "20260710",
+  "ratings": {
+    "macro": 4,
+    "stocktopic": 4,
+    "stockstudy": 4,
+    "ai": 3,
+    "macronews": 3,
+    "marketingstudy": 4,
+    "note": 3,
+    "book": 2,
+    "roleview": 3,
+    "bookstock": 3,
+    "github_trending": 3,
+    "aitrend": 3,
+    "industry_report": 1,
+    "players": 1,
+    "mckinsey_book": 4,
+    "consulting": 4,
+    "google_trends": 1,
+    "pevcnews": 4,
+    "startupstudy": 3,
+    "frontier_tech": 2,
+    "sidebiz": 4
+  },
+  "memo": "株モニターは失敗？最新情報取れたら反映お願い。名著、実在ケースはネタ切れ？前もやったかを事前に検知できないの？pe.vcは拡充してほしい。",
+  "favorites": [
+    "mckinsey_book"
+  ],
+  "article_favorites": [],
+  "scale_max": 5,
+  "sent_at": "2026-07-10T01:20:49.951Z"
+}

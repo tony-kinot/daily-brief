@@ -1,0 +1,41 @@
+{
+  "date": "20260712",
+  "ratings": {
+    "kabu": 3,
+    "macro": 4,
+    "stocktopic": 3,
+    "stockstudy": 4,
+    "ai": 4,
+    "macronews": 1,
+    "marketingstudy": 3,
+    "note": 4,
+    "book": 1,
+    "roleview": 3,
+    "companycase": 4,
+    "bookstock": 1,
+    "github_trending": 4,
+    "aitrend": 4,
+    "industry_report": 1,
+    "players": 1,
+    "mckinsey_book": 4,
+    "consulting": 4,
+    "google_trends": 4,
+    "pevcnews": 4,
+    "startupstudy": 1,
+    "frontier_tech": 3,
+    "sidebiz": 4,
+    "consultai": 1,
+    "kotler": 4,
+    "regentry": 4,
+    "subsidy": 4
+  },
+  "memo": "株トピックにある内容は面白いんだけど、見分ける視点がよくわからなかった。実在ケースはもっとよくなる気がする。提案.改善して。AIトレンドのgoogleのUI更新はいつになったらなくなるの？ずっと残ってるよ。豆蔵はウォッチ対象に追加して。フロンティア産業は情報の羅列になっており、認知負荷が高すぎる。解説と示唆出しまでお願い。規制業種と補助金は拡充をお願い。",
+  "favorites": [
+    "startupstudy",
+    "sidebiz",
+    "kotler"
+  ],
+  "article_favorites": [],
+  "scale_max": 5,
+  "sent_at": "2026-07-13T01:59:46.019Z"
+}

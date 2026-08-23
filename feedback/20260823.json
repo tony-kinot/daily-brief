@@ -1,9 +1,32 @@
 {
   "date": "20260823",
-  "ratings": {},
-  "memo": "週次サマリー、月次サマリーと、記事がない日は404",
+  "ratings": {
+    "kabu": 3,
+    "macro": 2,
+    "stocktopic": 2,
+    "stockstudy": 4,
+    "ai": 3,
+    "marketingstudy": 3,
+    "note": 2,
+    "book": 4,
+    "roleview": 3,
+    "companycase": 3,
+    "aitrend": 1,
+    "industry_report": 1,
+    "consulting": 1,
+    "google_trends": 4,
+    "pevcnews": 3,
+    "startupstudy": 1,
+    "frontier_tech": 3,
+    "sidebiz": 1,
+    "consultai": 1,
+    "kotler": 1,
+    "regentry": 2,
+    "subsidy": 3
+  },
+  "memo": "週次サマリー、月次サマリーと、記事がない日は404に飛ばないようにして。特に読んでない日は重点的に。AIトレンド速報に英語残っている。検索ワードでiccとはが調べられているけど、知りたい場合に私も調べ直さなきゃいけないのが二度手間なので改善して。pcve情報は非公開化しか情報ないけど、で？って感じで全く学びがありません。tictocライブは自分たちがやるならどうすべきか、タスク化して実施までやってくれないと意味ないよ。",
   "favorites": [],
   "article_favorites": [],
   "scale_max": 5,
-  "sent_at": "2026-08-23T00:33:35.392Z"
+  "sent_at": "2026-08-23T00:54:11.970Z"
 }

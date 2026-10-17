@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#0F172A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.json">
+  <title>Daily AI Brief #076</title>
+  <style>
+    :root{--bg:#0F172A;--sf:#1E293B;--sf2:#263347;--tx:#E2E8F0;--mu:#94A3B8;--bl:#3B82F6;--pu:#A855F7;--gr:#10B981;--am:#F59E0B;--rd:#EF4444;--bo:rgba(255,255,255,.07);--ht-bg:rgba(245,158,11,.08);--ht-bd:#F59E0B;--pi-bg:rgba(59,130,246,.08);--pi-bd:#3B82F6;--bp-bg:rgba(16,185,129,.1);--bp-bd:#10B981;--cy:#06B6D4;--og:#F97316;--lm:#84CC16;--pk:#EC4899;--sk:#0EA5E9;--tl:#14B8A6;--iv:#6366F1;--rs:#F43F5E;--bz:#E11D48;--pl:#0891B2;--irc:#7C3AED;--gt:#4ADE80;--mkb:#E879F9;--kb:#34D399;--pev:#D97706;--sus:#C084FC;--ftk:#2DD4BF;--sbz:#FDE047;--cai:#38BDF8;--kot:#FB7185;--reg:#EAB308;--sub:#5EEAD4}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans",sans-serif;font-size:15px;line-height:1.7;padding-bottom:290px}
+    .hdr{background:linear-gradient(135deg,#1E293B,#0F172A);border-bottom:1px solid var(--bo);padding:16px 20px 12px;position:sticky;top:0;z-index:10;transition:transform .25s ease}
+    .hdr.hdr-hidden{transform:translateY(-100%)}
+    .hdr-top{display:flex;align-items:center;justify-content:space-between}
+    .logo{font-size:11px;color:var(--mu);letter-spacing:.1em;font-weight:700}
+    .num{font-size:11px;color:var(--mu)}
+    .dl{margin-top:4px;font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
+    .db{background:var(--bl);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px}
+    .meta-row{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+    .read-time{font-size:11px;color:var(--mu)}
+    .streak-badge{font-size:11px;font-weight:700;color:#FCD34D;background:rgba(252,211,77,.1);padding:2px 8px;border-radius:12px}
+    .tldr-box{background:var(--sf);border:1px solid var(--bo);border-radius:14px;padding:13px 16px;margin-top:14px}
+    .tldr-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:8px}
+    .tldr-row{display:flex;align-items:baseline;gap:7px;padding:4px 0;font-size:13px;line-height:1.5;cursor:pointer;border-radius:6px}
+    .tldr-row:active{background:rgba(255,255,255,.06)}
+    .tldr-icon{flex-shrink:0}
+    .tldr-cat{flex-shrink:0;font-size:10px;font-weight:700;color:var(--mu);min-width:34px}
+    .tldr-text{color:var(--tx);text-decoration:underline;text-decoration-color:rgba(147,197,253,.35);text-underline-offset:3px}
+    .tldr-rated-mark{flex-shrink:0;margin-left:auto;font-size:13px;opacity:.85}
+    @keyframes jumpFlash{0%{background:rgba(147,197,253,.25)}100%{background:transparent}}
+    .jump-flash{animation:jumpFlash 1.2s ease-out}
+    .nav{display:flex;gap:8px;margin-top:8px}
+    .nav a{color:var(--mu);font-size:12px;text-decoration:none;padding:3px 10px;border:1px solid var(--bo);border-radius:8px;transition:background .15s}
+    .nav a:hover,.nav a:active{background:rgba(255,255,255,.07)}
+    .view-tabs{display:flex;gap:6px;margin-top:10px}
+    .view-tab{flex:1;background:none;border:1px solid var(--bo);border-radius:10px;padding:8px;font-size:13px;font-weight:700;color:var(--mu);cursor:pointer}
+    .view-tab.active{background:rgba(59,130,246,.15);border-color:var(--bl);color:#fff}
+    .cat-panel{background:var(--sf);border:1px solid var(--bo);border-radius:14px;padding:12px 14px;margin-top:14px}
+    .cat-panel-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin-bottom:10px}
+    .rank-panel{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--bo)}
+    .rank-row{display:flex;align-items:center;gap:9px;padding:7px 0;font-size:13.5px}
+    .rank-num{flex-shrink:0;width:20px;height:20px;border-radius:50%;background:rgba(59,130,246,.15);color:var(--bl);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+    .rank-icon{flex-shrink:0}
+    .rank-label{flex:1;color:var(--tx)}
+    .rank-count{flex-shrink:0;color:var(--mu);font-size:12px}
+    .rank-empty{font-size:12.5px;color:var(--mu);padding:4px 0}
+    .cat-row{display:flex;align-items:center;gap:9px;padding:7px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,.05)}
+    .cat-row:last-child{border-bottom:none}
+    .cat-row input{width:18px;height:18px;flex-shrink:0;accent-color:var(--bl)}
+    .cat-row label{flex:1}
+    .cat-move{display:flex;gap:4px;flex-shrink:0}
+    .cat-move button{background:none;border:1px solid var(--bo);border-radius:6px;width:26px;height:26px;color:var(--mu);font-size:11px;cursor:pointer}
+    .cat-move button:disabled{opacity:.3;cursor:default}
+    .cat-row.dragging{opacity:.35}
+    .cat-row.drop-before{box-shadow:inset 0 3px 0 0 var(--bl)}
+    .cat-row.drop-after{box-shadow:inset 0 -3px 0 0 var(--bl)}
+    .cat-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .cat-actions button{flex:1;min-width:calc(50% - 4px);background:none;border:1px solid var(--bo);border-radius:8px;padding:6px;font-size:12px;color:var(--mu);cursor:pointer}
+    .cat-presets{margin-top:6px}
+    .ff-toggle{display:flex;border:1px solid var(--bo);border-radius:10px;overflow:hidden}
+    .ff-toggle button{flex:1;background:none;border:none;padding:8px 4px;font-size:12px;font-weight:700;color:var(--mu);cursor:pointer;text-align:center;white-space:nowrap}
+    .ff-toggle button+button{border-left:1px solid var(--bo)}
+    .ff-toggle button.active{background:rgba(245,158,11,.15);color:#F59E0B}
+    .w{max-width:680px;margin:0 auto;padding:0 14px}
+    #brief-body{display:flex;flex-direction:column}
+    .sec{margin-top:14px;background:var(--sf);border-radius:14px;overflow:hidden;border:1px solid var(--bo)}
+    .sh{display:flex;align-items:flex-start;gap:10px;padding:13px 16px 11px;border-bottom:1px solid var(--bo);cursor:pointer}
+    .si{font-size:22px;line-height:1;flex-shrink:0;margin-top:2px}
+    .sl{font-size:10px;font-weight:700;letter-spacing:.1em;opacity:.65;text-transform:uppercase}
+    .st{font-size:16px;font-weight:700;margin-top:2px;line-height:1.3}
+    .stag{font-size:12px;color:var(--mu);margin-top:1px}
+    .sb{padding:14px 16px}
+    .s1 .sh{border-left:3px solid var(--bl)}.s1 .sl{color:var(--bl)}
+    .s2 .sh{border-left:3px solid var(--pu)}.s2 .sl{color:var(--pu)}
+    .s3 .sh{border-left:3px solid var(--gr)}.s3 .sl{color:var(--gr)}
+    .s4 .sh{border-left:3px solid var(--am)}.s4 .sl{color:var(--am)}
+    .s5 .sh{border-left:3px solid var(--rd)}.s5 .sl{color:var(--rd)}
+    .sec-rating{display:flex;align-items:center;gap:6px;padding:7px 16px;background:rgba(0,0,0,.15);border-bottom:1px solid var(--bo);flex-wrap:wrap}
+    .rl{font-size:11px;color:var(--mu);white-space:nowrap}
+    .rb{background:none;border:1px solid var(--bo);border-radius:20px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--mu);transition:all .2s;white-space:nowrap}
+    .rb.active{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:var(--tx)}
+    .block{border-radius:10px;padding:11px 13px;margin-bottom:10px;border-left:3px solid rgba(255,255,255,.1)}
+    .block-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:5px}
+    .block-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+    .block-body{font-size:14px;line-height:1.75;white-space:pre-wrap}
+    .block-body.mono{font-family:"Courier New",monospace;font-size:12px;color:#CBD5E1;line-height:1.6}
+    .ht{background:var(--ht-bg);border-left-color:var(--ht-bd)}.ht .block-label{color:var(--am)}
+    .pi{background:var(--pi-bg);border-left-color:var(--pi-bd)}.pi .block-label{color:var(--bl)}
+    .bp{background:var(--bp-bg);border-left-color:var(--bp-bd)}.bp .block-label{color:#34D399}
+    .copy-btn{background:rgba(16,185,129,.15);color:#34D399;border:1px solid rgba(16,185,129,.25);border-radius:6px;padding:3px 9px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+    .copy-btn.copied{background:rgba(16,185,129,.4);color:#fff}
+    .quotable{font-size:15px;font-weight:700;color:#FCD34D;margin-top:14px;padding:11px 14px;background:rgba(252,211,77,.05);border-radius:10px;border-left:3px solid #FCD34D;line-height:1.5}
+    .myth-box{background:rgba(148,163,184,.07);border-left:3px solid #64748B;border-radius:10px;padding:10px 13px;margin-bottom:8px}
+    .myth-label{font-size:10px;color:#64748B;font-weight:700;margin-bottom:4px}
+    .myth-text{font-size:14px;color:#94A3B8;line-height:1.6}
+    .truth-box{background:rgba(245,158,11,.1);border-left:3px solid var(--am);border-radius:10px;padding:10px 13px;margin-bottom:10px}
+    .truth-label{font-size:10px;color:var(--am);font-weight:700;margin-bottom:4px}
+    .truth-text{font-size:14px;font-weight:600;color:#FCD34D;line-height:1.6}
+    .why-text{font-size:14px;line-height:1.75;margin-bottom:10px;color:#CBD5E1}
+    .macro-live-label,.macro-analysis-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+    .macro-live-label{color:var(--gr)}.macro-analysis-label{color:var(--bl);margin-top:16px}
+    .mi{padding:8px 0;border-bottom:1px solid var(--bo)}.mi:last-child{border-bottom:none}
+    .mh{font-weight:600;font-size:14px;margin-bottom:2px}
+    .ms{font-size:12px;color:var(--mu)}
+    .mi-suggestion{font-size:12px;line-height:1.6;color:#93C5FD;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.06)}
+    .ma-item{background:rgba(59,130,246,.05);border-radius:10px;padding:11px 13px;margin-bottom:10px;border:1px solid rgba(59,130,246,.12)}
+    .ma-headline{font-weight:700;font-size:14px;margin-bottom:8px}
+    .impact-map{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+    .iv{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
+    .iv.up{background:rgba(16,185,129,.15);color:#34D399}.iv.down{background:rgba(239,68,68,.15);color:#F87171}.iv.neutral{background:rgba(148,163,184,.15);color:#94A3B8}
+    .ma-lens{font-size:13px;color:#93C5FD;line-height:1.6;padding-top:6px;border-top:1px solid rgba(255,255,255,.06);margin-top:4px}
+    .ma-why-toggle{font-size:11px;color:#FCD34D;margin-top:8px;font-weight:600;cursor:pointer}
+    .ma-why{display:none;font-size:13px;line-height:1.75;color:#CBD5E1;margin-top:6px;padding:9px 12px;background:rgba(252,211,77,.06);border-radius:8px;border-left:3px solid #FCD34D}
+    .ma-why.open{display:block}
+    .macro-conclusion{background:rgba(16,185,129,.1);border-left:3px solid #10B981;border-radius:10px;padding:12px 14px;margin-bottom:12px}
+    .macro-conclusion-label{font-size:10px;font-weight:700;color:#10B981;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+    .macro-conclusion-body{font-size:14px;font-weight:600;color:#D1FAE5;line-height:1.7}
+    .macro-action{background:rgba(59,130,246,.1);border-left:3px solid var(--bl);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+    .macro-action-label{font-size:10px;font-weight:700;color:#93C5FD;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+    .macro-action-body{font-size:14px;font-weight:600;color:#DBEAFE;line-height:1.7}
+    .why-now-badge{display:inline-block;background:rgba(245,158,11,.12);color:#FCD34D;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;margin-bottom:10px}
+    .hook{background:rgba(245,158,11,.08);border-left:3px solid var(--am);border-radius:0 8px 8px 0;padding:9px 13px;font-size:14px;color:#FCD34D;margin-bottom:12px;font-style:italic}
+    .diff-box{background:rgba(168,85,247,.08);border-left:3px solid var(--pu);border-radius:0 8px 8px 0;padding:8px 12px;font-size:13px;color:#C084FC;margin:10px 0}
+    .ctab{background:rgba(245,158,11,.06);border-radius:9px;padding:8px 13px;font-size:13px;color:var(--mu);margin-top:8px}.ctab strong{color:var(--am)}
+    ul.ul{padding-left:18px}ul.ul li{margin-bottom:5px;font-size:14px}
+    .book-oneline{font-size:15px;font-weight:700;color:#FCA5A5;margin-bottom:10px;padding:8px 12px;background:rgba(239,68,68,.06);border-radius:8px;line-height:1.5}
+    .ftr{margin-top:20px;text-align:center;color:var(--mu);font-size:12px;padding:0 14px 20px}
+    textarea#brief-memo{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--bo);border-radius:10px;color:var(--tx);font-family:inherit;font-size:14px;line-height:1.7;padding:11px 13px;resize:none;overflow-y:auto;outline:none;transition:border-color .2s}
+    textarea#brief-memo:focus{border-color:rgba(59,130,246,.4)}
+    textarea#brief-memo::placeholder{color:var(--mu)}
+    .memo-meta{margin-top:6px;min-height:18px}.saved-label{font-size:11px;color:var(--gr)}
+    .fav-hint{font-size:11px;color:var(--mu);margin-top:8px;line-height:1.5}
+    .send-btn{display:block;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#3B82F6,#6366F1);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .2s}
+    .send-btn:active{opacity:.75}.send-btn:disabled{opacity:.45;cursor:not-allowed}
+    .send-result{margin-top:8px;font-size:12px;text-align:center;min-height:16px}
+    .memo-bar{position:fixed;left:0;right:0;bottom:0;z-index:20;margin:0 auto;max-width:680px;border-radius:14px 14px 0 0;box-shadow:0 -6px 20px rgba(0,0,0,.4);max-height:70vh;display:flex;flex-direction:column}
+    .memo-bar .sh{flex-shrink:0}
+    .memo-bar .sb{overflow-y:auto;padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+    .weekly-sum{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+    .weekly-sum h3{font-size:13px;color:var(--bl);margin-bottom:8px;font-weight:700}
+    .weekly-sum-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+    #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#10B981;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:20px;opacity:0;transition:all .3s;pointer-events:none;z-index:999}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    #to-top-btn{position:fixed;right:16px;bottom:16px;z-index:25;width:44px;height:44px;border-radius:50%;background:rgba(59,130,246,.92);color:#fff;border:none;font-size:20px;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+    #to-top-btn.show{opacity:1;pointer-events:auto}
+    #current-cat-bar{position:fixed;left:0;right:0;top:var(--hdr-h,0px);z-index:15;margin:0 auto;max-width:680px;background:var(--sf2);border-bottom:1px solid var(--bo);padding:10px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .15s,top .25s ease;box-shadow:0 4px 10px rgba(0,0,0,.35)}
+    #current-cat-bar.show{opacity:1;pointer-events:auto}
+    #current-cat-bar .cc-icon{font-size:18px;flex-shrink:0}
+    #current-cat-bar .cc-label{font-size:13px;font-weight:700;flex:1;color:var(--tx)}
+    #current-cat-bar .cc-close{font-size:11px;color:var(--mu);white-space:nowrap;flex-shrink:0}
+    .concept{margin-bottom:12px;font-size:14px;line-height:1.75}
+    .cbox{background:var(--sf2);border-radius:10px;padding:11px 13px;font-family:"Courier New",monospace;font-size:12px;white-space:pre-wrap;color:#A5F3FC;margin:10px 0;border:1px solid var(--bo);overflow-x:auto}
+    .bc{font-size:15px;font-weight:700;color:#FCA5A5;margin-bottom:10px}
+    .s6 .sh{border-left:3px solid var(--cy)}.s6 .sl{color:var(--cy)}
+    .s7 .sh{border-left:3px solid var(--og)}.s7 .sl{color:var(--og)}
+    .s8 .sh{border-left:3px solid var(--lm)}.s8 .sl{color:var(--lm)}
+    .s9 .sh{border-left:3px solid var(--pk)}.s9 .sl{color:var(--pk)}
+    .s10 .sh{border-left:3px solid var(--sk)}.s10 .sl{color:var(--sk)}
+    .s12 .sh{border-left:3px solid var(--iv)}.s12 .sl{color:var(--iv)}
+    .s13 .sh{border-left:3px solid var(--rs)}.s13 .sl{color:var(--rs)}
+    .s14 .sh{border-left:3px solid var(--tl)}.s14 .sl{color:var(--tl)}
+    .s15 .sh{border-left:3px solid var(--bz)}.s15 .sl{color:var(--bz)}
+    .s16 .sh{border-left:3px solid var(--pl)}.s16 .sl{color:var(--pl)}
+    .s17 .sh{border-left:3px solid var(--irc)}.s17 .sl{color:var(--irc)}
+    .s18 .sh{border-left:3px solid var(--gt)}.s18 .sl{color:var(--gt)}
+    .s19 .sh{border-left:3px solid var(--mkb)}.s19 .sl{color:var(--mkb)}
+    .s20 .sh{border-left:3px solid var(--kb)}.s20 .sl{color:var(--kb)}
+    .s21 .sh{border-left:3px solid var(--pev)}.s21 .sl{color:var(--pev)}
+    .s22 .sh{border-left:3px solid var(--sus)}.s22 .sl{color:var(--sus)}
+    .s23 .sh{border-left:3px solid var(--ftk)}.s23 .sl{color:var(--ftk)}
+    .s24 .sh{border-left:3px solid var(--sbz)}.s24 .sl{color:var(--sbz)}
+    .s25 .sh{border-left:3px solid var(--cai)}.s25 .sl{color:var(--cai)}
+    .s26 .sh{border-left:3px solid var(--kot)}.s26 .sl{color:var(--kot)}
+    .s27 .sh{border-left:3px solid var(--reg)}.s27 .sl{color:var(--reg)}
+    .s28 .sh{border-left:3px solid var(--sub)}.s28 .sl{color:var(--sub)}
+    .ir-link{display:inline-block;margin:2px 0 12px;color:#93C5FD;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(59,130,246,.35);border-radius:8px;padding:6px 13px}
+    .ir-link:active{background:rgba(59,130,246,.15)}
+    .bz-item{padding:12px 14px;margin-bottom:10px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--bo)}
+    .bz-item.huge{background:rgba(225,29,72,.14);border:1px solid rgba(225,29,72,.4)}
+    .bz-rank{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(225,29,72,.15);color:var(--bz);font-size:11px;font-weight:700;margin-right:7px}
+    .bz-badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:12px;margin-bottom:6px}
+    .bz-badge.huge{background:rgba(225,29,72,.25);color:#FCA5A5}
+    .bz-badge.medium{background:rgba(245,158,11,.2);color:#FCD34D}
+    .bz-badge.small{background:rgba(148,163,184,.15);color:#94A3B8}
+    .bz-headline{font-size:14.5px;font-weight:700;margin-bottom:4px;line-height:1.5}
+    .bz-why{font-size:13px;color:#CBD5E1;line-height:1.65;margin-bottom:6px}
+    .bz-hint{font-size:12.5px;color:#86EFAC;line-height:1.6;margin-bottom:6px}
+    .bz-fit{font-size:12.5px;color:#93C5FD;line-height:1.6;padding-top:6px;border-top:1px solid rgba(255,255,255,.06)}
+    .bz-link{display:inline-block;font-size:12.5px;color:var(--bl);margin-bottom:6px;text-decoration:none}
+    .bz-link:hover{text-decoration:underline}
+    .bz-empty{font-size:13px;color:var(--mu);line-height:1.7;padding:6px 0}
+    .bz-checked{font-size:11px;color:var(--mu);margin-top:8px;text-align:right}
+    .ai-trend-badge{display:inline-block;background:rgba(20,184,166,.15);color:var(--tl);font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-right:6px;letter-spacing:.02em}
+    .stopic-why{font-size:14px;line-height:1.75;color:#CBD5E1;margin-bottom:12px;padding:8px 12px;background:rgba(236,72,153,.06);border-radius:8px;border-left:3px solid var(--pk)}
+    .stopic-watch{padding:9px 12px;margin-bottom:8px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bo)}
+    .stopic-watch-label{font-size:14px;font-weight:700;color:#F9A8D4;margin-bottom:3px}
+    .stopic-watch-note{font-size:13px;line-height:1.65;color:var(--mu)}
+    .stopic-caution{font-size:12px;line-height:1.6;color:var(--mu);margin-top:10px;padding:8px 12px;background:rgba(148,163,184,.06);border-radius:8px}
+    .stopic-picks-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A8D4;margin:14px 0 8px}
+    .stopic-pick{padding:10px 12px;margin-bottom:8px;background:rgba(236,72,153,.05);border-radius:8px;border-left:3px solid var(--pk)}
+    .stopic-pick-name{font-size:15px;font-weight:700;color:#F9A8D4;margin-bottom:5px}
+    .stopic-pick-reason,.stopic-pick-outlook,.stopic-pick-risk,.stopic-pick-metric{font-size:13px;line-height:1.65;color:#CBD5E1;margin-top:3px}
+    .stopic-pick-reason b,.stopic-pick-outlook b,.stopic-pick-risk b,.stopic-pick-metric b{color:var(--mu);font-weight:700}
+    .stopic-pick-axis{font-size:11px;font-weight:700;color:var(--mu);margin-right:4px}
+    .stopic-pick-risk{color:#FCA5A5}
+    .stopic-pick-metric{color:#93C5FD;padding-top:5px;margin-top:5px;border-top:1px dashed rgba(255,255,255,.08)}
+    .stopic-dd{margin-top:12px;padding:10px 12px;background:rgba(16,185,129,.06);border-radius:8px;border-left:3px solid var(--gr)}
+    .stopic-dd-label{font-size:11px;font-weight:700;color:#34D399;margin-bottom:5px}
+    .stopic-dd-body{font-size:13px;line-height:1.7;color:#CBD5E1}
+    .stopic-micro-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin:14px 0 8px}
+    .stopic-micro-item{padding:9px 12px;margin-bottom:8px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bo)}
+    .stopic-micro-headline{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:3px}
+    .stopic-micro-theme{font-size:11px;color:#F9A8D4;font-weight:700;margin-bottom:4px}
+    .stopic-micro-note{font-size:12px;line-height:1.6;color:var(--mu)}
+    .sa{display:flex;gap:4px;align-items:flex-start;margin-left:auto;padding-left:6px;flex-shrink:0}
+    .fb,.cb{background:none;border:1px solid var(--bo);border-radius:8px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--mu);font-size:13px;transition:all .2s}
+    .fb.active{color:#F59E0B;border-color:#F59E0B;background:rgba(245,158,11,.12)}
+    .cb:hover,.fb:hover{background:rgba(255,255,255,.08)}
+    .afb{background:none;border:none;cursor:pointer;color:var(--mu);font-size:13px;margin-left:6px;padding:0;vertical-align:middle}
+    .afb.active{color:#F59E0B}
+    .ff-btn{background:none;border:1px solid var(--bo);border-radius:8px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--mu);transition:all .2s;white-space:nowrap}
+    .ff-btn.active{background:rgba(245,158,11,.12);border-color:#F59E0B;color:#F59E0B}
+    .rv-macro{font-size:14px;font-weight:700;color:var(--cy);margin-bottom:12px;padding:8px 12px;background:rgba(6,182,212,.07);border-radius:8px;border-left:3px solid var(--cy)}
+    .rv-block{margin-bottom:12px;padding:10px 13px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid var(--bo)}
+    .rv-role{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+    .rv-text{font-size:14px;line-height:1.75;color:#CBD5E1}
+    .rv-stock{margin-top:10px;padding:8px 12px;background:rgba(16,185,129,.08);border-radius:8px;font-size:13px;color:#34D399;border-left:3px solid var(--gr)}
+    .cc-company{font-size:16px;font-weight:700;color:var(--og);margin-bottom:8px}
+    .cc-situation{font-size:14px;line-height:1.75;color:#CBD5E1;margin-bottom:12px}
+    .cc-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--og);text-transform:uppercase;margin-bottom:6px}
+    .cc-why{font-size:13px;line-height:1.7;color:var(--mu);margin-top:10px;padding:8px 12px;background:rgba(249,115,22,.05);border-radius:8px;border-left:3px solid var(--og)}
+    .cc-steps{margin:4px 0 8px}
+    .cc-step{display:flex;gap:10px;margin-bottom:14px}
+    .cc-step-num{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:rgba(249,115,22,.15);color:var(--og);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+    .cc-step-action{font-size:14px;line-height:1.7;color:var(--tx)}
+    .cc-step-reason{font-size:12.5px;line-height:1.65;color:var(--mu);margin-top:4px;padding-left:2px}
+    .bs-source{font-size:11px;color:var(--lm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+    .drag-handle{background:none;border:1px solid var(--bo);border-radius:8px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:grab;color:var(--mu);font-size:15px;touch-action:none;user-select:none}
+    .drag-handle:active{cursor:grabbing;background:rgba(255,255,255,.1)}
+    .sec.dragging{opacity:.35}
+    .sec.drop-before{box-shadow:inset 0 3px 0 0 var(--bl)}
+    .sec.drop-after{box-shadow:inset 0 -3px 0 0 var(--bl)}
+    .drag-ghost{position:fixed;z-index:100;pointer-events:none;box-shadow:0 10px 28px rgba(0,0,0,.5);opacity:.96;margin:0}
+  </style>
+</head>
+<body>
+  <div id="toast">コピーしました！</div>
+  <button id="to-top-btn" aria-label="トップへ戻る">↑</button>
+  <div id="current-cat-bar"><span class="cc-icon"></span><span class="cc-label"></span><span class="cc-close">タップで閉じる ✕</span></div>
+
+  <div class="hdr"><div class="w">
+    <div class="hdr-top"><span class="logo">🧠 DAILY AI BRIEF</span><span class="num">#076</span></div>
+    <div class="dl">2026年10月18日<span class="db">日曜</span></div>
+    <div class="meta-row"><span class="read-time">📖 読了目安：約39分</span><span id="streak-badge" class="streak-badge" style="display:none"></span></div>
+    <div class="hdr-nav-row" style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
+      <div class="nav" id="brief-nav" style="margin-top:0;flex:1"></div>
+      <a href="https://claude.ai/code/artifact/43423a4f-2199-4691-adad-7bc480d1c479" style="font-size:12px;text-decoration:none;white-space:nowrap;padding:4px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:999px;color:inherit">🥋 スライド道場</a><!-- T-041道場導線（2026-08-24・通知なし裁定の代替フック。URL正本=04_growth/05_slide_library/06_dojo/CLAUDE.md） -->
+      <a href="./weekly.html" style="font-size:12px;text-decoration:none;white-space:nowrap;padding:4px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:999px;color:inherit">📅 週間</a>
+      <a href="./monthly.html" style="font-size:12px;text-decoration:none;white-space:nowrap;padding:4px 10px;border:1px solid rgba(255,255,255,0.35);border-radius:999px;color:inherit">🗓 月間</a>
+    </div>
+    <div class="view-tabs">
+      <button class="view-tab active" id="tab-article" data-tab="article">📄 記事</button>
+      <button class="view-tab" id="tab-list" data-tab="list">☑️ 一覧</button>
+    </div>
+    <div id="article-controls" style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
+      <button id="collapse-all" data-active="0" class="ff-btn">全て閉じる</button>
+      <div class="ff-toggle" style="flex:1">
+        <button id="show-all-btn" class="active">🗂 全表示</button>
+        <button id="fav-filter" data-active="0">★ お気に入り</button>
+      </div>
+    </div>
+    <div id="cat-panel" class="cat-panel" style="display:none">
+      <div class="rank-panel"><div class="cat-panel-label">📊 人気カテゴリ TOP5（直近30日）</div><div class="rank-empty">まだデータがありません。フィードバックを送るとここに表示されます。</div></div>
+      <div class="cat-panel-label">📂 表示するカテゴリを選択</div>
+      <div id="cat-rows"></div>
+      <div class="cat-actions">
+        <button id="cat-all">すべて表示</button>
+        <button id="cat-none">すべて非表示</button>
+      </div>
+      <div class="cat-actions cat-presets">
+        <button class="cat-preset" data-group="ai,aitrend,github_trending,google_trends">🤖 AI系だけ</button>
+        <button class="cat-preset" data-group="stocktopic,stockstudy,macro,macronews">💹 マーケット系だけ</button>
+        <button class="cat-preset" data-group="consulting,roleview,companycase,players,industry_report">📊 コンサル系だけ</button>
+        <button class="cat-preset" data-group="book,bookstock,note,marketingstudy,mckinsey_book">📚 学び系だけ</button>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="w" id="brief-body">
+    <div class="tldr-box"><div class="tldr-label">📋 今日のポイント（39分で読める全体像）</div><div class="tldr-row" data-sid="consulting"><span class="tldr-icon">📊</span><span class="tldr-cat">戦略</span><span class="tldr-text">「日本はAI後進国」という古い地図</span></div><div class="tldr-row" data-sid="ai"><span class="tldr-icon">🤖</span><span class="tldr-cat">AI</span><span class="tldr-text">会議アジェンダは「決める」と「共有」を分ける</span></div><div class="tldr-row" data-sid="macro"><span class="tldr-icon">🌍</span><span class="tldr-cat">マクロ</span><span class="tldr-text">株高・円安・規制強化が利益を同時に圧迫しうる。今期の業績インパクトを先に数字で試算する</span></div><div class="tldr-row" data-sid="stocktopic"><span class="tldr-icon">📈</span><span class="tldr-cat">株</span><span class="tldr-text">円安の恩恵と規制強化のコストを両方受ける企業に注意</span></div><div class="tldr-row" data-sid="companycase"><span class="tldr-icon">🏢</span><span class="tldr-cat">事例</span><span class="tldr-text">安さは仕組みの結果であって、顧客への約束にしてはいけない</span></div><div class="tldr-row" data-sid="roleview"><span class="tldr-icon">👤</span><span class="tldr-cat">視点</span><span class="tldr-text">円安は『追い風』から『コスト』に変わった——165円ラインの攻防</span></div><div class="tldr-row" data-sid="aitrend"><span class="tldr-icon">🔶</span><span class="tldr-cat">AI速報</span><span class="tldr-text">メタはスクレイピングと AI トレーニングの懸念を引き起こした文言を削除</span></div><div class="tldr-row" data-sid="github_trending"><span class="tldr-icon">🐙</span><span class="tldr-cat">GitHub</span><span class="tldr-text">debpalash/VoiceStudio</span></div><div class="tldr-row" data-sid="google_trends"><span class="tldr-icon">📈</span><span class="tldr-cat">Google</span><span class="tldr-text">レガシーハーフマラソン 2026</span></div><div class="tldr-row" data-sid="players"><span class="tldr-icon">🏢</span><span class="tldr-cat">プレイヤー</span><span class="tldr-text">AIデータセンターの電力問題、答えは「計算処理の引っ越し」か？　日立など5社、横浜と北九州をつないで実証</span></div><div class="tldr-row" data-sid="industry_report"><span class="tldr-icon">📑</span><span class="tldr-cat">業界レポ</span><span class="tldr-text">AIの文章を見抜けた専門家はわずか36％　「ヒューマンファイアウォール」崩壊の現実</span></div><div class="tldr-row" data-sid="frontier_tech"><span class="tldr-icon">🧪</span><span class="tldr-cat">フロンティア</span><span class="tldr-text">日本屈指のディープテック集結、京都FG・東証共催「京サミ2026」11月5日に京都で開催——25社ピッチ、Physical AIやVC8社の事業相談エリアも</span></div><div class="tldr-row" data-sid="sidebiz"><span class="tldr-icon">💼</span><span class="tldr-cat">副業</span><span class="tldr-text">ストックフォト・映像素材の販売</span></div><div class="tldr-row" data-sid="mckinsey_book"><span class="tldr-icon">📖</span><span class="tldr-cat">選書</span><span class="tldr-text">マザーランド——現代ロシアのフェミニスト史</span></div><div class="tldr-row" data-sid="note"><span class="tldr-icon">✍️</span><span class="tldr-cat">note</span><span class="tldr-text">部下がAIに出した指示を見て、育成の課題が丸裸になった</span></div><div class="tldr-row" data-sid="book"><span class="tldr-icon">📚</span><span class="tldr-cat">名著</span><span class="tldr-text">7つの習慣</span></div></div>
+    
+
+    <div class="sec s1" data-sid="consulting">
+      <div class="sh"><span class="si">📊</span><div style="flex:1">
+        <div class="sl">戦略コンサルナレッジ</div>
+        <div class="st">「日本はAI後進国」という古い地図</div>
+        <div class="stag">導入率の勝負はもう終わっている</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="consulting">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="myth-box"><div class="myth-label">🤔 世間の常識</div><div class="myth-text">日本企業は生成AIの導入で海外に周回遅れしており、まず導入率を上げることが課題だ</div></div>
+        <div class="truth-box"><div class="truth-label">💥 実は違う</div><div class="truth-text">PwC『生成AIに関する実態調査2026春』（6カ国比較）では、日本企業の生成AI活用・推進度は87%（前回比+11pt）、未着手・断念は4%まで減少。「導入していない」企業はほぼ消えた。一方「業界構造を変えるチャンス」と捉える割合は30%にとどまり、差がつくのは導入の有無ではなく事業変革への接続度に移っている</div></div>
+        <div class="why-text">課題設定が1年古いと打ち手も1年古くなる。「まず導入しましょう」という提案は2026年にはほぼ全社が通過済みで刺さらない。導入済みの87%の中でなぜ成果格差が生まれるかが現在の論点</div>
+        <div class="block pi"><div class="block-label">プロの行動</div><div class="block-body">クライアントのAI成熟度を「導入しているか」でなく「どの業務の意思決定・収益構造が変わったか」で測る。導入率の国際比較を提案書の枕に使うのをやめる</div></div>
+        <div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('s_p')">📋 コピー</button></div><div class="block-body mono" id="s_p">私たちの会社の生成AI活用状況（[概要]）を「導入の有無」ではなく「意思決定・収益構造がどれだけ変わったか」の軸で評価し、変革への接続が弱い箇所と次の一手を提案してください。</div></div>
+        </div>
+    </div>
+
+    <div class="sec s2" data-sid="ai">
+      <div class="sh"><span class="si">🤖</span><div style="flex:1">
+        <div class="sl">AIフロント</div>
+        <div class="st">会議アジェンダは「決める」と「共有」を分ける</div>
+        <div class="stag">混ぜると会議が全部長くなる</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="ai">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="block ht"><div class="block-label">😓 なぜ上手くいかないか</div><div class="block-body">「今日の議題」に意思決定事項・情報共有・ブレスト・進捗報告が混在していると、全部が中途半端になる。特に情報共有を会議でやると時間と集中力を大量消費する</div></div>
+        <div class="block pi"><div class="block-label">🧠 プロが無意識にやっていること</div><div class="block-body">会議アジェンダを「決める（意思決定）」「考える（ブレスト）」「聞く（情報共有）」の3種に分類し、会議でやるのは「決める」と「考える」だけにする。「聞く」は事前資料か録画で代替する</div></div>
+        <div class="block bp"><div class="block-label-row"><span class="block-label">改善プロンプト</span><button class="copy-btn" onclick="copyPrompt('a_p')">📋 コピー</button></div><div class="block-body mono" id="a_p">以下の会議アジェンダを最適化してください。
+
+現在のアジェンダ：
+[現在の議題リスト]
+会議時間：[分数]
+参加者：[人数・役職]
+
+以下を設計してください：
+① 「決める」「考える」「聞く」への分類
+② 会議では「決める」と「考える」のみを扱う設計
+③ 「聞く」を会議前に移行する方法（事前資料・Slack等）
+④ 意思決定に必要な事前情報と会議での議論の流れ</div></div>
+        <div class="block"><div class="block-label">期待される出力</div><div class="block-body mono">会議が意思決定に集中し、時間内に確実に「決まる」構造になる</div></div>
+        <div class="quotable">「情報共有を会議でするな。会議は決めるためだけにある」</div></div>
+    </div>
+
+    <div class="sec s14" data-sid="aitrend">
+      <div class="sh"><span class="si">🔶</span><div style="flex:1">
+        <div class="sl">AIトレンド速報</div>
+        <div class="st">生成AI業界の動きを速報（Claude・Anthropic関連は🔶で優先表示）</div>
+        <div class="stag">TechCrunch AI・VentureBeat AI（日本語訳）</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="aitrend">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="mi" data-aid="aitrend:c2a828c7"><div class="mh">アンスロピック社は、従業員の若手化が進み、会議に多くの時間を費やしていると述べている<span class="ai-trend-badge">🔶 Claude関連</span><button class="afb" data-aid="aitrend:c2a828c7" aria-label="お気に入り">☆</button></div><div class="ms">Anthropic の従業員の構成と行われる仕事の種類は、この 1 年で大きく変化しました。</div><a class="ir-link" href="https://techcrunch.com/2026/10/17/anthropic-says-its-workforce-has-become-less-junior-and-is-spending-more-time-in-meetings/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="aitrend:5329074f"><div class="mh">Replit は OpenAI を Anthropic よりもデフォルトにする、と CEO が語る<span class="ai-trend-badge">🔶 Claude関連</span><button class="afb" data-aid="aitrend:5329074f" aria-label="お気に入り">☆</button></div><div class="ms">先週末、Masad 氏は、OpenAI が Anthropic をデフォルトのモデルプロバイダーとして置き換えることを明らかにしました。クロードは引き続きプラットフォーム上で利用できます。</div><a class="ir-link" href="https://techcrunch.com/2026/10/17/replit-is-no-longer-working-with-anthropic-ceo-says/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="aitrend:24a6bb25"><div class="mh">メタはスクレイピングと AI トレーニングの懸念を引き起こした文言を削除<button class="afb" data-aid="aitrend:24a6bb25" aria-label="お気に入り">☆</button></div><div class="ms">Metaの広報担当者は、更新された規約はMetaがウェブをクロールする方法の変更を反映していないと主張した。</div><a class="ir-link" href="https://techcrunch.com/2026/10/17/meta-removes-language-that-raised-scraping-and-ai-training-concerns/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="aitrend:4466435d"><div class="mh">インドが不正AIエージェントの活動を報告した最新の国となる<button class="afb" data-aid="aitrend:4466435d" aria-label="お気に入り">☆</button></div><div class="ms">エージェントは、アプリ構成、パブリック コード リポジトリ、および過度に寛容なクラウド ロールに公開されたままになっている資格情報と接続設定を介して侵入しました。</div><a class="ir-link" href="https://techcrunch.com/2026/10/16/india-becomes-the-latest-country-to-report-rogue-ai-agent-activity/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="aitrend:0ee63cc5"><div class="mh">Nvidia インサイダーから VC に転身したロボット工学が ChatGPT の瞬間にまだ達していない理由について語る<button class="afb" data-aid="aitrend:0ee63cc5" aria-label="お気に入り">☆</button></div><div class="ms">NVIDIA のロボット プラットフォームの製品マーケティングを 7 年間担当した Amulya Vishwanath 氏は、ロボット工学は現在「レゴ時代」にあり、アクチュエーター、ロボット ハンド、ソフトウェア、安全基準などの基本的な構成要素がまだ再構築されていると述べています。  この見解は、一般的な基礎モデルを活用したロボット工学が実現しようとしていると信じている人々に反しています。[…]</div><a class="ir-link" href="https://techcrunch.com/video/a-nvidia-insider-turned-vc-on-why-robotics-hasnt-hit-its-chatgpt-moment-yet/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="aitrend:3813289f"><div class="mh">OpenAI モデルが暗号通貨ウォレットをハッキングし、さらに多くの Web サイトに侵入<button class="afb" data-aid="aitrend:3813289f" aria-label="お気に入り">☆</button></div><div class="ms">もし人間がキーボードの後ろにいたとしたら、この行為は刑事告訴につながる可能性がありました。</div><a class="ir-link" href="https://arstechnica.com/security/2026/10/openai-models-hacked-a-crypto-wallet-and-breached-more-websites/" target="_blank" rel="noopener">🔗 元記事を読む →</a></div></div>
+    </div>
+
+    <div class="sec s20" data-sid="kabu">
+      <div class="sh"><span class="si">💹</span><div style="flex:1">
+        <div class="sl">株運用モニター</div>
+        <div class="st">実ポジション警告・ペーパー運用・現金移行ゲート</div>
+        <div class="stag">06_finance実データから毎朝自動集約（前日終値ベース）</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="kabu">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="block pi" style="border-left-color:#FCD34D;background:rgba(252,211,77,.07)"><div class="block-label" style="color:#FCD34D">📊 サマリー評価（ペーパー運用開始からの累計）</div><div class="block-body" style="font-size:16px;font-weight:700">-0.53% （TOPIXは-0.76%・+0.23pt 上回る）</div><div class="block-body" style="opacity:.8">実弾運用：+9.6%</div></div><div class="block"><div class="block-label">🛡️ 撤退基準 監視中</div><div class="block-body">4条クリア（日次自動監視・POLICY §6）</div></div><div class="block ht"><div class="block-label">🗓️ 運用リズム</div><div class="block-body">ステージ開始から104日経過。昇格の最短日数(28日)を満たしました。DD−15%以内・執行トラブルなしを確認のうえ次ステージを検討してください（POLICY §3）</div></div><div class="block ht"><div class="block-label">💼 実ポジション：すべて平常圏</div><div class="block-body"><ul class="ul"><li><strong>1814.T</strong> +16.5%（損切り−17%／利確+34%）：🟢 平常</li><li><strong>1885.T</strong> -3.5%（損切り−20%／利確+40%）：🟢 平常<br><span style="opacity:.75">↳ 損切りラインまであと16.5pt の余裕があります（現状は想定内の値動き）</span></li><li><strong>4064.T</strong> +3.5%（損切り−13%／利確+26%）：🟢 平常</li><li><strong>7231.T</strong> +8.4%（損切り−12%／利確+24%）：🟢 平常</li><li><strong>8399.T</strong> +11.3%（損切り−15%／利確+30%）：🟢 平常</li><li><strong>8609.T</strong> +15.7%（損切り−14%／利確+28%）：🟢 平常</li><li><strong>8935.T</strong> +9.7%（損切り−14%／利確+28%）：🟢 平常</li></ul></div></div><div class="block pi"><div class="block-label">🔒 現金移行ゲート検証中（103日経過）</div><div class="block-body"><div class="concept" style="margin-bottom:6px">📖 このゲートの見方：以下4項目すべてが✅になった時点で「実弾運用へ資金を移す判断材料が揃った」状態（自動で移行するわけではなく、判断材料の提示まで）。TOPIX対比の勝ち負けは4項目のうち「ベンチマーク超過」1つに対応するだけで、それ単体で合格・不合格が決まるわけではありません。</div><div class="bz-fit">🤖 ペーパー運用（2026-07-06開始）：-0.53% vs TOPIX -0.76%</div><ul class="ul"><li>✅ <strong>優位性プラス（コスト後・未使用期間OOS）</strong>：頑健バックテストのコスト後OOSスプレッド +8.7%</li><li>✅ <strong>ペーパー運用28日以上</strong>：現在103日</li><li>⏳ <strong>ベンチマーク超過（コスト・税引後）</strong>：ペーパー -0.5%（コスト往復0.5%・税20.3%引後 -1.0%） vs TOPIX -0.8%</li><li>✅ <strong>最大ドローダウン-15%以内</strong>：現在-14.5%</li></ul></div></div><div class="block bp"><div class="block-label">📊 3者比較（実弾 / ペーパー / TOPIX）</div><div class="block-body"><ul class="ul"><li>実弾 +9.6%（実弾−ペーパー +10.2%／実弾−TOPIX +10.4%）</li><li>順位：実弾 &gt; ペーパー &gt; TOPIX</li></ul></div></div><div class="mi-suggestion">📡 前日終値ベース・毎朝8:00時点の機械判定（投資助言ではありません）。詳細はPCの`kabu`ダッシュボードで。</div></div>
+    </div>
+
+    <div class="sec s15" data-sid="github_trending">
+      <div class="sh"><span class="si">🐙</span><div style="flex:1">
+        <div class="sl">GitHub Trending TOP5</div>
+        <div class="st">今、急上昇しているOSS・AIツール</div>
+        <div class="stag">GitHub Trendingから自動検知（英語は日本語訳）</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="github_trending">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bz-item huge" data-aid="github_trending:6a2270c8"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">1</span>debpalash/VoiceStudio<button class="afb" data-aid="github_trending:6a2270c8" aria-label="お気に入り">☆</button></div><div class="bz-why">VoiceStudio は、オープンソースで完全にローカルな イレブンラボの代替製品であり、646 言語で音声クローン、音声デザイン、ビデオ ダビング、ディクテーション、文字起こし、オーディオブックの作成を行うことができます。</div><div class="bz-fit">📡 本日+2,135⭐ ・ GitHub Trending</div></div><div class="bz-item huge" data-aid="github_trending:71337312"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">2</span>MadsLorentzen/ai-job-search<button class="afb" data-aid="github_trending:71337312" aria-label="お気に入り">☆</button></div><div class="bz-why">あなたのマシン上で実行される求人検索。 Claude Code に基づいて構築された AI 求人応募フレームワーク: 投稿内容の評価、履歴書の調整、カバーレターの作成、面接の準備。フォークして所有してください。</div><div class="bz-fit">📡 本日+1,397⭐ ・ GitHub Trending</div></div><div class="bz-item huge" data-aid="github_trending:45962e8c"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">3</span>anthropics/claude-plugins-official<button class="afb" data-aid="github_trending:45962e8c" aria-label="お気に入り">☆</button></div><div class="bz-why">Anthropic が管理する高品質の Claude コード プラグインの公式ディレクトリ。</div><div class="bz-fit">📡 本日+1,383⭐ ・ GitHub Trending</div></div><div class="bz-item huge" data-aid="github_trending:a92276b5"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">4</span>affaan-m/ECC<button class="afb" data-aid="github_trending:a92276b5" aria-label="お気に入り">☆</button></div><div class="bz-why">エージェントハーネスパフォーマンス最適化システム。クロード コード、コーデックス、オープンコード、カーソルなどのスキル、本能、記憶力、セキュリティ、研究優先の開発。</div><div class="bz-fit">📡 本日+1,145⭐ ・ GitHub Trending</div></div><div class="bz-item huge" data-aid="github_trending:64f139aa"><span class="bz-badge huge">🔥🔥🔥 大バズ</span><div class="bz-headline"><span class="bz-rank">5</span>xerj-org/xerj<button class="afb" data-aid="github_trending:64f139aa" aria-label="お気に入り">☆</button></div><div class="bz-why">XERJ は、AI がデータを検索する新しい方法です。 autoindex 機能により、エージェントは grep や sed のトークンを無駄にせずにデータを認識できるようになります。 1 つのコマンドで、grep より 40 倍少ないトークンを使用して、検索、RAG、セキュリティ監査、エージェント メモリ用にコード、ドキュメント、ログ、PDF のインデックスを作成します。 Elasticsearch と互換性があるため、既存のクライアントはそのまま動作します。</div><div class="bz-fit">📡 本日+1,102⭐ ・ GitHub Trending</div></div><div class="bz-checked">🕐 07:37時点</div></div>
+    </div>
+
+    <div class="sec s18" data-sid="google_trends">
+      <div class="sh"><span class="si">📈</span><div style="flex:1">
+        <div class="sl">Google急上昇検索 TOP5</div>
+        <div class="st">今、日本で検索が急増しているワード</div>
+        <div class="stag">Google Trends(JP)から自動検知</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="google_trends">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bz-item small" data-aid="google_trends:fad8e058"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">1</span>レガシーハーフマラソン 2026<button class="afb" data-aid="google_trends:fad8e058" aria-label="お気に入り">☆</button></div><div class="bz-why">【10/18 レガシーハーフマラソン】清水、白川、山本、長田、梶谷－－5選手が出場します</div><div class="bz-fit">📡 検索急上昇 500+ ・ Google急上昇検索</div></div><div class="bz-item small" data-aid="google_trends:b9d48362"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">2</span>フランス デモ<button class="afb" data-aid="google_trends:b9d48362" aria-label="お気に入り">☆</button></div><div class="bz-why">フランスで55万人参加の大規模デモ 物価高対策訴え、放火や略奪</div><div class="bz-fit">📡 検索急上昇 500+ ・ Google急上昇検索</div></div><div class="bz-item small" data-aid="google_trends:e52c9f25"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">3</span>ウクライナ<button class="afb" data-aid="google_trends:e52c9f25" aria-label="お気に入り">☆</button></div><div class="bz-why">ゼレンスキー氏、トランプ大統領に不信感 対ロ制裁解除進むと悲観</div><div class="bz-fit">📡 検索急上昇 500+ ・ Google急上昇検索</div></div><div class="bz-item small" data-aid="google_trends:046d44a9"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">4</span>日村勇紀<button class="afb" data-aid="google_trends:046d44a9" aria-label="お気に入り">☆</button></div><div class="bz-why">フリーアナウンサー・神田愛花『2年目の挑戦！ 日村夫妻のルート66の旅②〜私の自慢のトド人間〜』（FRIDAY）</div><div class="bz-fit">📡 検索急上昇 200+ ・ Google急上昇検索</div></div><div class="bz-item small" data-aid="google_trends:479419e2"><span class="bz-badge small">🔥 小バズ</span><div class="bz-headline"><span class="bz-rank">5</span>皇室<button class="afb" data-aid="google_trends:479419e2" aria-label="お気に入り">☆</button></div><div class="bz-why">ニュース見出しの紐づけがない急上昇ワードです（人物名・一般ワードはニュース速報が付かないことがあります）。下の検索リンクから背景を確認できます</div><a class="bz-link" href="https://www.google.com/search?q=%E7%9A%87%E5%AE%A4" target="_blank" rel="noopener">🔍 検索して理由を確認する →</a><div class="bz-fit">📡 検索急上昇 200+ ・ Google急上昇検索</div></div><div class="bz-checked">🕐 07:37時点</div></div>
+    </div>
+
+    <div class="sec s16" data-sid="players">
+      <div class="sh"><span class="si">🏢</span><div style="flex:1">
+        <div class="sl">主要プレイヤー動向</div>
+        <div class="st">競合ファーム・大手プレイヤーの動き</div>
+        <div class="stag">ITmedia・日経クロステック・McKinsey Insightsから検知</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="players">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="mi" data-aid="players:0e70b925"><div class="mh">AIデータセンターの電力問題、答えは「計算処理の引っ越し」か？　日立など5社、横浜と北九州をつないで実証<button class="afb" data-aid="players:0e70b925" aria-label="お気に入り">☆</button></div><div class="ms">再生可能エネルギーの電力を使い切れない時間と場所に、AIの計算処理を移す。日立製作所や電源開発など5社が総務省の実証で試みるのは、発電状況に合わせてデータセンターの処理を動かす「ワークロードシフト」だ。横浜と北九州、さらに上越新幹線の沿線で、何を検証するのか。</div><div class="mi-suggestion">📡 ITmedia エンタープライズ</div></div><div class="mi" data-aid="players:8eb25ab0"><div class="mh">OpenAIの&quot;暴走&quot;エージェントはWikipediaで何をしていたのか　財団が特定した「無許可活動」<button class="afb" data-aid="players:8eb25ab0" aria-label="お気に入り">☆</button></div><div class="ms">AIエージェントによるWebサイトへの侵入の試みを複数の組織が公表する中、Wikimedia財団は、OpenAIが運用するとみられるエージェントの活動を自らのプラットフォームで確認したと発表した。エージェントは何をしていたのか。</div><div class="mi-suggestion">📡 ITmedia エンタープライズ</div></div><div class="mi" data-aid="players:6f303124"><div class="mh">人事AIに足りないのは「根拠」　SAPがTechWolf買収で手に入れるもの<button class="afb" data-aid="players:6f303124" aria-label="お気に入り">☆</button></div><div class="ms">SAPが、従業員の業務とスキルをAIで分析するベルギーのTechWolfを買収する。AIエージェントが採用や配置転換の判断に関わるようになれば、エージェントは何を根拠に答えを出すのか。SAPが買収で手に入れるものと、AIアシスタント「Joule」での生かし方とは。</div><div class="mi-suggestion">🔍 この動きの狙い：時間をお金で買う動き。技術・人材・顧客基盤のどれを狙った買収かで、その企業が『次に何で勝負するか』が見える</div><div class="mi-suggestion">📡 ITmedia エンタープライズ</div></div><div class="mi" data-aid="players:c9fb32a5"><div class="mh">Web上にない「現場の暗黙知」をAIの武器に変えるには？　日立「フィジカルAI」時代の挑戦<button class="afb" data-aid="players:c9fb32a5" aria-label="お気に入り">☆</button></div><div class="ms">2026年を「フィジカルAI元年」と掲げ、パートナー企業と社会実装に取り組む日立製作所。現場の暗黙知をデータとして活用するため重要性を語った。</div><div class="mi-suggestion">📡 ITmedia ビジネス</div></div><div class="mi" data-aid="players:8c1a1fbb"><div class="mh">前方展開エンジニアとは何ですか?<button class="afb" data-aid="players:8c1a1fbb" aria-label="お気に入り">☆</button></div><div class="ms">前方展開されたエンジニアは、別の会社のシステム内で作業します。マッキンゼーの 3 人のリーダーが、企業が AI から影響力を引き出すために FDE がどのように役立つかを説明します。</div><div class="mi-suggestion">📡 McKinsey Insights</div></div></div>
+    </div>
+
+    <div class="sec s17" data-sid="industry_report">
+      <div class="sh"><span class="si">📑</span><div style="flex:1">
+        <div class="sl">業界レポート（毎日1本）</div>
+        <div class="st">AIの文章を見抜けた専門家はわずか36％　「ヒューマンファイアウォール」崩壊の現実</div>
+        <div class="stag">今日の1本から、機会・反論・競合の動きまで読む</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="industry_report">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bc">AIの文章を見抜けた専門家はわずか36％　「ヒューマンファイアウォール」崩壊の現実</div><div class="concept">セキュリティ専門家に人間とAIが書いたメッセージの判別を求めたところ、正しく見抜けたのは36％だった。YubicoとOktaの共同調査は、従業員の警戒心を防御の要とする「ヒューマンファイアウォール」の限界を示す。</div><a class="ir-link" href="https://www.itmedia.co.jp/enterprise/articles/2610/11/news006.html" target="_blank" rel="noopener">🔗 元記事を読む →</a><div class="block ht" style="border-left-color:#34D399;background:rgba(52,211,153,.07)"><div class="block-label" style="color:#34D399">🚀 ビジネス機会の芽（専門家も見抜けないAI文面とパスワード依存）</div><div class="block-body">セキュリティ専門家でもAI文面を見抜けたのは36％で、43％は今もパスワードでログインしている。研修で警戒心を高める路線の限界が数字で示され、「教育」から初期設定段階の「構造的な強制」への予算移行が起きる。パスキー導入支援、入社初日の認証設計の見直し、認証方式が分断された76％の組織の統合に仕事の種がある。</div><div class="block-body" style="margin-top:6px"><b>▶ 今日から試せる一手：</b>自社か担当先で、入社初日に新入社員へ渡す認証手段がパスワードになっていないかを確認し、現状を1枚にまとめる。</div></div><div class="block"><div class="block-label">📋 記事の構成（見出しから抽出）</div><ul class="ul"><li>専門家もパスワードをやめられない理由とは</li><li>従業員の警戒心はAIに通用するか</li><li>セキュリティ専門家に人間とAIが書いたメッセージの判別を求めたところ、正しく見抜けたのは36％だった</li><li>企業は毎年、従業員のセキュリティ意識を高めるために時間と資金を投じている</li></ul></div><div class="ma-why-toggle" onclick="this.nextElementSibling.classList.toggle('open')">📖 本文を読む ▾</div><div class="ma-why" style="white-space:pre-wrap">セキュリティ専門家に人間とAIが書いたメッセージの判別を求めたところ、正しく見抜けたのは36％だった。YubicoとOktaの共同調査は、従業員の警戒心を防御の要とする「ヒューマンファイアウォール」の限界を示す。
+
+企業は毎年、従業員のセキュリティ意識を高めるために時間と資金を投じている。多要素認証（MFA）を導入し、セキュリティポリシーを定め、コンプライアンス研修を義務付ける。一見、こうした取り組みは効果を上げているように見える。
+
+ID管理サービスを手掛けるOkta Japanは2026年10月8日、認証用セキュリティキー「YubiKey」を提供するYubicoとの共同レポート「2026 グローバル認証状況調査」を発表した。日本を含む9カ国のテクノロジーとセキュリティの専門家約2000人を対象に、2026年7月に実施した調査に基づく。セキュリティリーダーの88％は、自社の現在のセキュリティ体制に自信があると回答した。
+
+一方で同じ調査から、セキュリティ専門家の43％が依然として業務へのログインにパスワードを使っている実態も浮かんだ。回答者の87％は、パスワードに代わる認証技術「パスキー」に精通している。知識は足りているのに、なぜ移行が進まないのか。
+
+セキュリティの専門家は深い知識を持ち、31％はデバイスにひも付くハードウェア保護型のパスキーを最も安全な資格情報と認識している。それでも回答者の半数以上に当たる52％は、入社時にユーザー名とパスワードを受け取っていた。76％の組織では社内アプリケーション間で認証方法が分断され、45％はそれらのシステム全体でユーザー名とパスワードを使っている。
+
+報告書は、安全とはいえない初期設定と絶え間ないセキュリティ通知の組み合わせが「認証疲労」を引き起こすと分析する。人は自然と最も簡単な手段を選ぶため、優れた研修を実施しても行動は変わりにくいという。
+
+報告書は、従業員の警戒心を防御の要とする「ヒューマンファイアウォール」の考え方がAIには通用しなくなっていると指摘する。過去1年間で回答者の70％は組織へのフィッシングが増えたと答えた。44％は自社が少なくとも1回、AI主導の攻撃による被害を受けたと報告し、43％は経営陣や顧客を標的とした不審な動画や音声、電話によるなりすましを経験した。
+
+OktaとYubicoが実施したテストでは、専門家に人間が書いたメッセージとAIが生成したメッセージの判別を求めた。人間のメッセージを正しく特定できたのは36％だった。報告書は、従業員への教育に依存した防御から、初期設定の段階で安全な認証を確保する「構造的な強制」への移行を求めている。
+
+認証アーキテクチャの最新化は、AIエージェントを統制する準備にもなると報告書は位置付ける。91％はAIエージェントのアイデンティティー検証が欠かせないと答え、57％は「極めて重要」と回答した。ただしAIエージェントの導入ペースは、統制の整備を上回っているという。現場では、日常的なスケジュール管理（35％）や社内コミュニケーションの下書き作成（35％）といったタスクをAIエージェントに委ねる動きが進む。許容度には世代差があり、AIエージェントに顧客とのやりとりを任せることに抵抗がないと答えた割合は、Z世代の専門家で68％、ベビーブーマー世代で27％だった。
+
+一方で回答者の91％は、AIエージェントが権限昇格や金融取引の実行といったリスクの大きい操作を行う前に、人間が承認に介在する「ヒューマンインザループ」の維持を求めた。報告書は、パスキーに代表されるフィッシング耐性認証に基づき、ログイン前、ログイン中、ログイン後の3つのフェーズでアクセスを保護するアイデンティティーフレームワークを提示している。意識向上への投資を見直す出発点は、入社初日に新しい従業員へ何を手渡しているかを確かめることかもしれない。</div><div class="block pi"><div class="block-label">💡 自分の仕事・副業のどこに接続できるか</div><div class="block-body">セキュリティ研修やリテラシー向上の提案をしているなら、効果測定の軸を受講率から「初期設定でパスワードを渡していないか」へ移せる。52％が入社時にユーザー名とパスワードを受け取るという数字は、診断サービスの導入フックになる。</div></div><div class="block pi"><div class="block-label">⚠️ この機会の読みが外れるとしたら（反論）</div><div class="block-body">調査はYubicoとOktaという認証製品の提供元によるもので、パスキーやセキュリティキーの需要を強調する立場にある。判別テストの設計や条件も記事から分からず、36％を一般化できない。導入費用や既存システムとの互換性が壁になれば、構造的な強制への移行は進まない可能性がある。</div></div><div class="block pi"><div class="block-label">🏢 競合・同業はこれをどう商材化しそうか</div><div class="block-body">ID管理ベンダーやセキュリティキーの販売元は、パスキー移行とフィッシング耐性認証を軸にした導入パッケージを出しそう。コンサルや情シス支援会社は、ログイン前・中・後の3フェーズで保護するフレームワークを診断メニュー化し、AIエージェントのID検証まで含めて売る形が考えられる。</div></div><div class="block pi"><div class="block-label">📊 記事の数字（自分の言葉で言い換えられるか）</div><ul class="ul"><li>セキュリティ専門家に人間とAIが書いたメッセージの判別を求めたところ、正しく見抜けたのは36％だった</li><li>ID管理サービスを手掛けるOkta Japanは2026年10月8日、認証用セキュリティキー「YubiKey」を提供するYubicoとの共同レポート「2026 グローバル認証状況調査」を発表した</li><li>日本を含む9カ国のテクノロジーとセキュリティの専門家約2000人を対象に、2026年7月に実施した調査に基づく</li></ul></div><div class="mi-suggestion">📡 出典：ITmedia エンタープライズ</div></div>
+    </div>
+
+    <div class="sec s19" data-sid="mckinsey_book">
+      <div class="sh"><span class="si">📖</span><div style="flex:1">
+        <div class="sl">マッキンゼー選書2026</div>
+        <div class="st">マザーランド——現代ロシアのフェミニスト史</div>
+        <div class="stag">Global Publishing社員が選んだ22冊を日替わりで1冊ずつ</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="mckinsey_book">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="mi-suggestion">💡 これは経営ノウハウ本の紹介ではありません。マッキンゼー社員自身が選ぶ「激務の中でも血の通った人間観・感受性を保つための私的な読書」——だからこそ小説や回想録が多く並びます。「ビジネスに直接使える一冊」ではなく「一流のコンサルタントが仕事以外で何に触れているか」を覗く枠として読んでください。その上で、あえて仕事に引き寄せるなら——という一歩だけを💼欄に添えています</div><div class="bs-source">✍️ ジュリア・イオッフェ ／ Ecco/HarperCollins Publishers ／ 歴史・国際政治</div><div class="bc">マザーランド——現代ロシアのフェミニスト史</div><div class="concept" style="color:var(--mu);font-size:13px;margin-top:-8px">原題：Motherland: A Feminist History of Modern Russia, from Revolution to Autocracy</div><div class="block bp"><div class="block-label">📣 マッキンゼー社員の推薦コメント</div><div class="block-body">複数の人から薦められた。タイトルどおりの内容だが、女性の視点を中心に据えた歴史書は他に類を見ない。著者も私も子どもの頃にソ連から米国へ渡った身で、歴史とバランスの取れた文化的な言及や個人的な物語がとりわけ心に響く。</div></div><div class="block ht"><div class="block-label">🔍 どんな本か</div><div class="block-body">ロシア革命から現在の強権体制まで、100年の現代ロシア史を「女性たちの経験」を軸に描き直した歴史書。ソ連出身のジャーナリストが、公式史からこぼれ落ちた視点で大国の変質を追います。</div></div><div class="block pi"><div class="block-label">💼 ビジネスへの引き寄せ</div><div class="block-body">同じ歴史でも「誰の視点で記述するか」で見える構造が変わる——これは市場分析でも同じです。業界レポートを「大手の視点」でなく「働き手・消費者の視点」で読み直すと、別の機会が見えてきます。</div></div><div class="quotable">📅 地政学リスクを扱う日、いつもと違う視点で歴史を読みたい週末に</div><div class="mi-suggestion">📡 出典：McKinsey Global Publishing's 2026 book picks（2026-07-01公開・全22冊を日替わり紹介）</div></div>
+    </div>
+
+    <div class="sec s3" data-sid="macro">
+      <div class="sh"><span class="si">🌍</span><div style="flex:1">
+        <div class="sl">マクロインテリジェンス</div>
+        <div class="st">今週のマクロ潮流</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="macro">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="macro-conclusion"><div class="macro-conclusion-label">📌 今日のマクロ、仕事への一言</div><div class="macro-conclusion-body">株高・円安・規制強化が利益を同時に圧迫しうる。今期の業績インパクトを先に数字で試算する</div></div><div class="macro-action"><div class="macro-action-label">💡 改善提案：まずこれをやる</div><div class="macro-action-body">為替・規制シナリオ別に来期利益への影響額を試算し、最も影響の大きい変数から対策を1つ決める</div></div><div class="macro-analysis-label">🔍 詳細：トレンド別インパクト</div><div class="ma-item"><div class="ma-headline">国内株式市場の高値圏・バリュエーション拡大</div><div class="impact-map"><span class="iv up">IPO環境 ↑</span><span class="iv up">M&amp;A価格 ↑</span><span class="iv easier">株式調達 →</span><span class="iv down">割安感 ↓</span></div><div class="ma-lens">💼 M&amp;A・投資案件のバリュエーションが高止まりしている。高値での買収は将来の減損リスクを内包する。「良い案件を安く買う」より「高い案件の戦略的価値」を精査する局面</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">株価が業績の伸び以上に上昇すると、『将来の期待』の部分が価格に多く織り込まれることになる。この状態でM&amp;Aを行うと、期待が外れた時の下落幅（減損リスク）が大きくなる。高値圏では『安く買う』より『高くても勝てる理由』を精査する視点が必要になる</div></div><div class="ma-item"><div class="ma-headline">円安水準の長期化・輸入コスト高止まり</div><div class="impact-map"><span class="iv up">輸入コスト ↑</span><span class="iv up">インバウンド ↑</span><span class="iv up">輸出企業 ↑</span><span class="iv down">内需企業 ↓</span></div><div class="ma-lens">💼 円安の受益者（輸出・観光）と被害者（輸入依存・内需）の分岐が拡大。自社のネット為替エクスポージャーを確認し、ヘッジ方針を見直す</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">為替は『どちらの通貨をより多くの人が欲しがるか』で決まる相対価格。日米の金利差が大きい間は、より高い金利を求めてドルが選好されやすく円安が続きやすい。この構造が変わらない限り、輸入依存企業のコスト高は一時的でなく前提として扱う必要がある</div></div><div class="ma-item"><div class="ma-headline">デジタル規制・データ保護法の強化</div><div class="impact-map"><span class="iv up">IT投資 ↑</span><span class="iv harder">データビジネス →</span><span class="iv up">コンプライアンス ↑</span><span class="iv harder">スタートアップ →</span></div><div class="ma-lens">💼 個人データの取得・利用ルールの見直しが必要。マーケティングでのデータ活用に制限がかかる前に、ファーストパーティデータの収集・活用設計を急ぐ</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">個人データの大量流出や不正利用の事件が相次いだことを背景に、各国で規制が強化されている。これまで『取得できたデータを自由に使う』が前提だったマーケティング手法が使えなくなりつつあり、データを『同意を得て集める』設計に作り直す必要が生じている</div></div><div class="ma-item"><div class="ma-headline">海外投資家の日本株保有比率が上昇</div><div class="impact-map"><span class="iv up">株価変動性 ↑</span><span class="iv up">ガバナンス要求 ↑</span><span class="iv up">自社株買い圧力 ↑</span></div><div class="ma-lens">💼 海外投資家比率が上がるほど、四半期業績・ガバナンス説明への要求水準が上がる。IR体制の強化が急務になる企業が増える</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">海外投資家は日本の商習慣より国際的なガバナンス基準（取締役会の独立性・株主還元等）で企業を評価する傾向が強い。保有比率が上がるほど、この『国際標準の物差し』で見られる圧力が強まり、従来の説明の仕方では通用しなくなる企業が増える</div></div><div class="ma-item"><div class="ma-headline">生成AIによるコンテンツの著作権規制強化の動き</div><div class="impact-map"><span class="iv up">AI活用制作リスク ↑</span><span class="iv up">法務確認コスト ↑</span><span class="iv up">オリジナル制作需要 ↑</span></div><div class="ma-lens">💼 AI生成物の権利関係が曖昧なまま公開に使っている企業はリスクを抱えている。利用範囲を法務確認するプロセスが必須になる</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 なぜ？仕組みを見る ▾</div><div class="ma-why">AIの学習データや生成物の権利関係は法整備が追いついておらず『グレーゾーン』のまま実務で使われてきた。規制が明確化されると、これまでグレーで許容されていた使い方が違法と判定されるリスクが生じる。ルールが固まる前に使い始めた企業ほど、後から利用範囲の見直しを迫られやすい</div></div></div>
+    </div>
+
+    <div class="sec s9" data-sid="stocktopic">
+      <div class="sh"><span class="si">📈</span><div style="flex:1">
+        <div class="sl">株トピック</div>
+        <div class="st">円安の恩恵と規制強化のコストを両方受ける企業に注意</div>
+        <div class="stag">今週のマクロ潮流を受けて</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="stocktopic">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="stopic-why">💼 円安の恩恵を受ける輸出企業でも、同時に進む規制強化のコストを見落とすと業績の読み違いにつながる</div><div class="stopic-why" style="opacity:.9">🔍 見分け方の軸：輸出・円安恩恵 / 海外売上・多角化 / 規制対応支援 のどれに近いかで比較してください</div><div class="ma-why-toggle" onclick="this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">為替は輸出企業の円建て利益を直接押し上げるため、四半期決算での為替前提（1ドル=◯◯円）の上方修正が株価材料になりやすい。逆に為替前提が崩れると、同じ理由で下方修正のインパクトも大きくなる</div><div class="stopic-watch"><div class="stopic-watch-label">🎯 輸出比率の高い製造業</div><div class="stopic-watch-note">円安は業績の追い風だが、為替前提が崩れた際の反動リスクも大きい</div></div><div class="stopic-watch"><div class="stopic-watch-label">🎯 データ保護・デジタル規制対応が遅れている業界</div><div class="stopic-watch-note">規制強化のコストが今期以降表面化しやすい</div></div><div class="stopic-picks-label">⭐ 注目候補（立ち位置の異なる複数の視点を並べています）</div><div class="stopic-pick"><div class="stopic-pick-name"><span class="stopic-pick-axis">【輸出・円安恩恵】</span>トヨタ自動車</div><div class="stopic-pick-reason"><b>理由：</b>輸出比率の高い国内製造業の代表格で、海外売上比率が高い事業構造を持つ</div><div class="stopic-pick-outlook"><b>展望：</b>円安局面では為替差益が業績を押し上げやすい一方、反転時の影響も大きい点は注意が必要</div><div class="stopic-pick-risk"><b>リスク：</b>為替前提が崩れた場合の反動が大きく、為替差益に依存した業績評価にはリスクが伴う</div><div class="stopic-pick-metric"><b>📐 見るべき指標：</b>想定為替レートより実勢が円安に振れているか・営業利益に占める為替影響額の割合</div><div class="stopic-pick-metric" style="margin-top:4px"><b>📶 簡易テクニカル（前日終値ベース）：</b>現在値3,094円・5日移動平均比+2.9%・25日移動平均比+5.1%<br><span style="opacity:.8">売買タイミングの判断材料ではなく値動きの位置確認用です。実際の売買はPCの`kabu`ダッシュボードで確認してください。</span><br><span style="opacity:.8">📖 読み方の目安：直近5日・25日の平均株価に対し現在値が何%上下にあるかを示す指標。両方プラス＝短期・中期とも平均より上（上昇基調が続いている状態）、5日線だけプラス＝直近だけ反発している状態、両方マイナス＝平均より下（弱含み）。5日線が25日線を上から下に抜けると弱含みのサイン（デッドクロス）、逆は強含みのサイン（ゴールデンクロス）と一般に言われますが、あくまで過去の値動きの位置関係であり将来を保証するものではありません。</span></div></div><div class="stopic-pick"><div class="stopic-pick-name"><span class="stopic-pick-axis">【海外売上・多角化】</span>ソニーグループ</div><div class="stopic-pick-reason"><b>理由：</b>エレクトロニクス・エンタメ・金融など多角的な事業を展開し、海外売上比率の高さで知られる</div><div class="stopic-pick-outlook"><b>展望：</b>グローバル展開企業として円安の恩恵を受けやすいが、事業ポートフォリオの多様さが変動を緩和する面もある</div><div class="stopic-pick-risk"><b>リスク：</b>ゲーム・音楽・金融など事業が多岐にわたるため、為替以外の各事業固有の変動要因も併せて確認する必要がある</div><div class="stopic-pick-metric"><b>📐 見るべき指標：</b>海外売上比率が70%を超えているか・セグメント間の利益バランスが偏りすぎていないか</div></div><div class="stopic-pick"><div class="stopic-pick-name"><span class="stopic-pick-axis">【規制対応支援】</span>NTTデータグループ</div><div class="stopic-pick-reason"><b>理由：</b>ITサービス大手として、データ保護・セキュリティ関連の対応需要を取り込む立場にある</div><div class="stopic-pick-outlook"><b>展望：</b>デジタル規制強化の流れの中で、対応支援サービスへの需要増が事業機会になりうる</div><div class="stopic-pick-risk"><b>リスク：</b>ITサービス業は大型案件の受注時期によって四半期業績が変動しやすく、単年度の数字だけで判断しにくい</div><div class="stopic-pick-metric"><b>📐 見るべき指標：</b>官公庁・金融向け受注残高（バックログ）が積み上がっているか</div></div><div class="stopic-dd"><div class="stopic-dd-label">✅ 購入前に確認すること（実データは各自でご確認ください）</div><div class="stopic-dd-body">①決算での為替前提レートと実勢の乖離　②海外売上比率の推移　③規制対応コストの開示状況</div></div><div class="stopic-caution">⚠️ 為替水準は変動が大きく前提が崩れやすい。為替感応度の高い銘柄への短期的な期待だけで判断しないこと。投資は自己責任で。 個別銘柄名は一般に知られる事業内容から連想した例示であり、業績・株価を保証するものではありません。ここに記載の情報だけで購入を判断せず、必ず最新の決算・株価指標をご自身で確認し、自己責任で判断してください。</div></div>
+    </div>
+
+    <div class="sec s10" data-sid="macronews">
+      <div class="sh"><span class="si">📡</span><div style="flex:1">
+        <div class="sl">生ニュース</div>
+        <div class="st">今日拾った速報とルールベースのテーマ分類</div>
+        <div class="stag">旧「ミクロ視点」を統合（2026-07-02）</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="macronews">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="mi" data-aid="macronews:c8fd7b77"><div class="mh">米就業者 市場予想に反し減少 利上げ観測後退で円高ドル安進む<button class="afb" data-aid="macronews:c8fd7b77" aria-label="お気に入り">☆</button></div><div class="ms">円相場や株価に影響を及ぼすアメリカの雇用統計が発表され、7月の農業分野以外の就業者は減少に転じ、市場の予想を大幅に下回りました。アメリカのFRB＝連邦準備制度理事会が早期に利上げに踏み切るという観測がいくぶん後退し、外国為替市場では、公表後にドルを売って円を買う動きが進みました。</div><div class="stopic-micro-theme">🏷 為替</div><div class="mi-suggestion">💡 示唆：為替の変動は輸出企業と輸入依存企業の業績を逆方向に動かす。自社のネット為替エクスポージャーの確認が要る</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">為替レートは2国間の金利差・貿易収支・投資資金の流出入など複数の要因で決まる。輸出企業は円安で外貨建て売上の円換算額が増える一方、輸入依存企業は仕入れコストが増えるため、同じ為替変動でも業種によって影響の向きが逆になる</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260807/k10015199701000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="macronews:2592b191"><div class="mh">オープンAI 開発一時中断 AIみずからサイバー攻撃実行のおそれ<button class="afb" data-aid="macronews:2592b191" aria-label="お気に入り">☆</button></div><div class="ms">生成AIの「ChatGPT」の開発を手がけるアメリカのオープンAIは、AIモデル「アストラ」の開発の一時中断を7日、発表しました。理由について、AIの能力が大幅に向上し、みずからの判断で重大なサイバー攻撃を実行するおそれが排除できないとしています。</div><div class="stopic-micro-theme">🏷 AI安全・規制</div><div class="mi-suggestion">💡 示唆：AIの安全性・規制のニュースは『どのベンダーに依存しているか』の棚卸しを促すサイン。自社・クライアントのAI利用ポリシー（用途の線引き・代替手段・ベンダー停止時の業務継続）が明文化されているかを確認する視点が要る</div><div class="ma-why-toggle" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">🔬 仕組みを見る ▾</div><div class="ma-why">先端AIの開発・提供は、技術的な到達点より『安全に運用できるか（規制・訴訟・評判）』が律速になりつつある。提供側が自主的に止める・規制が枠をはめるという動きは、利用側には『特定モデルの機能が突然使えなくなる』リスクとして現れる。依存度の高い業務ほど、代替モデル・人手フォールバックを設計しておく必要がある</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260808/k10015200151000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="macronews:be2f9c47"><div class="mh">【詳細】ロシア ウクライナに軍事侵攻（8月8日の動き）<button class="afb" data-aid="macronews:be2f9c47" aria-label="お気に入り">☆</button></div><div class="ms">ロシアによるウクライナに対する軍事侵攻が続いています。ウクライナの各地でロシア軍とウクライナ軍が戦闘を続けていて、大勢の市民が国外へ避難しています。戦闘の状況や関係各国の外交など、ウクライナ情勢をめぐる8日（日本時間）の動きを随時更新でお伝えします。（日本とウクライナ、およびロシアのモスクワとは6時間の時差があります）</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260808/k10015192491000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="macronews:53a0b531"><div class="mh">「なりすまし広告」詐欺対策強化を 政府がSNS事業者に要請<button class="afb" data-aid="macronews:53a0b531" aria-label="お気に入り">☆</button></div><div class="ms">SNS上で有名人の写真などを無断で使った「なりすまし広告」による詐欺の被害が相次ぐなか、政府は、SNSの運営事業者に対して、広告主の本人確認といった対策を強化するよう文書で要請しました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260808/k10015199771000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="macronews:a6067e70"><div class="mh">千葉 銚子 輸入サバ高騰で加工業者の約2割が倒産や廃業状態に<button class="afb" data-aid="macronews:a6067e70" aria-label="お気に入り">☆</button></div><div class="ms">サバの加工が盛んな千葉県銚子市では、原料の大半を占めるノルウェー産などの輸入サバの価格高騰で水産加工業者の採算が悪化し、およそ2割が倒産や、事実上の廃業状態にあることが分かりました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260808/k10015199891000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="macronews:ea4ca6b1"><div class="mh">KDDI 楽天への回線提供の契約 9月で終了 一部では提供継続<button class="afb" data-aid="macronews:ea4ca6b1" aria-label="お気に入り">☆</button></div><div class="ms">KDDIが楽天モバイルに回線を貸し出す「ローミング契約」について、KDDIの松田浩路社長は、決算会見で、現在の契約は9月末で終了するものの、過疎地などエリアを限定して通信回線の提供を続ける考えを明らかにしました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260808/k10015199811000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div><div class="mi" data-aid="macronews:6d17add4"><div class="mh">イチローさん マリナーズOBのホームラン競争でファンわかせる<button class="afb" data-aid="macronews:6d17add4" aria-label="お気に入り">☆</button></div><div class="ms">大リーグ、マリナーズなどで活躍し去年アメリカで野球殿堂入りしたイチローさんが、マリナーズの創設50周年を記念したOBによるホームラン競争に参加し、フェンスを越える当たりを連発して多くのファンをわかせました。</div><a class="ir-link" href="http://www3.nhk.or.jp/news/html/20260808/k10015200331000.html" target="_blank" rel="noopener">🔗 元記事を読む →</a></div></div>
+    </div>
+
+    <div class="sec s12" data-sid="stockstudy">
+      <div class="sh"><span class="si">📘</span><div style="flex:1">
+        <div class="sl">株の勉強</div>
+        <div class="st">信用倍率と需給</div>
+        <div class="stag">「株トピック」の注目候補・購入前チェックを読み解く基礎</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="stockstudy">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bc">信用倍率と需給</div><div class="concept">信用買い残÷信用売り残。信用買い残が積み上がった銘柄は、将来の売り圧力（返済売り）を抱えている状態。業績と無関係に、需給だけで株価が上がりにくく・下がりやすくなる要因になる。</div><div class="cbox">信用倍率10倍超の話題株は、上がれば信用買いの利確売りに押され、下がれば追証の投げ売りが出る。業績が良くても需給が重いと、しばらく上値が抑えられ続けることがある。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">話題になっている銘柄ほど信用買いが積み上がりやすい。買う前に信用倍率と信用買い残の推移を見て「上値の重さ」を確認する。</div></div><div class="block bp"><div class="block-label">📈 株トピックとの繋がり</div><div class="block-body">株トピックで注目候補として挙がるような銘柄は、すでに個人の信用買いが集中していることがある。話題性と需給の重さはセットで疑う。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('ss_p')">📋 コピー</button></div><div class="block-body mono" id="ss_p">以下の銘柄の需給状況を分析してください。
+銘柄：[銘柄名]
+信用倍率・信用買い残の推移：[分かる範囲]
+最近の話題性：[ニュースやSNSでの注目度]
+
+出力：①需給の重さの評価（上値の売り圧力はどの程度か）　②話題先行で個人の信用買いが集中しているサインの有無　③エントリーするなら needy な需給がこなれるのを待つべきかの判断</div></div></div>
+    </div>
+
+    <div class="sec s13" data-sid="marketingstudy">
+      <div class="sh"><span class="si">🧭</span><div style="flex:1">
+        <div class="sl">マーケティングの勉強</div>
+        <div class="st">インフルエンサーマーケティングのROI測定</div>
+        <div class="stag">実務で使えるマーケティングの基礎フレーム</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="marketingstudy">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bc">インフルエンサーマーケティングのROI測定</div><div class="concept">インフルエンサー起用の効果を「いいね数・再生数」ではなく、実際の購買行動への貢献で測る考え方。フォロワー数の大きさとエンゲージメント・購買転換率は必ずしも比例せず、小規模だが熱量の高いマイクロインフルエンサーの方が費用対効果で優位なことがある。</div><div class="cbox">フォロワー100万人のインフルエンサーの投稿より、フォロワー1万人だが特定分野への熱量が高いマイクロインフルエンサーの専用コードの方が、コンバージョン率で上回ることが珍しくない。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">起用検討時にフォロワー数だけで判断せず、過去投稿のエンゲージメント率・フォロワー属性の一致度・専用クーポン等での購買追跡可能性を確認する。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('ms_p')">📋 コピー</button></div><div class="block-body mono" id="ms_p">インフルエンサー起用の効果測定方法を設計してください。
+商材：[何を売っているか]
+検討中のインフルエンサー候補の特徴：[フォロワー数・ジャンル等]
+
+出力：①フォロワー数以外に確認すべき指標3つ　②購買貢献を追跡する具体的な仕組み（専用コード等）③マイクロ/マクロどちらの起用が適切かの判断基準</div></div></div>
+    </div>
+
+    <div class="sec s21" data-sid="pevcnews">
+      <div class="sh"><span class="si">💰</span><div style="flex:1">
+        <div class="sl">PE・VC情報</div>
+        <div class="st">久光製薬がMBOで非公開化、3,937億円規模の買収</div>
+        <div class="stag">起業・資金調達・バイアウトの実例</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="pevcnews">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="mi" data-aid="pevcnews:c4605c67"><div class="bc">久光製薬がMBOで非公開化、3,937億円規模の買収<button class="afb" data-aid="pevcnews:c4605c67" aria-label="お気に入り">☆</button></div><div class="stopic-micro-theme">🏷 MBO（経営陣による買収）</div><div class="concept">2026年1月、久光製薬が経営陣主導のMBOを実施し3,937億円規模で非公開化。上場を維持したままでは実行しづらい中長期の構造改革を、非公開化によって進めやすくする狙い。</div><div class="block bp"><div class="block-label">💡 なぜ注目すべきか</div><div class="block-body">四半期決算のプレッシャーから離れて長期投資に振り切りたい企業が非公開化を選ぶ流れは、日本でも定着しつつある。PEファンドを使わない自己資金主体のMBOという点で、財務体力のある老舗企業ならではの選択肢。</div></div><div class="mi-suggestion">📐 比較の軸：①プレミアム率（直前終値比）②上場維持コストの何を嫌ったか③経営陣の続投条件④少数株主対策（特別委員会・スクイーズアウト）——プール既載案件（アールビバン10.7%／JPMC23.5%／デジタルハーツ40.8%）と並べて位置を取る</div><div class="block pi"><div class="block-label">🔭 これからどう追うか</div><div class="block-body">MBOの買付価格にプレミアムが乗るかと、少数株主からの反対や価格引き上げの要求が出るかを追う。自己資金主体の取引なので、借入の返済条件ではなく、非公開化後に構造改革の内容が開示されるかが焦点になる。</div></div><div class="mi-suggestion">📡 製薬・非公開化</div></div><div class="mi" data-aid="pevcnews:ab868e95"><div class="bc">日本のユニコーン企業は2026年3月時点で6社にとどまる<button class="afb" data-aid="pevcnews:ab868e95" aria-label="お気に入り">☆</button></div><div class="stopic-micro-theme">🏷 市場動向</div><div class="concept">Sakana AI・Preferred Networks・スマートニュース・SmartHR・Spiber・Opnの6社（評価額10億ドル超・非上場）。米中に比べ日本のユニコーン数は依然として少ない。</div><div class="block bp"><div class="block-label">💡 なぜ注目すべきか</div><div class="block-body">日本政府は2027年までにスタートアップ投資額を10兆円規模へ拡大し、ユニコーン100社創出を目標に掲げている。現状6社との差から見えるのは「資金の量」だけでなく「大型ラウンドを引き受けられる国内投資家層の薄さ」という構造課題。</div></div><div class="block pi"><div class="block-label">🔭 これからどう追うか</div><div class="block-body">次の四半期や年度末の集計で、国内ユニコーンが6社から増えるかを見る。新規の大型ラウンドで評価額が10億ドルを超える企業が出るか、政府の2027年目標に向けた支援策が具体化するかも指標になる。</div></div><div class="mi-suggestion">📡 スタートアップ全般</div></div><div class="mi-suggestion">📌 気になった案件は右上の☆でお気に入り登録すると、あとでアイデア発掘用に見返せます</div></div>
+    </div>
+
+    <div class="sec s22" data-sid="startupstudy">
+      <div class="sh"><span class="si">🚀</span><div style="flex:1">
+        <div class="sl">起業の勉強</div>
+        <div class="st">キャップテーブル（資本構成表）</div>
+        <div class="stag">資金調達・事業設計の基礎知識</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="startupstudy">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bc">キャップテーブル（資本構成表）</div><div class="concept">誰が・いつ・いくらの株式（または新株予約権）をどれだけ保有しているかを一覧化した資本構成表。資金調達のたびに株式が希薄化（ダイリューション）していくため、創業者の持株比率が調達を重ねるごとにどう減っていくかを事前にシミュレーションしておく必要がある。</div><div class="cbox">創業時100%保有していた株式が、シードで20%希薄化（保有80%）、シリーズAでさらに20%希薄化（保有64%）というように、ラウンドを重ねるごとに複利的に目減りしていく。早期に大きく手放すと後半の交渉力を失う。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">調達額の大きさだけで喜ばず、その調達で自分の持株比率が何%希薄化するか、次のラウンド・その次のラウンドまで見据えて創業者の支配権がどこまで残るかを試算してから条件交渉に臨む。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('sus_p')">📋 コピー</button></div><div class="block-body mono" id="sus_p">私たちの資金調達によるキャップテーブルの変化をシミュレーションしてください。
+ 現在の創業者保有比率：[%]
+ 今回の調達で発行する株式比率：[想定%]
+ 今後想定しているラウンド数：[シード/A/B等]
+
+ 出力：①今回の調達後の創業者保有比率 ②今後のラウンドを経た数年後の想定保有比率 ③持株比率を守るために交渉で意識すべき点</div></div></div>
+    </div>
+
+    <div class="sec s23" data-sid="frontier_tech">
+      <div class="sh"><span class="si">🧪</span><div style="flex:1">
+        <div class="sl">フロンティア産業</div>
+        <div class="st">日本屈指のディープテック集結、京都FG・東証共催「京サミ2026」11月5日に京都で開催——25社ピッチ、Physical AIやVC8社の事業相談エリアも</div>
+        <div class="stag">今日の該当領域：ディープテック・グリーンテック／検索範囲：ディープテック・グリーンテック・気候テック・新素材・規制緩和</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="frontier_tech">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="mi" data-aid="frontier_tech:d0cd7491"><div class="mh">日本屈指のディープテック集結、京都FG・東証共催「京サミ2026」11月5日に京都で開催——25社ピッチ、Physical AIやVC8社の事業相談エリアも<button class="afb" data-aid="frontier_tech:d0cd7491" aria-label="お気に入り">☆</button></div><div class="mi-suggestion">💡 示唆：大学・研究機関発の基礎技術が中心。事業化前の技術をどう見極め・投資判断するかという『目利き』の実務ネタになりやすい</div><a class="ir-link" href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5JQkdDLUJkdVcxbWd2RjJOcVRGMmg1aUNHSzYzTGdUQmVfUk5ScEkwYTFwMEZLTmFUU1lsYnFCcG1meDlLemJMT1FjdUVpOGVCTGUyZEw4YjdRRUlOdDhHZkFKWVh5aXJG?oc=5" target="_blank" rel="noopener">🔗 記事を読む →</a><div class="mi-suggestion">📡 BRIDGE（ブリッジ）</div></div><div class="mi" data-aid="frontier_tech:e64fdbe5"><div class="mh">2026年度「ディープテック・スタートアップ支援基金／国際共同研究開発」の公募について<button class="afb" data-aid="frontier_tech:e64fdbe5" aria-label="お気に入り">☆</button></div><a class="ir-link" href="https://news.google.com/rss/articles/CBMiV0FVX3lxTFA3Q1JFb0JPcjZHOUt5dUlFSUQtWHZqRTNRVUxmamdzd19hUFhwZHdfSWFjQjRCMEtEclIta0RJT2tiNUhQOVFENEpHcER2elBKbWpkYVhnRQ?oc=5" target="_blank" rel="noopener">🔗 記事を読む →</a><div class="mi-suggestion">📡 NEDO</div></div><div class="mi" data-aid="frontier_tech:7777efe9"><div class="mh">ディープテック・イノベーション拠点の推進に向けた取組を採択しました！|10月<button class="afb" data-aid="frontier_tech:7777efe9" aria-label="お気に入り">☆</button></div><a class="ir-link" href="https://news.google.com/rss/articles/CBMidEFVX3lxTFBXTFVidlV4RGpCLVYxS2VWb3h2NHFoa28wMnZYZnJsQkd5aWNITkp4LVpDY3JCdU03aWZtWFI0UkFpU094TE9MaXRwOWVIUmVWMWw4NGVrVmNWc3dHcTlsX1VKVzRMRUxsSW1laUhHQWZnWnU4?oc=5" target="_blank" rel="noopener">🔗 記事を読む →</a><div class="mi-suggestion">📡 都庁総合ホームページ</div></div><div class="mi" data-aid="frontier_tech:ce7430c3"><div class="mh">国際園芸博覧会：グリーンテックプロジェクト<button class="afb" data-aid="frontier_tech:ce7430c3" aria-label="お気に入り">☆</button></div><div class="mi-suggestion">💡 示唆：脱炭素関連の規制・補助金と連動しやすい領域。クライアントのサステナビリティ対応やESG関連提案のネタに直結する</div><a class="ir-link" href="https://news.google.com/rss/articles/CBMiXEFVX3lxTFBPNDNNTWRsM0pEcFd4SVM5WE15T013Ym5tejN5REVza0FXc1RES2U4RVhUNXVhLXNiTzA4dEFFc1BydlBRNmV2ZXdqSjhIc1A4Z0x5dndhTEZxdy1q?oc=5" target="_blank" rel="noopener">🔗 記事を読む →</a><div class="mi-suggestion">📡 国土交通省</div></div><div class="mi" data-aid="frontier_tech:7b1f5e62"><div class="mh">【入場登録開始】ディープテック・スタートアップの発展を支援するASCII STARTUP主催イベント、11/30開催<button class="afb" data-aid="frontier_tech:7b1f5e62" aria-label="お気に入り">☆</button></div><a class="ir-link" href="https://news.google.com/rss/articles/CBMiVEFVX3lxTE9md01Xejc0ckxzZEM4V1I5R3UxeTd0SkF2T2FhSFJSZ2VFSi00ZFlzSmhTLXR3QnAycVVvbXpCd3lMS2s2ZjlZLW05M2lvWktFX2pZOQ?oc=5" target="_blank" rel="noopener">🔗 記事を読む →</a><div class="mi-suggestion">📡 ASCII.jp</div></div><div class="mi-suggestion">📌 気になった技術・記事は☆でお気に入り登録すると、あとでアイデア発掘用に見返せます</div></div>
+    </div>
+
+    <div class="sec s24" data-sid="sidebiz">
+      <div class="sh"><span class="si">💼</span><div style="flex:1">
+        <div class="sl">個人の副業・スモールビジネス</div>
+        <div class="st">ストックフォト・映像素材の販売</div>
+        <div class="stag">個人の稼ぎ方の実例——手法・仕組み・注意点（規制がある業態はその内容）</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="sidebiz">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bc">ストックフォト・映像素材の販売</div><div class="concept">自分で撮影した写真・動画をPIXTA・Adobe Stock・Shutterstock等のストックサイトに登録し、ダウンロードされるたびに報酬を得る仕組み。2026年時点で生成AIによる高品質画像が市場に溢れ、汎用的な写真の相対価値は下がっているが、AIが再現しにくい『特定の地域性』『リアルなビジネスシーンの細部』等には根強い需要が残る。</div><div class="cbox">国内最大手ストックフォトサービスPIXTAをはじめ、Adobe Stock・Shutterstock等が主要な販売先。開始初期は収益が低調（時給100円未満との報告もある）だが、コンスタントな投稿を続けることで徐々に収益が積み上がっていくとされる。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">汎用的な素材で勝負するのではなく、AIでは代替しにくい実在の場所・実際の業務風景・地域固有の行事等、リアルさが価値になる領域に絞って撮影する。最初は時給換算で割に合わない期間が続くため、副業として続けられる撮影テーマを選ぶことが重要。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('sbz_p')">📋 コピー</button></div><div class="block-body mono" id="sbz_p">ストックフォト・映像素材の販売を副業として始める計画を考えてください。
+ 撮影できる被写体・得意なテーマ：[地域/業務風景/その他]
+ 使える機材：[カメラ・スマートフォン等]
+
+ 出力：①AIが代替しにくいテーマの絞り込み方 ②登録すべきストックサイトの優先順位 ③軌道に乗るまで継続するための撮影計画</div></div></div>
+    </div>
+
+    <div class="sec s25" data-sid="consultai">
+      <div class="sh"><span class="si">🧰</span><div style="flex:1">
+        <div class="sl">コンサルAIお役立ち情報</div>
+        <div class="st">提案書のストーリーライン論理検証</div>
+        <div class="stag">現場で使えるAIツール・プロンプト・時短術</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="consultai">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bc">提案書のストーリーライン論理検証</div><div class="concept">コンサルティングの提案書作成でAIが特に有効なのは「ストーリーラインの論理検証」。完成した提案の流れをそのまま提示し「論理の飛躍や説得力の弱い箇所はないか」と問いかけることで、人間だけでは見落としがちな論理の穴を提出前に発見できる。</div><div class="cbox">「市場は成長している」→「だから当社は参入すべき」という飛躍に対し、「成長市場への参入障壁・自社の優位性の説明が欠けている」と指摘された事例。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">提案書のドラフトが一通り完成した段階で、スライド構成の要旨（各スライドのキーメッセージだけを箇条書きにしたもの）を渡し、「メッセージからメッセージへの論理の飛躍」だけを厳しくチェックさせる。細部の表現より論理構造のチェックに絞ると精度が上がる。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('cai_p')">📋 コピー</button></div><div class="block-body mono" id="cai_p">以下は提案書の各スライドのキーメッセージを順番に並べたものです。メッセージからメッセージへの論理の飛躍や、根拠が薄い箇所がないか、スライド番号を指定して厳しく指摘してください。</div></div></div>
+    </div>
+
+    <div class="sec s26" data-sid="kotler">
+      <div class="sh"><span class="si">🎯</span><div style="flex:1">
+        <div class="sl">コトラーの最新情報</div>
+        <div class="st">Marketing 7.0の三部構成：診断・方法・応用</div>
+        <div class="stag">フィリップ・コトラーのマーケティング理論と最新提言（1.0→7.0・H2H・リテール）</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="kotler">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="mi" data-aid="kotler:d41d8cd9"><div class="bc">Marketing 7.0の三部構成：診断・方法・応用<button class="afb" data-aid="kotler:d41d8cd9" aria-label="お気に入り">☆</button></div><div class="concept">Marketing 7.0は「診断（Diagnosis）」「方法（Method）」「応用（Application）」の三部構成。第一部ではAGI（汎用人工知能）の脅威、パフォーマンス・AI偏重の落とし穴、「拡張された人間（Augmented Human）」という新しい消費者像への向き合い方を扱う。</div><div class="cbox">AI生成の広告クリエイティブがCVRを一時的に上げても、ブランドへの信頼が長期的に低下するケースを「パフォーマンス・AI偏重の落とし穴」として位置づけて分析する。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">自社のAI活用がパフォーマンス指標（クリック率・CVR等）の最適化に偏りすぎていないか、逆に「本物らしさ（authenticity）」を損なっていないかを点検するチェックリストとして使える。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('kot_p0')">📋 コピー</button></div><div class="block-body mono" id="kot_p0">私たちのマーケティング施策のうち、パフォーマンス指標（CTR/CVR等）の最適化を目的にAIを使っている施策を洗い出してください。それぞれについて、ブランドの『本物らしさ』を損なうリスクがないか診断してください。</div></div></div><div class="mi" data-aid="kotler:d41d8cd9"><div class="bc">拡張された人間（Augmented Human）という消費者像<button class="afb" data-aid="kotler:d41d8cd9" aria-label="お気に入り">☆</button></div><div class="concept">Marketing 7.0が提示する新しい消費者概念。AI・デジタル技術によって認知能力や意思決定プロセスそのものが拡張された消費者を指す。従来の「情報を受け取る消費者」ではなく「AIと共に判断する消費者」を前提にマーケティング設計を組み直す必要があるという主張。</div><div class="cbox">消費者が生成AIに「このカテゴリで一番おすすめは？」と聞いたときに自社ブランドがどう言及されるかをテストし、AI上での見え方を最適化する新しい競争軸。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">自社の顧客が購買前にAIチャットボットや生成AIに相談・比較検討している前提で、カスタマージャーニーを再設計する。AIとの対話で自社商品がどう説明されるか（AI経由の第一印象）を検証する視点が重要。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('kot_p1')">📋 コピー</button></div><div class="block-body mono" id="kot_p1">『拡張された人間（Augmented Human）』——AIと共に購買判断をする消費者——を前提に、私たちの[商品/サービス]のカスタマージャーニーを再設計してください。AIに相談される場面でどう見え方を最適化すべきか提案してください。</div></div></div><div class="mi-suggestion">📚 コトラー特集は全12本のシリーズです。気になった回は☆で保存すると後で見返せます</div></div>
+    </div>
+
+    <div class="sec s27" data-sid="regentry">
+      <div class="sh"><span class="si">🏛️</span><div style="flex:1">
+        <div class="sl">規制業種への参入ルール</div>
+        <div class="st">グレーゾーン解消制度の審査長期化——申請混雑を織り込んだスケジュール設計</div>
+        <div class="stag">許認可業種に参入するときの制度と相談窓口</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="regentry">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bc">グレーゾーン解消制度の審査長期化——申請混雑を織り込んだスケジュール設計</div><div class="concept">2026年に入り申請件数の増加で審査に時間を要する状況が、担当省庁から申請者に共有されるようになっている。制度の標準的な処理期間と実際の所要期間が乖離し得るため、回答待ちを前提にした事業計画が必要。</div><div class="cbox">新サービスのローンチ日を回答前提で対外発表してしまい、審査長期化で延期を強いられるのが典型的な失敗パターン。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">「回答が出たら着手」の直列計画にせず、回答待ち期間に並行して進められる準備（適法・違法どちらの回答でも活きる開発・調査）を切り出しておく。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('reg_p')">📋 コピー</button></div><div class="block-body mono" id="reg_p">私たちの新規事業[概要]でグレーゾーン解消制度の回答待ちが[N]ヶ月に延びた場合を想定し、回答結果に依存しない並行タスクと、回答が「規制あり」だった場合の代替ルートを整理してください。</div></div></div>
+    </div>
+
+    <div class="sec s28" data-sid="subsidy">
+      <div class="sh"><span class="si">📋</span><div style="flex:1">
+        <div class="sl">補助金・助成金の実践活用</div>
+        <div class="st">デジタル化・AI導入補助金2026：最大450万円・5つの申請枠</div>
+        <div class="stag">中小企業診断士的な実務情報・読者の実利に直結</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="subsidy">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bc">デジタル化・AI導入補助金2026：最大450万円・5つの申請枠</div><div class="concept">2026年度から「デジタル化・AI導入補助金」へと制度名が変更され、最大450万円の補助が受けられる。目的別に5つの申請枠が用意されており、生成AIを活用したシステム導入も2026年度から補助対象として明確に位置づけられた。中小企業のAI導入における代表的な補助金制度。</div><div class="cbox">生成AIを使った業務システム構築を検討している中小企業が、システム開発費用の一部をこの補助金でカバーし自己負担を圧縮するケース。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">AI・DXツールの導入を検討する際、自己資金だけで進めるのではなく、まずこの補助金の5つの申請枠のうちどれが自社の目的に合うかを確認する。生成AI活用が明確に対象化されたため、Claude等のAIツール導入コストも補助対象になり得る。</div></div><div class="block bp"><div class="block-label-row"><span class="block-label">今日試すプロンプト</span><button class="copy-btn" onclick="copyPrompt('sub_p')">📋 コピー</button></div><div class="block-body mono" id="sub_p">私たちの会社で検討している[AI/DX施策の内容]について、デジタル化・AI導入補助金2026の5つの申請枠のうちどれが該当しそうか整理してください。申請書に書くべき『導入効果の見込み』も具体的に提案してください。</div></div></div>
+    </div>
+
+    <div class="sec s4" data-sid="note">
+      <div class="sh"><span class="si">📝</span><div style="flex:1">
+        <div class="sl">noteネタ変換</div>
+        <div class="st">部下がAIに出した指示を見て、育成の課題が丸裸になった</div>
+        <div class="stag">プロンプトが「書いた人の思考の解像度」をそのまま映す鏡だという認識が、マネジメント層にまだ浸透していない</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="note">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="why-now-badge">📌 なぜ今 → プロンプトが「書いた人の思考の解像度」をそのまま映す鏡だという認識が、マネジメント層にまだ浸透していない</div>
+        <div class="hook">"メンバーのAIチャット履歴を見せてもらって驚いた。「いい感じにまとめて」——普段の仕事の指示の曖昧さが、そのままAIへの指示に転写されていた"</div>
+        <ul class="ul"><li>AIへの指示には、その人の仕事の型がそのまま出る。目的を言わずに作業だけ頼む人・完成イメージを持たずに走り出す人・確認せずに結果を使う人——全部プロンプトに現れる</li><li>つまりプロンプトはマネジメントの診断ツールとして使える。部下のAI活用を見れば「何を教えるべきか」が推測でなく事実で分かる。曖昧な指示しか書けない人は、部下にも曖昧な指示を出している</li><li>逆もまた真で、上司である自分のプロンプトも部下に見られている。AIに「とりあえずやっといて」と書く上司が、部下への指示の質を語る資格はない</li><li>実務としては「良いプロンプトの共有会」が最も効率の良い育成になる。優れたプロンプトは、目的定義→前提共有→完成基準→確認手順という仕事の依頼の教科書そのものだから</li></ul>
+        <div class="diff-box">✨ 差別化：プロンプト術ではなく「プロンプト＝仕事の指示力の鏡」というマネジメント診断の視点。AI研修を育成研修に接続する</div>
+        <div class="ctab"><strong>CTA：</strong> 自分の直近のAIへの指示、部下に見せられるか？ Yes/Noだけコメントに置いていけ</div></div>
+    </div>
+
+    <div class="sec s5" data-sid="book">
+      <div class="sh"><span class="si">📚</span><div style="flex:1">
+        <div class="sl">名著エッセンス</div>
+        <div class="st">7つの習慣</div>
+        <div class="stag">スティーブン・R・コヴィー</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="book">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="book-oneline">スキルやテクニック（個性主義）ではなく、原則と人格（人格主義）を土台に据える自己経営の古典</div>
+        <div class="block ht"><div class="block-label">🔑 誰も話さない裏の洞察</div><div class="block-body">最重要は第1習慣「主体的である」の定義——刺激と反応の間には「選択の自由」というスペースがある。出来事そのものではなく、出来事への反応の選び方が人生を決めるという一点にすべてが載っている</div></div>
+        <div class="block"><div class="block-label">⚠️ この本の限界</div><div class="block-body">抽象度が高く、読んだ直後の高揚感だけで終わりやすい（自己啓発書の宿命）。第3習慣の時間管理マトリクス以外は、具体的な行動への翻訳を自分でやる必要がある</div></div>
+        <div class="block pi"><div class="block-label">💡 2026年の文脈での使い方</div><div class="block-body">「緊急ではないが重要（第II領域）」への投資という概念は、AI時代にむしろ価値が上がった。緊急タスクの処理はAIが肩代わりし始めたのに、空いた時間を第II領域（構想・関係構築・学習）に振り向ける習慣がない人は、効率化した分だけ緊急タスクを増やしている</div></div>
+        
+        <div class="block bp"><div class="block-label-row"><span class="block-label">洞察を深めるプロンプト</span><button class="copy-btn" onclick="copyPrompt('b_p')">📋 コピー</button></div><div class="block-body mono" id="b_p">私の直近2週間の主な仕事を列挙します：[記入]。時間管理マトリクス（緊急×重要）の4象限に分類し、①第II領域（緊急でないが重要）の割合②第III領域（緊急だが重要でない）に食われている時間③AIに肩代わりさせて第II領域に移せる時間、を分析してください。</div></div>
+        <div class="quotable">「刺激と反応の間には、選択の自由がある」</div>
+        </div>
+    </div>
+
+    <div class="sec s6" data-sid="roleview">
+      <div class="sh"><span class="si">🎭</span><div style="flex:1">
+        <div class="sl">役割別コラム</div>
+        <div class="st">円安は『追い風』から『コスト』に変わった——165円ラインの攻防</div>
+        <div class="stag">社長・投資家ほか、テーマに合わせた日替わり3視点</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="roleview">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="rv-macro">📡 円安は『追い風』から『コスト』に変わった——165円ラインの攻防</div><div class="rv-block"><div class="rv-role" style="color:#3B82F6">👔 社長なら</div><div class="rv-text">円安メリット（輸出採算・インバウンド）とデメリット（輸入コスト・実質賃金の目減り）を事業別に棚卸しする。「全社として円安は追い風」という粗い認識のままだと、内需部門の利益率悪化に気づくのが遅れる</div></div><div class="rv-block"><div class="rv-role" style="color:#A855F7">📣 マーケターなら</div><div class="rv-text">値上げの理由説明を「円安なので」で済ませない。円安起点の値上げは相場が戻った瞬間に値下げ圧力に変わる。機能・体験の強化とセットで価格を上げ、為替と切り離した価格の物語を作る</div></div><div class="rv-block"><div class="rv-role" style="color:#EC4899">💰 財務責任者なら</div><div class="rv-text">為替前提を1本値でなくレンジ（例：150〜170円）で持ち、165円超えシナリオの損益影響を四半期ごとに更新する。ヘッジ比率は「当てにいく」のではなく、耐えられない損失を消す発想で決める</div></div></div>
+    </div>
+
+    <div class="sec s7" data-sid="companycase">
+      <div class="sh"><span class="si">🏢</span><div style="flex:1">
+        <div class="sl">実在企業ケース</div>
+        <div class="st">俺が社長なら、こう動く</div>
+        <div class="stag">ニトリホールディングス</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="companycase">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="cc-company">🏢 ニトリホールディングス</div><div class="cc-situation">「2032年3,000店舗・売上3兆円」を掲げ36期連続増収増益を続けてきた製造小売の雄。ただし利益の源泉は「海外生産＋自社物流（ホームロジスティクス）＋自社IT」の垂直統合で、これは円安局面では仕入コスト増を丸ごと自社で被る構造でもある。2021年に島忠を買収し都市部・ホームセンター業態を抱えた点も、「郊外・大型・低価格」という従来の型と噛み合わせる必要がある</div><div class="cc-label">👤 俺が社長なら、こう動く（思考の順番）</div><div class="cc-steps"><div class="cc-step"><div class="cc-step-num">1</div><div class="cc-step-body"><div class="cc-step-action">為替を「読む」ことをやめ、垂直統合の強みを通貨分散に使い切る</div><div class="cc-step-reason">↳ 同社の利益率は為替予約の巧拙に依存してきたが、これは経営判断ではなく賭けに近い。自社で生産地を選べる垂直統合企業だからこそ、通貨の異なる複数拠点へ生産を割り付けて「予約に頼らなくても効く」構造に置き換えられる</div></div></div><div class="cc-step"><div class="cc-step-num">2</div><div class="cc-step-body"><div class="cc-step-action">島忠を別業態として残さず、都市型小商圏の実験場として使う</div><div class="cc-step-reason">↳ 3,000店舗の残り伸びしろは郊外大型ではなく都市部にある。買収済みの都市立地と既存顧客を、次の標準店フォーマットを作るための試験区画として扱えるのは同社だけの資産——別ブランドのまま温存すると、この最大の利点が死ぬ</div></div></div><div class="cc-step"><div class="cc-step-num">3</div><div class="cc-step-body"><div class="cc-step-action">自社物流の空き capacity を外部開放し、コストセンターを収益源へ反転させる</div><div class="cc-step-reason">↳ ホームロジスティクスは自社商品の波動に合わせて設計されているため閑散期の余力が構造的に生まれる。家具・大型家電の宅配は参入障壁が高く、同社の設備は既に全国網——「安さの供給網」を守るのではなく、供給網そのものを商品にする</div></div></div></div><div class="cc-why"><strong>なぜこれが正解か：</strong>順番が重要。①で為替に左右されない土台を作らないと、②の投資判断が毎期ぶれる。②で次の成長立地を確かめてから③に進まないと、物流網を誰のために最適化するのかが決まらない</div><div class="quotable">「安さは仕組みの結果であって、顧客への約束にしてはいけない」</div><div class="mi-suggestion">💡 このケースは最新ニュースの後追いではなく、「同じ思考の型を、状況が変わっても使えるか」を訓練する枠です。situation（前提）が実際の直近の動きとズレていたら、そのズレ自体が「何が変わったから戦略も変わるべきか」を考える良い材料になります</div></div>
+    </div>
+
+    <div class="sec s8" data-sid="bookstock">
+      <div class="sh"><span class="si">🗒</span><div style="flex:1">
+        <div class="sl">ネタ帳</div>
+        <div class="st">ブルーオーシャン戦略</div>
+        <div class="stag">気になった書籍・記事から拾ったネタ</div>
+      </div><div class="sa"><button class="drag-handle" aria-label="並び替え">⠿</button><button class="fb">☆</button></div></div>
+      <div class="sec-rating" data-sec="bookstock">
+      <span class="rl">今日の評価：</span>
+      <button class="rb" data-v="5">🔥 神</button>
+      <button class="rb" data-v="4">⭐ 使えた</button>
+      <button class="rb" data-v="3">😐 ふつう</button>
+      <button class="rb" data-v="2">🤔 微妙</button>
+      <button class="rb" data-v="1">👎 イマイチ</button>
+    </div>
+      <div class="sb"><div class="bs-source">📖 出典：ネタ帳（キム&amp;モボルニュ）</div><div class="bc">ブルーオーシャン戦略</div><div class="concept">競争の激しい既存市場（レッドオーシャン）で戦うのではなく、業界の価値要素を再構成して競争のない新市場を作る戦略論。提唱者はINSEADのチャン・キムとレネ・モボルニュ、2005年『ブルー・オーシャン戦略』。中核ツールは「取り除く・減らす・増やす・付け加える」の4アクション。実例はQBハウス——洗髪・予約・長い接客を取り除き「10分1,000円カット」に集中して新市場を作った。よくある誤解は「ニッチ探し」と捉えること。本質は価値とコストの同時実現であり、またブルーオーシャンもいずれ模倣で赤くなるため、参入障壁の設計とセットでないと先行者利益は短い。</div><div class="block pi"><div class="block-label">使い方</div><div class="block-body">事業戦略・商品企画・競合分析の場面で使える。切り口案：「競合分析をやめたら勝てた——4アクションで業界の『当たり前』を書き換える」。自業界で顧客が我慢して受け入れている「業界の常識」を列挙し、取り除く候補を探す記事にできる。</div></div><div class="block bp"><div class="block-label">🔮 この先どうなるか</div><div class="block-body">AIで既存市場の競合分析は数分でできるようになったが、「何を取り除くか」の判断材料は顧客が言語化しない不満の観察からしか得られない。分析が民主化されるほど、全員が同じレッドオーシャンの分析合戦に陥る——そこから降りる判断の価値がむしろ上がる。</div></div></div>
+    </div>
+
+    <div class="sec memo-bar" id="memo-bar-section" data-sid="memo">
+      <div class="sh"><span class="si">✏️</span><div style="flex:1">
+        <div class="sl">今日のメモ</div>
+        <div class="st">感想・気づき・改善点</div>
+      </div><div class="sa"><button class="cb">−</button></div></div>
+      <div class="sb">
+        <textarea id="brief-memo" rows="4" placeholder="今日のブリーフを読んで気づいたこと・試したいこと・改善してほしい点など…&#10;（自動保存されます）"></textarea>
+        <div class="memo-meta"><span id="memo-saved-label" class="saved-label"></span></div>
+        <div class="fav-hint">⭐お気に入りは、この「送る」ボタンを押した時点のものだけが人気ランキングに反映されます</div>
+        <button class="send-btn" id="send-btn" onclick="sendFeedback()">📨 Jarvisに送る</button>
+        <div class="send-result" id="send-result"></div>
+      </div>
+    </div>
+
+    <div class="ftr"><p>Generated by Jarvis &middot; 07:37</p></div>
+  </div>
+
+  <script>
+    const BRIEF_DATE='20261018';
+    const BRIEF_START='20260629';
+    const BRIEF_DATES=["20260629", "20260630", "20260701", "20260702", "20260703", "20260704", "20260705", "20260706", "20260707", "20260708", "20260709", "20260710", "20260711", "20260712", "20260713", "20260714", "20260715", "20260716", "20260717", "20260718", "20260719", "20260720", "20260728", "20260729", "20260730", "20260801", "20260802", "20260803", "20260804", "20260806", "20260808", "20260820", "20260821", "20260822", "20260823", "20260824", "20260825", "20260826", "20260827", "20260903", "20260904", "20260905", "20260906", "20260907", "20260908", "20260909", "20260910", "20260911", "20260912", "20260913", "20260914", "20260915", "20260916", "20260918", "20260919", "20260920", "20260921", "20260922", "20260923", "20260927", "20260928", "20260929", "20260930", "20261002", "20261003", "20261005", "20261006", "20261009", "20261010", "20261011", "20261012", "20261013", "20261014", "20261015", "20261016", "20261017"];
+
+    // ── 動的ナビゲーション（JS生成）──────────────────────────
+    (function(){
+      function ds(d){
+        return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
+      }
+      const d=new Date(+BRIEF_DATE.slice(0,4),+BRIEF_DATE.slice(4,6)-1,+BRIEF_DATE.slice(6,8));
+      const todayDs=ds(new Date());
+      // 実在する日付だけを前後リンクにする（欠測日をまたぐ）
+      const older=BRIEF_DATES.filter(x=>x<BRIEF_DATE);
+      const newer=BRIEF_DATES.filter(x=>x>BRIEF_DATE&&x<=todayDs);
+      const prevStr=older.length?older[older.length-1]:'';
+      const nextStr=newer.length?newer[0]:'';
+      const fmt=x=>x.slice(4,6).replace(/^0/,'')+'/'+x.slice(6,8).replace(/^0/,'');
+
+      let html='';
+      if(prevStr) html+=`<a href="./${prevStr}.html">← ${fmt(prevStr)}</a>`;
+      if(BRIEF_DATE!==todayDs) html+=`<a href="./index.html">今日 ↑</a>`;
+      if(nextStr) html+=`<a href="./${nextStr}.html">${fmt(nextStr)} →</a>`;
+
+      const nav=document.getElementById('brief-nav');
+      if(nav) nav.innerHTML=html;
+    })();
+
+    // ── Service Worker ────────────────────────────────────────
+    if('serviceWorker'in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+
+    // ── 継続日数トラッカー（2026-07-01追加・習慣形成UXパターン）────────
+    (function(){
+      const SK='daily_brief_streak';
+      function ds2(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+      const now=new Date();
+      const today=ds2(now);
+      const yst=new Date(now);yst.setDate(now.getDate()-1);
+      const yesterday=ds2(yst);
+      let state=JSON.parse(localStorage.getItem(SK)||'null')||{lastVisit:'',streak:0};
+      if(state.lastVisit===today){
+        // 今日は既にカウント済み
+      }else if(state.lastVisit===yesterday){
+        state.streak+=1;state.lastVisit=today;
+      }else{
+        state.streak=1;state.lastVisit=today;
+      }
+      localStorage.setItem(SK,JSON.stringify(state));
+      const badge=document.getElementById('streak-badge');
+      if(badge&&state.streak>=2){
+        badge.textContent='🔥 '+state.streak+'日連続';
+        badge.style.display='inline-block';
+      }
+    })();
+
+    // ── コピー機能 ────────────────────────────────────────────
+    function copyPrompt(id){
+      const el=document.getElementById(id);if(!el)return;
+      navigator.clipboard.writeText(el.innerText||el.textContent).then(()=>{
+        const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);
+        const row=el.closest('.block');if(row){const btn=row.querySelector('.copy-btn');if(btn){btn.textContent='✓ コピー済';btn.classList.add('copied');setTimeout(()=>{btn.textContent='📋 コピー';btn.classList.remove('copied');},2000);}}
+      }).catch(()=>{const r=document.createRange();r.selectNode(el);window.getSelection().removeAllRanges();window.getSelection().addRange(r);});
+    }
+
+    // ── 評価システム（LocalStorage）──────────────────────────
+    (function(){
+      const RK='brief_ratings_'+BRIEF_DATE;
+      const ratings=JSON.parse(localStorage.getItem(RK)||'{}');
+      const LABELS={5:'🔥 神',4:'⭐ 使えた',3:'😐 ふつう',2:'🤔 微妙',1:'👎 イマイチ'};
+
+      // 今日のポイント欄に評価済みマークを付ける（2026-07-04追加：開かずに評価状況が一目で分かるように）
+      function syncTldrRatingMark(sec){
+        const row=document.querySelector('.tldr-row[data-sid="'+sec+'"]');
+        if(!row)return;
+        let mark=row.querySelector('.tldr-rated-mark');
+        if(ratings[sec]!==undefined){
+          if(!mark){mark=document.createElement('span');mark.className='tldr-rated-mark';row.appendChild(mark);}
+          mark.textContent=LABELS[ratings[sec]].split(' ')[0];
+        }else if(mark){mark.remove();}
+      }
+
+      document.querySelectorAll('.sec-rating').forEach(el=>{
+        const sec=el.dataset.sec;
+        syncTldrRatingMark(sec);
+        el.querySelectorAll('.rb').forEach(btn=>{
+          const v=+btn.dataset.v;
+          if(ratings[sec]===v) btn.classList.add('active');
+          btn.onclick=()=>{
+            if(ratings[sec]===v){delete ratings[sec];}
+            else{ratings[sec]=v;}
+            localStorage.setItem(RK,JSON.stringify(ratings));
+            el.querySelectorAll('.rb').forEach(b=>b.classList.toggle('active',ratings[sec]===+b.dataset.v));
+            syncTldrRatingMark(sec);
+            // Toast feedback
+            if(ratings[sec]!==undefined){
+              const t=document.getElementById('toast');
+              t.textContent=LABELS[ratings[sec]]+'！記録しました';
+              t.classList.add('show');setTimeout(()=>{t.textContent='コピーしました！';t.classList.remove('show');},1500);
+            }
+          };
+        });
+      });
+
+      // 月曜日：先週の評価サマリーを表示
+      const sumEl=document.getElementById('weekly-summary');
+      if(sumEl){
+        // 全カテゴリの評価を対象にする（2026-07-04修正：旧5カテゴリ固定だと後から追加したカテゴリの評価が平均に反映されなかった）
+        let rows='',totalScore=0,count=0;
+        for(let i=6;i>=0;i--){
+          const dd=new Date();dd.setDate(dd.getDate()-i);
+          const dk=ds(dd);
+          const r=JSON.parse(localStorage.getItem('brief_ratings_'+dk)||'{}');
+          Object.keys(r).forEach(s=>{if(r[s]){totalScore+=r[s];count++;}});
+        }
+        if(count>0){
+          const avg=(totalScore/count).toFixed(1);
+          const emoji=avg>=4?'🔥':avg>=2.5?'⭐':'😐';
+          rows=`<div class="weekly-sum-row"><span>先週の平均評価</span><span>${emoji} ${avg}/5.0 (${count}件評価)</span></div>`;
+          sumEl.innerHTML=`<div class="weekly-sum"><h3>📊 先週のブリーフ振り返り</h3>${rows}<div style="font-size:12px;color:var(--mu);margin-top:8px">評価を積み重ねると毎週月曜に振り返りが表示されます</div></div>`;
+          sumEl.style.display='block';
+        }
+        function ds(d){return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');}
+      }
+    })();
+
+    // ── メモ機能（LocalStorage 自動保存）───────────────────────
+    (function(){
+      const MK='brief_memo_'+BRIEF_DATE;
+      const ta=document.getElementById('brief-memo');
+      const lbl=document.getElementById('memo-saved-label');
+      if(!ta)return;
+      const saved=localStorage.getItem(MK);
+      if(saved){ta.value=saved;lbl.textContent='✓ 前回の内容を復元';}
+      let timer;
+      ta.addEventListener('input',()=>{
+        lbl.textContent='';
+        clearTimeout(timer);
+        timer=setTimeout(()=>{
+          localStorage.setItem(MK,ta.value);
+          lbl.textContent='✓ 保存しました';
+        },800);
+      });
+    })();
+
+    // ── セクション折りたたみ ────────────────────────────────────
+    (function(){
+      const CK='sec_col_'+BRIEF_DATE;
+      const state=JSON.parse(localStorage.getItem(CK)||'{}');
+      // フィードバックバーは毎回のページ読み込みで必ず折りたたみから開始（展開時70vhが一覧表示と丸ごと重なるため・過去の展開操作の記憶は無視する・2026-07-02追加）
+      state.memo=true;
+      // sh（ヘッダー）とsec-rating（評価ボタン）は閉じても常に表示する（2026-07-04修正：
+      // 「カテゴリを閉じた横で評価ボタンを押せるようにしたい」というフィードバックへの対応）
+      function isAlwaysVisible(el){return el.classList.contains('sh')||el.classList.contains('sec-rating');}
+      function isCollapsed(sec){
+        for(let el of sec.children){if(!isAlwaysVisible(el))return el.style.display==='none';}
+        return false;
+      }
+      // 2026-07-06再修正：CSSのorderプロパティで見た目の位置を最上部へ変える実装（同日朝の修正）も、
+      // 「カテゴリをタップして閉じたときに位置を変えるのは禁止」というフィードバックにより完全撤廃。
+      // #brief-bodyがdisplay:flex;flex-direction:columnのため、orderを変えると実際に画面上の並びが
+      // 動いてしまうのが直接の原因だった。閉じても位置は一切変えない。
+      // reposition=trueのときは、閉じた結果ヘッダーが固定ヘッダーの裏に隠れて見えなくなる場合のみ
+      // （＝「今読んでいるカテゴリ」バーからワンタップで閉じたケース）scrollIntoViewで見える位置まで
+      // スクロールする。ヘッダーをタップして閉じる通常操作はタップ時点でヘッダーが見えている＝
+      // hdr-h以下に隠れていないので、実質スクロールは発生しない。
+      function setCollapsed(sec,collapsed,reposition){
+        for(let el of sec.children){if(!isAlwaysVisible(el))el.style.display=collapsed?'none':'';}
+        const btn=sec.querySelector('.cb');if(btn)btn.textContent=collapsed?'+':'−';
+        state[sec.dataset.sid]=collapsed;
+        localStorage.setItem(CK,JSON.stringify(state));
+        if(collapsed&&reposition){
+          const hdrH=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr-h'))||0;
+          if(sec.getBoundingClientRect().top<hdrH)sec.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      }
+      function applyCollapse(){
+        document.querySelectorAll('.sec[data-sid]').forEach(function(sec){
+          if(state[sec.dataset.sid])setCollapsed(sec,true);
+        });
+      }
+      applyCollapse();
+      // 「今読んでいるカテゴリ」固定バーからワンタップで閉じるためのフック（2026-07-02追加）
+      window.collapseSec=function(sid){
+        const sec=document.querySelector('.sec[data-sid="'+sid+'"]');
+        if(sec)setCollapsed(sec,true,true);
+      };
+      // 「今日のポイント」の行から該当カテゴリへジャンプする（2026-07-04追加：
+      // 「今日のポイントから、各カテゴリに飛ばすリンクを作れる？」というフィードバックへの対応）
+      window.jumpToSec=function(sid){
+        const sec=document.querySelector('.sec[data-sid="'+sid+'"]');
+        if(!sec)return;
+        if(isCollapsed(sec))setCollapsed(sec,false);
+        sec.scrollIntoView({behavior:'smooth',block:'start'});
+        sec.classList.add('jump-flash');
+        setTimeout(()=>sec.classList.remove('jump-flash'),1200);
+      };
+      document.addEventListener('click',function(ev){
+        const btn=ev.target.closest('.cb');
+        if(btn){
+          const sec=btn.closest('.sec[data-sid]');
+          if(!sec)return;
+          setCollapsed(sec,!isCollapsed(sec),true);
+          return;
+        }
+        const tldrRow=ev.target.closest('.tldr-row');
+        if(tldrRow){window.jumpToSec(tldrRow.dataset.sid);return;}
+        // ヘッダーをタップして開閉（＋−ボタン廃止・2026-07-01）。開いていれば閉じる、閉じていれば開く
+        const header=ev.target.closest('.sh');
+        if(header&&!ev.target.closest('.sa')){
+          const sec=header.closest('.sec[data-sid]');
+          if(sec)setCollapsed(sec,!isCollapsed(sec),true);
+        }
+      });
+
+      // 「全て閉じる」：並び替えしやすくするため全セクションを一括開閉（2026-07-01追加）
+      const collapseAllBtn=document.getElementById('collapse-all');
+      if(collapseAllBtn){
+        collapseAllBtn.addEventListener('click',()=>{
+          const active=collapseAllBtn.dataset.active!=='1';
+          collapseAllBtn.dataset.active=active?'1':'0';
+          collapseAllBtn.classList.toggle('active',active);
+          collapseAllBtn.textContent=active?'全て開く':'全て閉じる';
+          // 一括開閉では個別スクロールは発生させない（reposition=false。setCollapsed参照）
+          const secs=Array.from(document.querySelectorAll('.sec[data-sid]:not(#memo-bar-section)'));
+          secs.forEach(sec=>setCollapsed(sec,active,false));
+        });
+      }
+    })();
+
+    // ── 固定フィードバックバーの実高さにbodyの余白を同期（開閉で高さが変わり一覧下端が隠れるバグ対策・2026-07-02追加）──
+    (function(){
+      const bar=document.getElementById('memo-bar-section');
+      if(!bar)return;
+      function sync(){document.body.style.paddingBottom=(bar.offsetHeight+16)+'px';}
+      sync();
+      if(window.ResizeObserver){new ResizeObserver(sync).observe(bar);}
+      else{window.addEventListener('resize',sync);}
+    })();
+
+    // ── 各セクションのヘッダーを固定表示に（読んでいる間、上部のグローバルヘッダー直下にカテゴリ名が固定表示され続け、タップですぐ閉じられるように・2026-07-02追加）──
+    // 2026-07-04：ヘッダー自動非表示（hdr-hidden）中は高さ0として扱い、カテゴリバーが画面最上部に来るようにする
+    (function(){
+      const hdr=document.querySelector('.hdr');
+      if(!hdr)return;
+      function sync(){
+        const h=hdr.classList.contains('hdr-hidden')?0:hdr.offsetHeight;
+        document.documentElement.style.setProperty('--hdr-h',h+'px');
+      }
+      window.syncHdrH=sync;
+      sync();
+      if(window.ResizeObserver){new ResizeObserver(sync).observe(hdr);}
+      else{window.addEventListener('resize',sync);}
+    })();
+
+    // ── トップへ戻るボタン（フィードバックバーの上に追従・2026-07-02追加）──
+    (function(){
+      const btn=document.getElementById('to-top-btn');
+      const bar=document.getElementById('memo-bar-section');
+      if(!btn||!bar)return;
+      function syncPos(){btn.style.bottom=(bar.offsetHeight+16)+'px';}
+      syncPos();
+      if(window.ResizeObserver){new ResizeObserver(syncPos).observe(bar);}
+      else{window.addEventListener('resize',syncPos);}
+      btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+    })();
+
+    // ── スクロール連動UI（トップへ戻る表示切替・今読んでいるカテゴリ表示）をrequestAnimationFrameで1本にまとめる
+    // （2026-07-02追加：個別にscrollリスナーを持たせるとイベントごとにレイアウト再計算が重複し、
+    //  スクロール中のちらつき・PC版での実質フリーズの原因になっていたため統合）
+    (function(){
+      const toTopBtn=document.getElementById('to-top-btn');
+      const ccBar=document.getElementById('current-cat-bar');
+      const hdr=document.querySelector('.hdr');
+      if(!hdr)return;
+      const ccIcon=ccBar?ccBar.querySelector('.cc-icon'):null;
+      const ccLabel=ccBar?ccBar.querySelector('.cc-label'):null;
+      let ccActiveSid=null;
+      let ticking=false;
+      let lastY=window.scrollY;
+
+      // 記事画面：下スクロールでヘッダーを隠し、上スクロールで再表示（2026-07-04追加。
+      // sticky常時表示だと読書領域が狭く読みづらいというフィードバックへの対応）。
+      // 一覧画面はカテゴリパネル自体がヘッダー内にあるため自動非表示を適用しない
+      function updateHdrVisibility(){
+        const y=window.scrollY;
+        const catPanel=document.getElementById('cat-panel');
+        const listMode=catPanel&&catPanel.style.display!=='none';
+        if(listMode||y<80){
+          hdr.classList.remove('hdr-hidden');
+        }else if(y>lastY+8){
+          hdr.classList.add('hdr-hidden');
+        }else if(y<lastY-8){
+          hdr.classList.remove('hdr-hidden');
+        }
+        lastY=y;
+        if(window.syncHdrH)window.syncHdrH();
+      }
+      function updateToTop(){
+        if(toTopBtn)toTopBtn.classList.toggle('show',window.scrollY>400);
+      }
+      function updateCurrentCat(){
+        if(!ccBar)return;
+        const catPanel=document.getElementById('cat-panel');
+        if(catPanel&&catPanel.style.display!=='none'){
+          ccBar.classList.remove('show');ccActiveSid=null;return;
+        }
+        // ヘッダー非表示中は高さ0として判定（カテゴリバーが最上部に来るため）
+        const hdrH=hdr.classList.contains('hdr-hidden')?0:hdr.offsetHeight;
+        const secs=Array.from(document.querySelectorAll('.sec[data-sid]:not(#memo-bar-section)'));
+        let found=null;
+        for(const sec of secs){
+          if(sec.style.display==='none')continue;
+          const r=sec.getBoundingClientRect();
+          if(r.top<hdrH&&r.bottom>hdrH+40){found=sec;break;}
+        }
+        if(found){
+          const sl=found.querySelector('.sl');
+          const si=found.querySelector('.si');
+          ccLabel.textContent=sl?sl.textContent:'';
+          ccIcon.textContent=si?si.textContent:'';
+          ccActiveSid=found.dataset.sid;
+          ccBar.classList.add('show');
+        }else{
+          ccBar.classList.remove('show');
+          ccActiveSid=null;
+        }
+      }
+      function onScroll(){
+        if(ticking)return;
+        ticking=true;
+        requestAnimationFrame(function(){
+          try{updateHdrVisibility();updateToTop();updateCurrentCat();}finally{ticking=false;}
+        });
+      }
+      window.addEventListener('scroll',onScroll,{passive:true});
+      updateHdrVisibility();updateToTop();updateCurrentCat();
+      if(ccBar)ccBar.addEventListener('click',function(){
+        if(ccActiveSid&&window.collapseSec){
+          window.collapseSec(ccActiveSid);
+          ccBar.classList.remove('show');
+          ccActiveSid=null;
+        }
+      });
+    })();
+
+    // ── セクション並び替え（LocalStorageで永続化・以降の全ページに適用）──────
+    (function(){
+      const OK='sec_order';
+      // 2026-07-06修正：カテゴリを閉じるだけで並び順が保存されてしまっていたバグ（moveSecToEdge経由）により、
+      // 既存ユーザーのlocalStorageに意図しない並び順が残っている。バグ修正版の初回読み込み時に一度だけリセットする
+      if(!localStorage.getItem('sec_order_reset_20260706')){
+        localStorage.removeItem(OK);
+        localStorage.setItem('sec_order_reset_20260706','1');
+      }
+      const container=document.getElementById('brief-body');
+      // memo-bar（固定表示欄）を不動のアンカーにする。挿入してもこの要素自体は動かさない
+      const anchor=document.getElementById('memo-bar-section')||document.querySelector('.ftr');
+      function reorderableSecs(){
+        return Array.from(document.querySelectorAll('.sec[data-sid]:not(#memo-bar-section)'));
+      }
+      function applyOrder(){
+        const order=JSON.parse(localStorage.getItem(OK)||'null');
+        if(!order||!container||!anchor)return;
+        const bySid={};
+        reorderableSecs().forEach(s=>{bySid[s.dataset.sid]=s;});
+        const placed=new Set();
+        // 保存順どおりにanchorの直前へ1つずつ差し込んでいく（先に入れたものほど上に来る）
+        order.forEach(sid=>{
+          const s=bySid[sid];
+          if(s&&!placed.has(sid)){
+            container.insertBefore(s,anchor);
+            placed.add(sid);
+          }
+        });
+        // 保存順に含まれない新規セクションは、残りの元の相対順のまま続けて差し込む
+        reorderableSecs().forEach(s=>{
+          if(!placed.has(s.dataset.sid)){container.insertBefore(s,anchor);placed.add(s.dataset.sid);}
+        });
+      }
+      // 「今日のポイント」の並び順を下の記事の並び順に連動させる（2026-07-02追加）
+      function syncTldrOrder(){
+        const box=document.querySelector('.tldr-box');
+        if(!box)return;
+        const order=reorderableSecs().map(s=>s.dataset.sid);
+        const rows={};
+        box.querySelectorAll('.tldr-row').forEach(r=>{rows[r.dataset.sid]=r;});
+        order.forEach(sid=>{if(rows[sid])box.appendChild(rows[sid]);});
+      }
+      function saveOrder(){
+        localStorage.setItem(OK,JSON.stringify(reorderableSecs().map(s=>s.dataset.sid)));
+        syncTldrOrder();
+      }
+      applyOrder();
+      syncTldrOrder();
+
+      // 一覧タブのカテゴリ行からもタップで並び替えできるようにする（2026-07-01追加）
+      window.moveSecOrder=function(sid,dir){
+        const secs=reorderableSecs();
+        const idx=secs.findIndex(s=>s.dataset.sid===sid);
+        if(idx<0)return;
+        const target=dir==='up'?idx-1:idx+1;
+        if(target<0||target>=secs.length)return;
+        if(dir==='up')container.insertBefore(secs[idx],secs[target]);
+        else container.insertBefore(secs[target],secs[idx]);
+        saveOrder();
+      };
+      // カテゴリ数が増え1件ずつの▲▼移動が非効率という指摘への対応（2026-07-05追加）：
+      // 先頭/最後へ一発移動。折りたたみ時の自動並び替え（setCollapsedのreposition）にも流用する
+      window.moveSecToEdge=function(sid,edge){
+        const secs=reorderableSecs();
+        const sec=secs.find(s=>s.dataset.sid===sid);
+        if(!sec)return;
+        if(edge==='top'){
+          const first=secs[0];
+          if(first&&first!==sec)container.insertBefore(sec,first);
+        }else{
+          container.insertBefore(sec,anchor);
+        }
+        saveOrder();
+      };
+      // 折りたたみIIFE（このIIFEより前に定義済み）から今日のポイント同期つきの保存を呼べるようにする
+      window.saveSecOrder=saveOrder;
+      // 一覧タブのカテゴリ行ドラッグ&ドロップから任意位置への移動を呼べるようにする（2026-07-06追加：
+      // 「記事一覧（一覧タブ）のドラッグ移動が漏れている」というフィードバックへの対応）
+      window.moveSecRelative=function(sid,targetSid,pos){
+        const secs=reorderableSecs();
+        const sec=secs.find(s=>s.dataset.sid===sid);
+        const target=secs.find(s=>s.dataset.sid===targetSid);
+        if(!sec||!target||sec===target)return;
+        if(pos==='before')container.insertBefore(sec,target);
+        else container.insertBefore(sec,target.nextElementSibling||anchor);
+        saveOrder();
+      };
+
+      // ── 指でドラッグして個別に入れ替え ──────────────────────
+      let dragSec=null,ghost=null,offsetY=0,overEl=null,overPos=null;
+
+      function clearDropMarks(){
+        document.querySelectorAll('.drop-before,.drop-after').forEach(el=>el.classList.remove('drop-before','drop-after'));
+      }
+      function pointY(ev){return ev.touches?ev.touches[0].clientY:ev.clientY;}
+
+      function onStart(ev){
+        const handle=ev.target.closest('.drag-handle');
+        if(!handle)return;
+        const sec=handle.closest('.sec[data-sid]');
+        if(!sec||sec.id==='memo-bar-section')return;
+        ev.preventDefault();
+        dragSec=sec;
+        const rect=sec.getBoundingClientRect();
+        offsetY=pointY(ev)-rect.top;
+        ghost=sec.cloneNode(true);
+        ghost.classList.add('drag-ghost');
+        ghost.style.width=rect.width+'px';
+        ghost.style.left=rect.left+'px';
+        ghost.style.top=rect.top+'px';
+        document.body.appendChild(ghost);
+        sec.classList.add('dragging');
+        const moveEvt=ev.touches?'touchmove':'mousemove';
+        const endEvt=ev.touches?'touchend':'mouseup';
+        document.addEventListener(moveEvt,onMove,{passive:false});
+        document.addEventListener(endEvt,onEnd);
+      }
+
+      function onMove(ev){
+        if(!dragSec)return;
+        ev.preventDefault();
+        const y=pointY(ev);
+        ghost.style.top=(y-offsetY)+'px';
+        clearDropMarks();
+        overEl=null;overPos=null;
+        for(const s of reorderableSecs()){
+          if(s===dragSec)continue;
+          const r=s.getBoundingClientRect();
+          if(y>=r.top&&y<=r.bottom){
+            overEl=s;
+            overPos=(y<r.top+r.height/2)?'before':'after';
+            s.classList.add(overPos==='before'?'drop-before':'drop-after');
+            break;
+          }
+        }
+      }
+
+      function onEnd(ev){
+        if(!dragSec)return;
+        try{
+          if(overEl){
+            if(overPos==='before')container.insertBefore(dragSec,overEl);
+            else container.insertBefore(dragSec,overEl.nextElementSibling||anchor);
+            saveOrder();
+          }
+        }catch(err){
+          console.error('reorder failed',err);
+        }finally{
+          clearDropMarks();
+          dragSec.classList.remove('dragging');
+          if(ghost){ghost.remove();ghost=null;}
+          dragSec=null;overEl=null;overPos=null;
+          document.removeEventListener('touchmove',onMove);
+          document.removeEventListener('touchend',onEnd);
+          document.removeEventListener('mousemove',onMove);
+          document.removeEventListener('mouseup',onEnd);
+        }
+      }
+
+      document.addEventListener('touchstart',onStart,{passive:false});
+      document.addEventListener('mousedown',onStart);
+    })();
+
+    // ── お気に入り・表示タブ（記事/一覧）・カテゴリ絞り込み（2026-07-01改修）───
+    (function(){
+      const FK='sec_favs_'+BRIEF_DATE;
+      const AFK='art_favs_'+BRIEF_DATE;
+      const CATK='cat_filter';
+      const TABK='view_tab';
+      let favs=JSON.parse(localStorage.getItem(FK)||'[]');
+      let artFavs=JSON.parse(localStorage.getItem(AFK)||'[]');
+      let catState=JSON.parse(localStorage.getItem(CATK)||'{}');
+      let tab=localStorage.getItem(TABK)||'article';
+
+      function allSecs(){
+        return Array.from(document.querySelectorAll('.sec[data-sid]:not(#memo-bar-section)'));
+      }
+
+      // カテゴリ行のDOM要素は使い回す（毎回作り直すと再描画のたびにスクロール位置がズレるため・2026-07-01修正）
+      const catRowEls={};
+      function getCatRow(id,label){
+        if(catRowEls[id])return catRowEls[id];
+        const row=document.createElement('div');
+        row.className='cat-row';
+        row.innerHTML='<button class="drag-handle" aria-label="ドラッグして並び替え">⠿</button>'+
+          '<input type="checkbox" id="cat-'+id+'"><label for="cat-'+id+'">'+label+'</label>'+
+          '<div class="cat-move"><button class="cat-top" type="button" data-id="'+id+'" aria-label="先頭へ移動">▲▲</button>'+
+          '<button class="cat-up" type="button" data-id="'+id+'" aria-label="上へ移動">▲</button>'+
+          '<button class="cat-down" type="button" data-id="'+id+'" aria-label="下へ移動">▼</button>'+
+          '<button class="cat-bottom" type="button" data-id="'+id+'" aria-label="最後へ移動">▼▼</button></div>';
+        catRowEls[id]=row;
+        return row;
+      }
+      // 初回描画・タブ切替・並び替え後の並び順反映のみで呼ぶ（チェックのON/OFFだけなら呼ばない）
+      function renderCatPanel(){
+        const rows=document.getElementById('cat-rows');
+        if(!rows)return;
+        const secs=allSecs();
+        secs.forEach(function(sec,i){
+          const id=sec.dataset.sid;
+          const slEl=sec.querySelector('.sl');
+          const label=slEl?slEl.textContent:id;
+          if(!(id in catState))catState[id]=true;
+          const row=getCatRow(id,label);
+          row.querySelector('input[type=checkbox]').checked=catState[id];
+          row.querySelector('.cat-top').disabled=(i===0);
+          row.querySelector('.cat-up').disabled=(i===0);
+          row.querySelector('.cat-down').disabled=(i===secs.length-1);
+          row.querySelector('.cat-bottom').disabled=(i===secs.length-1);
+          rows.appendChild(row);
+        });
+        localStorage.setItem(CATK,JSON.stringify(catState));
+      }
+      // チェックON/OFFだけの反映（DOM再構築なし・スクロール位置を崩さない）
+      function syncCatChecks(){
+        Object.keys(catRowEls).forEach(function(id){
+          const cb=catRowEls[id].querySelector('input[type=checkbox]');
+          if(cb)cb.checked=(catState[id]!==false);
+        });
+      }
+
+      function applyFavButtons(){
+        allSecs().forEach(function(sec){
+          const id=sec.dataset.sid;
+          const btn=sec.querySelector('.fb');
+          if(btn){btn.textContent=favs.indexOf(id)>=0?'★':'☆';btn.classList.toggle('active',favs.indexOf(id)>=0);}
+        });
+      }
+
+      // 記事単位お気に入り（2026-07-09 Phase A新設）：GitHub Trending・Google急上昇検索・
+      // AIトレンド速報・生ニュースの4カテゴリのみ対象。可視性フィルタ・カテゴリランキング合算は対象外
+      function applyArtFavButtons(){
+        document.querySelectorAll('.afb[data-aid]').forEach(function(btn){
+          const aid=btn.dataset.aid;
+          const on=artFavs.indexOf(aid)>=0;
+          btn.textContent=on?'★':'☆';
+          btn.classList.toggle('active',on);
+        });
+      }
+
+      // セクション内に記事単位のお気に入りが1件でもあるか（2026-07-09 Phase B追加）。
+      // 「★お気に入り」フィルタON時、セクション自体は未お気に入りでも中の記事が
+      // お気に入り済みなら埋もれさせない
+      function hasArtFav(sid){
+        return artFavs.some(function(aid){return aid.indexOf(sid+':')===0;});
+      }
+
+      function applyVisibility(){
+        const ff=document.getElementById('fav-filter');
+        const favActive=ff&&ff.dataset.active==='1';
+        allSecs().forEach(function(sec){
+          const id=sec.dataset.sid;
+          const secFav=favs.indexOf(id)>=0||hasArtFav(id);
+          // 一覧タブはカテゴリ選択専用の画面（本文は表示しない）。記事タブでカテゴリ・お気に入りの絞り込みを反映する
+          // （2026-07-02修正：以前は一覧タブで本文がその場に表示され、全表示すると記事タブと同じ長さになりフィードバックバーとの重なりが構造的に解消できなかった）
+          const visible=(tab==='list')?false:(catState[id]!==false)&&!(favActive&&!secFav);
+          sec.style.display=visible?'':'none';
+        });
+      }
+
+      function applyTab(){
+        const artBtn=document.getElementById('tab-article');
+        const listBtn=document.getElementById('tab-list');
+        const artCtl=document.getElementById('article-controls');
+        const catPanel=document.getElementById('cat-panel');
+        if(artBtn)artBtn.classList.toggle('active',tab==='article');
+        if(listBtn)listBtn.classList.toggle('active',tab==='list');
+        if(artCtl)artCtl.style.display=(tab==='article')?'flex':'none';
+        if(catPanel)catPanel.style.display=(tab==='list')?'block':'none';
+        localStorage.setItem(TABK,tab);
+        if(tab==='list')renderCatPanel();
+        applyVisibility();
+      }
+
+      renderCatPanel();
+      applyFavButtons();
+      applyArtFavButtons();
+      applyTab();
+
+      document.addEventListener('click',function(ev){
+        const afb=ev.target.closest('.afb');
+        if(afb){
+          const aid=afb.dataset.aid;
+          const k=artFavs.indexOf(aid);
+          if(k>=0)artFavs.splice(k,1);else artFavs.push(aid);
+          localStorage.setItem(AFK,JSON.stringify(artFavs));
+          applyArtFavButtons();
+          applyVisibility();
+          return;
+        }
+        const fb=ev.target.closest('.fb');
+        if(fb){
+          const sec=fb.closest('.sec[data-sid]');if(!sec)return;
+          const id=sec.dataset.sid;
+          const idx=favs.indexOf(id);
+          if(idx>=0)favs.splice(idx,1);else favs.push(id);
+          localStorage.setItem(FK,JSON.stringify(favs));
+          applyFavButtons();
+          applyVisibility();
+          return;
+        }
+        const showAllBtn=ev.target.closest('#show-all-btn');
+        if(showAllBtn){
+          const ff=document.getElementById('fav-filter');
+          if(ff){ff.dataset.active='0';ff.classList.remove('active');}
+          showAllBtn.classList.add('active');
+          applyVisibility();
+          return;
+        }
+        const favBtn=ev.target.closest('#fav-filter');
+        if(favBtn){
+          favBtn.dataset.active='1';
+          favBtn.classList.add('active');
+          const showAllBtn2=document.getElementById('show-all-btn');
+          if(showAllBtn2)showAllBtn2.classList.remove('active');
+          applyVisibility();
+          return;
+        }
+        const tabBtn=ev.target.closest('.view-tab');
+        if(tabBtn){
+          tab=tabBtn.dataset.tab;
+          applyTab();
+          return;
+        }
+        const catCb=ev.target.closest('#cat-rows input[type=checkbox]');
+        if(catCb){
+          const id=catCb.id.replace('cat-','');
+          catState[id]=catCb.checked;
+          localStorage.setItem(CATK,JSON.stringify(catState));
+          applyVisibility();
+          return;
+        }
+        const catTop=ev.target.closest('.cat-top');
+        if(catTop&&!catTop.disabled){
+          window.moveSecToEdge(catTop.dataset.id,'top');
+          renderCatPanel();
+          return;
+        }
+        const catUp=ev.target.closest('.cat-up');
+        if(catUp&&!catUp.disabled){
+          window.moveSecOrder(catUp.dataset.id,'up');
+          renderCatPanel();
+          return;
+        }
+        const catDown=ev.target.closest('.cat-down');
+        if(catDown&&!catDown.disabled){
+          window.moveSecOrder(catDown.dataset.id,'down');
+          renderCatPanel();
+          return;
+        }
+        const catBottom=ev.target.closest('.cat-bottom');
+        if(catBottom&&!catBottom.disabled){
+          window.moveSecToEdge(catBottom.dataset.id,'bottom');
+          renderCatPanel();
+          return;
+        }
+        const catAll=ev.target.closest('#cat-all');
+        if(catAll){
+          allSecs().forEach(function(sec){catState[sec.dataset.sid]=true;});
+          localStorage.setItem(CATK,JSON.stringify(catState));
+          syncCatChecks();
+          applyVisibility();
+          return;
+        }
+        const catNone=ev.target.closest('#cat-none');
+        if(catNone){
+          allSecs().forEach(function(sec){catState[sec.dataset.sid]=false;});
+          localStorage.setItem(CATK,JSON.stringify(catState));
+          syncCatChecks();
+          applyVisibility();
+          return;
+        }
+        // カテゴリのプリセット一括切り替え（AI系だけ/マーケ系だけ等・2026-07-02追加）
+        const preset=ev.target.closest('.cat-preset');
+        if(preset){
+          const group=preset.dataset.group.split(',');
+          allSecs().forEach(function(sec){catState[sec.dataset.sid]=group.indexOf(sec.dataset.sid)>=0;});
+          localStorage.setItem(CATK,JSON.stringify(catState));
+          syncCatChecks();
+          applyVisibility();
+          return;
+        }
+      });
+
+      // 一覧タブのカテゴリ行を指でドラッグして並び替える（2026-07-06追加：
+      // 記事タブ側の⠿ドラッグ実装が一覧タブ（cat-rows）に反映されていなかった漏れへの対応。
+      // ▲▲▲▼▼▼ボタンは残しつつ、ドラッグでも同じ並び替え結果（sec_order保存＋記事タブ側の順序）に反映する）
+      let catDragRow=null,catGhost=null,catOffsetY=0,catOverEl=null,catOverPos=null;
+      function catPointY(ev){return ev.touches?ev.touches[0].clientY:ev.clientY;}
+      function catRowsEls(){return Array.from(document.querySelectorAll('#cat-rows .cat-row'));}
+      function catClearMarks(){
+        document.querySelectorAll('.cat-row.drop-before,.cat-row.drop-after').forEach(el=>el.classList.remove('drop-before','drop-after'));
+      }
+      function catRowSid(row){
+        const cb=row.querySelector('input[type=checkbox]');
+        return cb?cb.id.replace('cat-',''):null;
+      }
+      function onCatDragStart(ev){
+        const handle=ev.target.closest('#cat-rows .drag-handle');
+        if(!handle)return;
+        const row=handle.closest('.cat-row');
+        if(!row)return;
+        ev.preventDefault();
+        catDragRow=row;
+        const rect=row.getBoundingClientRect();
+        catOffsetY=catPointY(ev)-rect.top;
+        catGhost=row.cloneNode(true);
+        catGhost.classList.add('drag-ghost');
+        catGhost.style.width=rect.width+'px';
+        catGhost.style.left=rect.left+'px';
+        catGhost.style.top=rect.top+'px';
+        document.body.appendChild(catGhost);
+        row.classList.add('dragging');
+        const moveEvt=ev.touches?'touchmove':'mousemove';
+        const endEvt=ev.touches?'touchend':'mouseup';
+        document.addEventListener(moveEvt,onCatDragMove,{passive:false});
+        document.addEventListener(endEvt,onCatDragEnd);
+      }
+      function onCatDragMove(ev){
+        if(!catDragRow)return;
+        ev.preventDefault();
+        const y=catPointY(ev);
+        catGhost.style.top=(y-catOffsetY)+'px';
+        catClearMarks();
+        catOverEl=null;catOverPos=null;
+        for(const r of catRowsEls()){
+          if(r===catDragRow)continue;
+          const rect=r.getBoundingClientRect();
+          if(y>=rect.top&&y<=rect.bottom){
+            catOverEl=r;
+            catOverPos=(y<rect.top+rect.height/2)?'before':'after';
+            r.classList.add(catOverPos==='before'?'drop-before':'drop-after');
+            break;
+          }
+        }
+      }
+      function onCatDragEnd(){
+        if(!catDragRow)return;
+        try{
+          if(catOverEl){
+            const rowsEl=document.getElementById('cat-rows');
+            const sid=catRowSid(catDragRow),targetSid=catRowSid(catOverEl);
+            if(catOverPos==='before')rowsEl.insertBefore(catDragRow,catOverEl);
+            else rowsEl.insertBefore(catDragRow,catOverEl.nextElementSibling);
+            if(sid&&targetSid&&window.moveSecRelative)window.moveSecRelative(sid,targetSid,catOverPos);
+          }
+        }finally{
+          catClearMarks();
+          catDragRow.classList.remove('dragging');
+          if(catGhost){catGhost.remove();catGhost=null;}
+          catDragRow=null;catOverEl=null;catOverPos=null;
+          document.removeEventListener('touchmove',onCatDragMove);
+          document.removeEventListener('touchend',onCatDragEnd);
+          document.removeEventListener('mousemove',onCatDragMove);
+          document.removeEventListener('mouseup',onCatDragEnd);
+          renderCatPanel();
+        }
+      }
+      document.addEventListener('touchstart',onCatDragStart,{passive:false});
+      document.addEventListener('mousedown',onCatDragStart);
+    })();
+
+    // ── Jarvisに送る ──────────────────────────────────────────
+    const WORKER_URL='https://daily-brief-feedback.61aaa4be.workers.dev';
+    async function sendFeedback(){
+      const btn=document.getElementById('send-btn');
+      const res=document.getElementById('send-result');
+      const ratings=JSON.parse(localStorage.getItem('brief_ratings_'+BRIEF_DATE)||'{}');
+      const memo=localStorage.getItem('brief_memo_'+BRIEF_DATE)||'';
+      const favorites=JSON.parse(localStorage.getItem('sec_favs_'+BRIEF_DATE)||'[]');
+      const article_favorites=JSON.parse(localStorage.getItem('art_favs_'+BRIEF_DATE)||'[]');
+      // 受動テレメトリ（T-207・2026-08-01）：クリックを促すUI改善ではなく、
+      // 既にlocalStorageに記録されている行動（カテゴリ開閉・継続日数）を送信ペイロードへ乗せるだけ。
+      // 新規の自動送信は追加しない（このボタンを押したときのみ発火）
+      const section_collapsed=JSON.parse(localStorage.getItem('sec_col_'+BRIEF_DATE)||'{}');
+      const streak_state=JSON.parse(localStorage.getItem('daily_brief_streak')||'null')||{lastVisit:'',streak:0};
+      btn.disabled=true;btn.textContent='送信中…';res.textContent='';
+      try{
+        const r=await fetch(WORKER_URL,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({date:BRIEF_DATE,ratings,memo,favorites,article_favorites,scale_max:5,
+            section_collapsed,last_visit:streak_state.lastVisit,streak:streak_state.streak}),
+        });
+        if(r.ok){
+          btn.textContent='✅ 送信完了';
+          res.style.color='#10B981';
+          res.textContent='Jarvisに届きました。次のセッションで確認されます。';
+          setTimeout(function(){btn.disabled=false;btn.textContent='📨 もう一度送る';res.textContent='';},1500);
+        }else{
+          throw new Error(await r.text());
+        }
+      }catch(e){
+        btn.disabled=false;btn.textContent='📨 Jarvisに送る';
+        res.style.color='#F87171';
+        res.textContent='送信失敗：'+e.message;
+      }
+    }
+  </script>
+</body>
+</html>
